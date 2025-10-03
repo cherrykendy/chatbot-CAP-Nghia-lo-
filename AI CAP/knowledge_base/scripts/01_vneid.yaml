@@ -160,7 +160,7 @@ intents:
             - Mang theo: **CCCD gắn chip** và **SIM chính chủ**.
             ⏱️ Thời gian cấp tài khoản mức 2: thường **1–3 ngày làm việc**.
             ⚠️ Sau khi có tài khoản, **bắt buộc kích hoạt** để sử dụng.
-            ![Bản đồ điểm đăng ký](https://your-domain.com/path/to/image/vneid/dang-ky-muc-2/01-ban-do-diem-dang-ky.png)
+            ![Bản đồ điểm đăng ký]([AI CAP/knowledge_base/assets/images/VNEID/dang-ky-muc-2/01-ban-do.png])
           {% endif %}
 
   # ========= 3) QUÊN MẬT KHẨU =========
@@ -177,7 +177,7 @@ intents:
           4) Đăng nhập lại bằng mật khẩu vừa đặt.
           ⚠️ Không chia sẻ OTP; có thể ghi mật khẩu ra giấy (cất an toàn).
       - type: image
-        url: "https://your-domain.com/path/to/image/vneid/quen-mat-khau/01-man-hinh-dang-nhap.png"
+        url: "[AI CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/01-man-hinh-dang-nhap.png]"
         alt_text: "Nút Quên mật khẩu trên màn hình đăng nhập"
 
   # ========= 4) ĐỔI SỐ ĐIỆN THOẠI =========
@@ -203,7 +203,7 @@ intents:
               - type: text
                 content: "B2) Chọn **Thay đổi số điện thoại**."
               - type: image
-                url: "https://your-domain.com/path/to/image/vneid/doi-sdt/01-thay-doi-sdt.png"
+                url: "[AI CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/01-thay-doi-sdt.png]"
                 alt_text: "Mục Thay đổi số điện thoại"
             actions:
               - type: quick_reply
@@ -245,7 +245,7 @@ intents:
               - type: text
                 content: "B1) Mở **VNeID** → chọn **Ví giấy tờ**."
               - type: image
-                url: "https://your-domain.com/path/to/image/vneid/vi-giay-to/01-giao-dien-chinh.png"
+                url: "[AI CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/01-giao-dien-chinh.png]"
                 alt_text: "Giao diện Ví giấy tờ"
             actions:
               - type: quick_reply
@@ -360,7 +360,7 @@ intents:
               - type: text
                 content: "B1) Mở **VNeID** → chọn **Phản ánh kiến nghị ANTT**."
               - type: image
-                url: "https://your-domain.com/path/to/image/vneid/kien-nghi-antt/01-man-hinh-chinh.png"
+                url: "[AI CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/01-man-hinh-chinh.png]"
                 alt_text: "Chức năng Phản ánh ANTT"
             actions:
               - type: quick_reply
@@ -390,73 +390,73 @@ intents:
           - Quét **mã QR** hiển thị trong ứng dụng để kiểm tra.
           - Ứng dụng chính thức phải do **Bộ Công an** phát hành.
       - type: image
-        url: "https://your-domain.com/path/to/image/vneid/xac-minh-app/01-logo-chuan.png"
+        url: "[AI CAP/knowledge_base/assets/images/VNEID/xac-minh-app/01-logo-chuan.png]"
         alt_text: "Logo VNeID chính thức"
 
   # ========= 12) SỔ SỨC KHỎE ĐIỆN TỬ =========
-- id: so_suc_khoe
-  intent: so_suc_khoe
-  synonyms: ["sổ sức khỏe điện tử", "thông tin sức khỏe", "xem bệnh án", "lịch sử khám bệnh"]
-  guided_flows:
-    - id: huong_dan_xem_sskdt
-      entry_patterns: ["xem sổ sức khỏe", "sổ sức khỏe điện tử"]
-      confirm_keywords: ["xong", "ok", "tiếp", "rồi"]
-      cancel_keywords: ["dừng", "hủy", "thoát"]
-      steps:
-        - id: b1_chon_hssk
-          response:
-            - type: text
-              content: |
-                Để xem Sổ sức khỏe điện tử, bạn làm theo các bước sau nhé.
-                
-                **Bước 1:** Tại màn hình chính VNeID, chọn mục **"Hồ sơ sức khỏe"**.
-            - type: image
-              url: "https://link-den-file-01-so-suc-khoe-dien-tu.png"
-              alt_text: "Chọn mục Hồ sơ sức khỏe trên màn hình chính"
-          actions:
-            - type: quick_reply
-              title: "Đã xong"
-              payload: "sskdt_xac_nhan_buoc_1"
-        - id: b2_chon_sskdt
-          response:
-            - type: text
-              content: '**Bước 2:** Tiếp tục chọn **"Sổ sức khỏe điện tử"**.'
-            - type: image
-              url: "https://link-den-file-02-so-suc-khoe-dien-tu.png"
-              alt_text: "Chọn Sổ sức khỏe điện tử"
-          actions:
-            - type: quick_reply
-              title: "Tiếp tục"
-              payload: "sskdt_xac_nhan_buoc_2"
-        - id: b3_nhap_passcode
-          response:
-            - type: text
-              content: "**Bước 3:** Nhập **passcode** (mã PIN gồm 6 số) của bạn để xác thực bảo mật."
-            - type: image
-              url: "https://link-den-file-03-so-suc-khoe-dien-tu.png"
-              alt_text: "Nhập passcode 6 số để xác thực"
-          actions:
-            - type: quick_reply
-              title: "Tiếp tục"
-              payload: "sskdt_xac_nhan_buoc_3"
-        - id: b4_xem_thong_tin
-          response:
-            - type: text
-              content: |
-                **Bước 4:** Hoàn tất! Giờ bạn có thể xem lịch sử khám chữa bệnh của mình.
-                
-                🩺 **Lưu ý:** Dữ liệu được đồng bộ từ Cổng bảo hiểm xã hội. Nếu chưa thấy thông tin, bạn có thể bấm **"Cập nhật dữ liệu"** hoặc kiểm tra lại sau.
-            - type: image
-              url: "https://link-den-file-04-so-suc-khoe-dien-tu.png"
-              alt_text: "Màn hình hiển thị thông tin Sổ sức khỏe điện tử"
+  - id: so_suc_khoe
+    intent: so_suc_khoe
+    synonyms: ["sổ sức khỏe điện tử", "thông tin sức khỏe", "xem bệnh án", "lịch sử khám bệnh"]
+    guided_flows:
+      - id: huong_dan_xem_sskdt
+        entry_patterns: ["xem sổ sức khỏe", "sổ sức khỏe điện tử"]
+        confirm_keywords: ["xong", "ok", "tiếp", "rồi"]
+        cancel_keywords: ["dừng", "hủy", "thoát"]
+        steps:
+          - id: b1_chon_hssk
+            response:
+              - type: text
+                content: |
+                  Để xem Sổ sức khỏe điện tử, bạn làm theo các bước sau nhé.
+                  
+                  **Bước 1:** Tại màn hình chính VNeID, chọn mục **"Hồ sơ sức khỏe"**.
+              - type: image
+                url: "[AI CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/01-man-hinh-chinh.png]"
+                alt_text: "Chọn mục Hồ sơ sức khỏe trên màn hình chính"
+            actions:
+              - type: quick_reply
+                title: "Đã xong"
+                payload: "sskdt_xac_nhan_buoc_1"
+          - id: b2_chon_sskdt
+            response:
+              - type: text
+                content: '**Bước 2:** Tiếp tục chọn **"Sổ sức khỏe điện tử"**.'
+              - type: image
+                url: "[AI CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/02-chon-muc.png]"
+                alt_text: "Chọn Sổ sức khỏe điện tử"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "sskdt_xac_nhan_buoc_2"
+          - id: b3_nhap_passcode
+            response:
+              - type: text
+                content: "**Bước 3:** Nhập **passcode** (mã PIN gồm 6 số) của bạn để xác thực bảo mật."
+              - type: image
+                url: "[AI CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/03-nhap-passcode.png]"
+                alt_text: "Nhập passcode 6 số để xác thực"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "sskdt_xac_nhan_buoc_3"
+          - id: b4_xem_thong_tin
+            response:
+              - type: text
+                content: |
+                  **Bước 4:** Hoàn tất! Giờ bạn có thể xem lịch sử khám chữa bệnh của mình.
+                  
+                  🩺 **Lưu ý:** Dữ liệu được đồng bộ từ Cổng bảo hiểm xã hội. Nếu chưa thấy thông tin, bạn có thể bấm **"Cập nhật dữ liệu"** hoặc kiểm tra lại sau.
+              - type: image
+                url: "[AI CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/04-ket-qua.png]"
+                alt_text: "Màn hình hiển thị thông tin Sổ sức khỏe điện tử"
               
-# ========= 12.1) GIẤY HẸN KHÁM LẠI (CẬP NHẬT) =========
+  # ========= 12.1) GIẤY HẸN KHÁM LẠI (CẬP NHẬT) =========
   - id: giay_hen_kham_lai
     intent: giay_hen_kham_lai
     synonyms: ["giấy hẹn khám lại", "xem lịch tái khám", "lịch hẹn khám bệnh", "giấy hẹn vneid"]
     final_response:
       - type: image
-        url: "https://link-den-file-giay-hen-kham-lai.jpg"
+        url: "[AI CAP/knowledge_base/assets/images/VNEID/giay-hen-kham-lai/01-huong-dan.jpg]"
         alt_text: "Hướng dẫn xem Giấy hẹn khám lại trên VNeID"
       - type: text
         content: |
@@ -469,13 +469,14 @@ intents:
           **Bước 3:** Nhập **passcode** (mã PIN gồm 6 số) để xác thực bảo mật.
 
           **Bước 4:** Xem thông tin chi tiết lịch hẹn. Bạn có thể bấm **"Cập nhật dữ liệu"** để làm mới thông tin từ bệnh viện.
-# ========= 12.2) GIẤY CHUYỂN TUYẾN (THÊM MỚI) =========
+
+  # ========= 12.2) GIẤY CHUYỂN TUYẾN (THÊM MỚI) =========
   - id: giay_chuyen_tuyen
     intent: giay_chuyen_tuyen
     synonyms: ["giấy chuyển tuyến", "xin chuyển tuyến", "giấy chuyển viện", "chuyển tuyến vneid"]
     final_response:
       - type: image
-        url: "https://link-den-file-giay-chuyen-tuyen.jpg"
+        url: "[AI CAP/knowledge_base/assets/images/VNEID/giay-chuyen-tuyen/01-huong-dan.jpg]"
         alt_text: "Hướng dẫn xem Giấy chuyển tuyến trên VNeID"
       - type: text
         content: |
@@ -510,37 +511,38 @@ intents:
     final_response:
       - type: text
         content: |
-        Chào bạn, để đăng ký chứng thư chữ ký số miễn phí trên ứng dụng VNeID, bạn có thể làm theo 4 bước đơn giản sau đây. ✍️
+          Chào bạn, để đăng ký chứng thư chữ ký số miễn phí trên ứng dụng VNeID, bạn có thể làm theo 4 bước đơn giản sau đây. ✍️
 
-      **Lưu ý:** Tính năng này có thể đang được triển khai theo giai đoạn. Nếu bạn chưa thấy mục "Chứng thư chữ ký số", vui lòng chờ các bản cập nhật tiếp theo của ứng dụng.
-      ---
-      ### **Hướng dẫn 4 bước đăng ký chữ ký số trên VNeID**
+          **Lưu ý:** Tính năng này có thể đang được triển khai theo giai đoạn. Nếu bạn chưa thấy mục "Chứng thư chữ ký số", vui lòng chờ các bản cập nhật tiếp theo của ứng dụng.
+          ---
+          ### **Hướng dẫn 4 bước đăng ký chữ ký số trên VNeID**
 
-      * **Bước 1: Truy cập dịch vụ**
-          - Tại màn hình chính của VNeID, bạn chọn mục **"Dịch vụ khác"**.
-          - Tiếp theo, tìm và chọn **"Chứng thư chữ ký số"**.
-          *Ảnh minh họa Bước 1:*
-          [https://link-den-anh-minh-hoa-buoc-1.jpg]
+          * **Bước 1: Truy cập dịch vụ**
+              - Tại màn hình chính của VNeID, bạn chọn mục **"Dịch vụ khác"**.
+              - Tiếp theo, tìm và chọn **"Chứng thư chữ ký số"**.
+              *Ảnh minh họa Bước 1:*
+              [AI CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/01-buoc-1.jpg]
 
-      * **Bước 2: Bắt đầu đăng ký**
-          - Trong giao diện mới hiện ra, hãy nhấn vào **"Đăng ký chứng thư chữ ký số"** để bắt đầu.
-          *Ảnh minh họa Bước 2:*
-          [https://link-den-anh-minh-hoa-buoc-2.jpg]
+          * **Bước 2: Bắt đầu đăng ký**
+              - Trong giao diện mới hiện ra, hãy nhấn vào **"Đăng ký chứng thư chữ ký số"** để bắt đầu.
+              *Ảnh minh họa Bước 2:*
+              [AI CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/02-buoc-2.jpg]
 
-      * **Bước 3: Chọn nhà cung cấp và đồng ý điều khoản**
-          - Lựa chọn nhà cung cấp dịch vụ chứng thực chữ ký số (ví dụ trong ảnh là **VNPT SmartCA**).
-          - Bạn cần đọc và tick vào ô "Tôi đồng ý với **Điều khoản sử dụng dịch vụ** và **Chính sách quyền riêng tư**..." rồi nhấn **"Tiếp tục"**.
-          *Ảnh minh họa Bước 3:*
-          [https://link-den-anh-minh-hoa-buoc-3.jpg]
+          * **Bước 3: Chọn nhà cung cấp và đồng ý điều khoản**
+              - Lựa chọn nhà cung cấp dịch vụ chứng thực chữ ký số (ví dụ trong ảnh là **VNPT SmartCA**).
+              - Bạn cần đọc và tick vào ô "Tôi đồng ý với **Điều khoản sử dụng dịch vụ** và **Chính sách quyền riêng tư**..." rồi nhấn **"Tiếp tục"**.
+              *Ảnh minh họa Bước 3:*
+              [AI CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/03-buoc-3.jpg]
 
-      * **Bước 4: Xác nhận thông tin và hoàn tất**
-          - Kiểm tra lại các thông tin cá nhân của bạn sẽ được chia sẻ.
-          - Tick vào ô đồng ý với các điều khoản về chia sẻ dữ liệu rồi nhấn **"Xác nhận"**.
-          - Hệ thống sẽ hiển thị thông báo "Tạo yêu cầu thành công" và tự động chuyển hướng bạn đến trang của nhà cung cấp dịch vụ để hoàn tất đăng ký.
-          *Ảnh minh họa Bước 4:*
-          [https://link-den-anh-minh-hoa-buoc-4.jpg]
+          * **Bước 4: Xác nhận thông tin và hoàn tất**
+              - Kiểm tra lại các thông tin cá nhân của bạn sẽ được chia sẻ.
+              - Tick vào ô đồng ý với các điều khoản về chia sẻ dữ liệu rồi nhấn **"Xác nhận"**.
+              - Hệ thống sẽ hiển thị thông báo "Tạo yêu cầu thành công" và tự động chuyển hướng bạn đến trang của nhà cung cấp dịch vụ để hoàn tất đăng ký.
+              *Ảnh minh họa Bước 4:*
+              [AI CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/04-buoc-4.jpg]
 
-      Sau khi hoàn tất, chữ ký số của bạn sẽ có giá trị pháp lý tương đương với chữ ký tay khi thực hiện các giao dịch điện tử.
+          Sau khi hoàn tất, chữ ký số của bạn sẽ có giá trị pháp lý tương đương với chữ ký tay khi thực hiện các giao dịch điện tử.
+          
   # ========= 15) THÔNG TIN TRUY NÃ =========
   - id: vneid_thongtin_truyna
     intent: vneid_thongtin_truyna
@@ -569,7 +571,3 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
-
-
-
-
