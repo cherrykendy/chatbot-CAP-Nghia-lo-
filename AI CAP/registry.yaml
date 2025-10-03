@@ -1,0 +1,35 @@
+modules:
+  - name: vneid
+    path: "knowledge_base/scripts/01_vneid.yaml"
+    intents:
+      - "huong_dan_cai_dat_kich_hoat"
+      - "huong_dan_dang_ky_muc_2"
+      - "xu_ly_quen_mat_khau"
+      - "thay_doi_so_dien_thoai"
+      - "gioi_thieu_vi_giay_to"
+      - "huong_dan_tich_hop_giay_to"
+      - "huong_dan_thong_bao_luu_tru"
+      - "xem_thong_tin_cu_tru"
+      - "xem_thong_bao_he_thong"
+      - "huong_dan_kien_nghi_antt"
+      - "xac_minh_ung_dung_that_gia"
+      - "xem_canh_bao_toi_pham"
+
+  - name: cu_tru
+    path: "knowledge_base/scripts/02_thu_tuc_cu_tru.yaml"
+    intents:
+      - "xac_nhan_thong_tin_cu_tru"
+
+aliases_global:
+  - ["đăng ký vneid", "định danh mức 2", "nâng cấp vneid"] -> "huong_dan_dang_ky_muc_2"
+  - ["xác nhận cư trú", "giấy xác nhận cư trú"]             -> "xac_nhan_thong_tin_cu_tru"
+
+redirects:
+  - when_intent: "xac_nhan_thong_tin_cu_tru"
+    if: "da_co_vneid == false"
+    to: "huong_dan_dang_ky_muc_2"
+
+fallback:
+  answer: |
+    Hiện chưa có thông tin trong kịch bản.
+    👉 Vui lòng liên hệ Công an phường Nghĩa Lộ – 210 Hùng Vương, Quảng Ngãi

@@ -1,0 +1,83 @@
+intents:
+  - id: xoa_dang_ky_thuong_tru
+    synonyms:
+      - xóa đăng ký thường trú
+      - hủy đăng ký thường trú
+      - xóa hộ khẩu thường trú
+      - cắt hộ khẩu
+      - xóa thường trú
+metadata:
+  id: xoa_dang_ky_thuong_tru.v1
+  version: '1.0'
+  effective_date: '2025-10-03'
+  scope: Kịch bản hướng dẫn công dân thực hiện thủ tục xóa đăng ký thường trú trên Cổng DVC Bộ Công an; có nhánh xử lý các trường hợp đặc biệt.
+nlu:
+  slot:
+    - ten: ly_do_xoa
+      kieu: enum
+      gia_tri:
+        - da_chet_mat_tich: "Đã chết hoặc bị Tòa án tuyên bố mất tích"
+        - ra_nuoc_ngoai: "Ra nước ngoài định cư"
+        - vang_mat_12_thang: "Vắng mặt liên tục 12 tháng trở lên"
+        - cham_dut_hop_dong_cho_o: "Chấm dứt hợp đồng thuê/chuyển quyền sở hữu chỗ ở"
+        - cho_o_bi_pha_do: "Chỗ ở bị phá dỡ, tịch thu"
+      cau_hoi: "Xin chào, Anh/Chị vui lòng cho biết lý do cần thực hiện thủ tục xóa đăng ký thường trú?"
+      goi_y:
+        - "Đã chết/mất tích"
+        - "Ra nước ngoài định cư"
+        - "Vắng mặt liên tục 12 tháng"
+        - "Chấm dứt hợp đồng thuê/chuyển quyền sở hữu chỗ ở"
+        - "Chỗ ở bị phá dỡ/tịch thu"
+    - ten: nguoi_thuc_hien
+      kieu: enum
+      gia_tri:
+        - chinh_cong_dan: "Chính người bị xóa đăng ký thường trú"
+        - dai_dien_ho_gd: "Đại diện hộ gia đình/người thân"
+      cau_hoi: "Ai là người thực hiện thủ tục này?"
+      goi_y:
+        - "Chính người bị xóa đăng ký thường trú"
+        - "Đại diện hộ gia đình/người thân"
+
+script:
+  - step: xac_dinh_ly_do
+    trigger:
+      - xóa đăng ký thường trú
+      - hủy đăng ký thường trú
+      - cắt hộ khẩu
+      - xóa hộ khẩu
+    bot: |
+      Xin chào 👋. Trước tiên, cho biết **lý do cần xóa đăng ký thường trú**?
+    ask_slot: ly_do_xoa
+
+  - step: xac_dinh_nguoi_thuc_hien
+    bot: |
+      Cảm ơn Anh/Chị đã cung cấp lý do. Tiếp theo, vui lòng cho biết **ai là người thực hiện thủ tục**?
+    ask_slot: nguoi_thuc_hien
+
+  - step: can_cu_va_y_nghia
+    bot: |
+      **Tại sao cần xóa đăng ký thường trú?**
+      Đây là **nghĩa vụ pháp lý bắt buộc** khi công dân thuộc diện bị xóa đăng ký thường trú (theo Luật Cư trú).
+
+      **Ý nghĩa:**
+      1) Bảo đảm dữ liệu cư trú trong **Cơ sở Dữ liệu quốc gia về dân cư** luôn chính xác, cập nhật.  
+      2) Giúp dữ liệu của hộ gia đình còn lại cũng được đầy đủ, phục vụ các thủ tục hành chính khác.  
+
+      ⚠️ Người nộp hồ sơ **phải hoàn tất thủ tục trong 07 ngày** kể từ khi phát sinh căn cứ. Nếu không, Công an cấp xã sẽ chủ động xóa đăng ký thường trú bắt buộc.
+
+  - step: giay_to_ho_so
+    bot: |
+      **Hồ sơ cần chuẩn bị (01 bộ):**
+      - **Tờ khai thay đổi thông tin cư trú (Mẫu CT01).**  
+      - **Giấy tờ, tài liệu chứng minh** thuộc trường hợp bị xóa đăng ký thường trú, ví dụ:  
+        • **Giấy chứng tử**  
+        • **Quyết định của Tòa án** (tuyên bố mất tích, mất NLHVDS, chấm dứt quyền sở hữu...)  
+        • **Văn bản chấm dứt hợp đồng thuê/chuyển nhượng nhà ở**  
+        • Hoặc tài liệu chứng minh **chỗ ở đã bị phá dỡ/tịch thu**
+
+  - step: cach_thuc_nop
+    bot: |
+      **Cách nộp hồ sơ:**  
+      Anh/Chị nộp **trực tuyến** trên **Cổng Dịch vụ công Bộ Công an**.  
+      Đây là cách nhanh nhất, bảo đảm đúng **thời hạn 07 ngày bắt buộc**.  
+      👉 Vào Cổng DVC → nhập từ khóa *"Xóa đăng ký thường trú"* → chọn thủ tục → nhấn **Nộp hồ sơ**.

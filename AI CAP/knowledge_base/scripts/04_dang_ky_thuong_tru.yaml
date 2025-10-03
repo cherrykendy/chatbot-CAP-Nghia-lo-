@@ -1,0 +1,218 @@
+intents:
+- id: dang_ky_thuong_tru
+  synonyms:
+  - đăng ký thường trú
+  - nhập hộ khẩu
+  - đăng ký hộ khẩu mới
+  - thủ tục thường trú
+  - làm hộ khẩu
+  - tôi muốn đăng ký cho con
+  - tôi muốn đăng ký nhập về nhà chồng
+  - nhập con về ở với cha mẹ
+metadata:
+  id: dang_ky_thuong_tru_hoan_chinh.v3
+  version: '3.0'
+  effective_date: '2025-10-02'
+  scope: Kịch bản hoàn chỉnh, sử dụng luồng hội thoại động và chuỗi câu hỏi logic
+    để tự động phân loại và hướng dẫn chi tiết thủ tục đăng ký thường trú, xây dựng
+    cho chatbot của Công an cấp xã.
+nlu:
+  slot:
+  - ten: co_tai_khoan_VNeID_muc2
+    kieu: boolean
+    cau_hoi: Để nộp hồ sơ trực tuyến, anh/chị cần có tài khoản VNeID mức 2 đã được
+      kích hoạt. Anh/chị đã có tài khoản này chưa ạ?
+    trich_xuat:
+    - (có|đã có|rồi|ok có) => true
+    - (chưa|không|chưa có) => false
+  - ten: chu_the_dang_ky
+    kieu: choice
+    cau_hoi: 'Chào anh/chị. Để hướng dẫn thủ tục đăng ký thường trú, trước hết, xin
+      cho biết anh/chị đang làm thủ tục cho ai ạ?
+
+      1. Cho chính bản thân anh/chị.
+
+      2. Cho con cái.
+
+      3. Cho vợ hoặc chồng.'
+    lua_chon:
+    - '1'
+    - '2'
+    - '3'
+  - ten: con_tren_18_tuoi
+    kieu: choice
+    cau_hoi: Dạ, cho hỏi người con anh/chị đăng ký là trên hay dưới 18 tuổi ạ?
+    lua_chon:
+    - Trên 18 tuổi
+    - Dưới 18 tuổi
+  - ten: chu_so_huu_la_ai
+    kieu: choice
+    cau_hoi: Cảm ơn anh/chị. Tiếp theo, xin cho biết ngôi nhà/căn hộ này thuộc sở
+      hữu của ai ạ?
+    lua_chon:
+    - Của chính tôi / bản thân tôi
+    - Của vợ hoặc chồng tôi
+    - Của cha mẹ tôi
+    - Của người khác (họ hàng, thuê, mượn, ở nhờ)
+  - ten: chu_ho_la_ai
+    kieu: choice
+    cau_hoi: 'Dạ, để xác định chính xác về chữ ký trên tờ khai, anh/chị cho hỏi: Hộ
+      khẩu mà anh/chị định nhập cho con vào có phải do chính anh/chị (là cha/mẹ của
+      cháu) làm chủ hộ không ạ?'
+    lua_chon:
+    - Đúng, do chính tôi làm chủ hộ
+    - 'Không, do người khác làm chủ hộ (ví dụ: ông bà)'
+  - ten: ca_hai_cha_me_trong_ho
+    kieu: choice
+    cau_hoi: Cảm ơn anh/chị. Vậy trong hộ khẩu này có cả cha và mẹ của cháu không,
+      hay chỉ có một mình anh/chị ạ?
+    lua_chon:
+    - Có, cả hai chúng tôi đều trong hộ
+    - Không, chỉ có mình tôi trong hộ
+  - ten: cha_me_cung_o_trong_ho_ong_ba
+    kieu: choice
+    cau_hoi: Dạ, đã rõ. Xin cho biết thêm, trong hộ khẩu của chủ hộ hiện tại có cả
+      cha và mẹ của cháu đang cùng cư trú không ạ?
+    lua_chon:
+    - Có, cả hai chúng tôi đều ở đó
+    - Không, chỉ có mình tôi ở đó
+luong_hoi_thoai:
+  mo_dau:
+    prompt: Chào anh/chị, tôi là Trợ lý ảo của Công an xã, hỗ trợ thủ tục đăng ký
+      thường trú trực tuyến.
+    tiep_tuc: kiem_tra_vneid
+  kiem_tra_vneid:
+    prompt: Để nộp hồ sơ, anh/chị cần có tài khoản VNeID mức 2 đã kích hoạt. Anh/chị
+      đã có tài khoản này chưa ạ?
+    logic:
+    - neu: co_tai_khoan_VNeID_muc2 == true
+      chuyen_den: thu_thap_thong_tin
+    - neu: co_tai_khoan_VNeID_muc2 == false
+      chuyen_den: huong_dan_vneid_muc_2
+    - neu: khác
+      chuyen_den: hoi_lam_ro_vneid
+  hoi_lam_ro_vneid:
+    prompt: Xin lỗi tôi chưa hiểu rõ. Anh/chị vui lòng xác nhận đã có tài khoản VNeID
+      mức 2 chưa ạ? (Trả lời 'có' hoặc 'chưa')
+    tiep_tuc: kiem_tra_vneid
+  huong_dan_vneid_muc_2:
+    tieu_de: Hướng dẫn đăng ký & kích hoạt VNeID mức 2
+    chatbot:
+    - 1) Tải ứng dụng VNeID và thực hiện đăng ký tài khoản mức 1 trực tuyến.
+    - 2) Sau khi có tài khoản mức 1, anh/chị vui lòng mang theo CCCD gắn chip đến
+      trụ sở Công an xã/phường gần nhất để được hỗ trợ kích hoạt tài khoản mức 2.
+    ket_thuc: Khi đã có VNeID mức 2, vui lòng quay lại đây để tôi tiếp tục hỗ trợ.
+  thu_thap_thong_tin:
+    logic:
+    - dien_slot: chu_the_dang_ky
+    - dien_slot: con_tren_18_tuoi
+      dieu_kien: chu_the_dang_ky == '2'
+    - dien_slot: chu_so_huu_la_ai
+    - dien_slot: chu_ho_la_ai
+      dieu_kien: chu_the_dang_ky == '2' and con_tren_18_tuoi == 'Dưới 18 tuổi'
+    - dien_slot: ca_hai_cha_me_trong_ho
+      dieu_kien: chu_ho_la_ai == 'Đúng, do chính tôi làm chủ hộ'
+    - dien_slot: cha_me_cung_o_trong_ho_ong_ba
+      dieu_kien: 'chu_ho_la_ai == ''Không, do người khác làm chủ hộ (ví dụ: ông bà)'''
+    tiep_tuc: xuat_ket_qua
+  xuat_ket_qua:
+    chatbot:
+    - '{{ final_response }}'
+    ket_thuc: true
+final_response: "Cảm ơn anh/chị. Dựa vào các thông tin đã thu thập, đây là danh sách\
+  \ giấy tờ cần chuẩn bị (dưới dạng bản chụp hoặc scan):\n\n{% if chu_the_dang_ky\
+  \ == '1' %}\n**Trường hợp: Đăng ký tại chỗ ở thuộc quyền sở hữu của mình**\n- **1.\
+  \ Tờ khai thay đổi thông tin cư trú (Mẫu CT01)**.\n- **2. Giấy tờ chứng minh chỗ\
+  \ ở hợp pháp** (Giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở...).\n\n{%\
+  \ elif chu_the_dang_ky == '3' %}\n**Trường hợp: Về ở với vợ hoặc chồng**\n- **1.\
+  \ Tờ khai thay đổi thông tin cư trú (Mẫu CT01)**, có ý kiến đồng ý của chủ hộ và\
+  \ chủ sở hữu.\n- **2. Giấy tờ chứng minh quan hệ vợ chồng**: Giấy chứng nhận kết\
+  \ hôn.\n\n{% elif chu_the_dang_ky == '2' %}\n  {% if con_tren_18_tuoi == 'Trên 18\
+  \ tuổi' %}\n  **Trường hợp: Đăng ký cho con (trên 18 tuổi) về với cha hoặc mẹ**\n\
+  \  - **1. Tờ khai thay đổi thông tin cư trú (Mẫu CT01)**, có ý kiến đồng ý của chủ\
+  \ hộ và chủ sở hữu.\n  - **2. Giấy tờ chứng minh quan hệ cha/mẹ - con**: Giấy khai\
+  \ sinh của người con.\n  {% else %}\n    {% if chu_ho_la_ai == 'Đúng, do chính tôi\
+  \ làm chủ hộ' %}\n      {% if ca_hai_cha_me_trong_ho == 'Không, chỉ có mình tôi\
+  \ trong hộ' %}\n      **Trường hợp: Đăng ký cho con (dưới 16 tuổi) về với chỉ cha\
+  \ hoặc mẹ (là chủ hộ)**\n      - **1. Tờ khai thay đổi thông tin cư trú (Mẫu CT01)**.\n\
+  \      - **2. Ý kiến đồng ý của người còn lại (cha/mẹ không có trong hộ)**, thể\
+  \ hiện bằng việc ký trên tờ khai, văn bản riêng, hoặc đồng ý qua VNeID.\n      -\
+  \ **3. Giấy tờ chứng minh quan hệ cha/mẹ - con**: Giấy khai sinh của con.\n    \
+  \  {% else %}\n      **Trường hợp: Đăng ký cho con (dưới 16 tuổi) về với cha mẹ\
+  \ (cả hai đã có trong hộ)**\n      - **1. Tờ khai thay đổi thông tin cư trú (Mẫu\
+  \ CT01)**, do cha hoặc mẹ kê khai.\n      - **2. Giấy tờ chứng minh quan hệ cha/mẹ\
+  \ - con**: Giấy khai sinh của con.\n      {% endif %}\n    {% else %}\n      {%\
+  \ if cha_me_cung_o_trong_ho_ong_ba == 'Không, chỉ có mình tôi ở đó' %}\n      **Trường\
+  \ hợp: Đăng ký cho con (dưới 16 tuổi) về ở cùng cha/mẹ tại nhà người khác**\n  \
+  \    - **1. Tờ khai thay đổi thông tin cư trú (Mẫu CT01)**, có ý kiến đồng ý của\
+  \ chủ hộ và chủ sở hữu.\n      - **2. Ý kiến đồng ý của người còn lại (cha/mẹ không\
+  \ có trong hộ)**.\n      - **3. Giấy tờ chứng minh quan hệ cha/mẹ - con**: Giấy\
+  \ khai sinh của con.\n      {% else %}\n      **Trường hợp: Đăng ký cho con (dưới\
+  \ 16 tuổi) về ở cùng cả cha và mẹ tại nhà người khác**\n      - **1. Tờ khai thay\
+  \ đổi thông tin cư trú (Mẫu CT01)**, có ý kiến đồng ý của chủ hộ và chủ sở hữu.\n\
+  \      - **2. Giấy tờ chứng minh quan hệ cha/mẹ - con**: Giấy khai sinh của con.\n\
+  \      {% endif %}\n    {% endif %}\n  {% endif %}\n{% else %}\n**Trường hợp: Đăng\
+  \ ký về nhà người khác (thuê, mượn, ở nhờ...)**\n- **1. Tờ khai CT01**, có ý kiến\
+  \ đồng ý của chủ hộ và chủ sở hữu chỗ ở hợp pháp.\n- **2. Hợp đồng cho thuê, cho\
+  \ mượn, cho ở nhờ** hoặc văn bản đồng ý của chủ sở hữu.\n{% endif %}\n\n---\nSau\
+  \ khi anh/chị đã chuẩn bị xong các giấy tờ trên, chúng ta sẽ bắt đầu thực hiện nộp\
+  \ hồ sơ trực tuyến. Khi nào sẵn sàng, anh/chị chỉ cần nói \"tiếp\" hoặc \"ok\" nhé.\n"
+guided_flows:
+- id: flow_nop_ho_so_thuong_tru_online
+  confirm_keywords:
+  - xong
+  - ok
+  - rồi
+  - tiếp
+  - đã chuẩn bị xong
+  cancel_keywords:
+  - dừng
+  - hủy
+  steps:
+  - id: b0_thong_tin_le_phi
+    say: 'Trước khi bắt đầu, tôi xin cung cấp thông tin về lệ phí theo quy định của
+      Bộ Tài chính:
+
+      - **Miễn phí:** Trường hợp đăng ký thường trú cho **trẻ em (người dưới 16 tuổi)**
+      sẽ được miễn lệ phí.
+
+      - **Mức phí:** Đối với người từ 16 tuổi trở lên, mức phí khi nộp hồ sơ trực
+      tuyến là **10.000 VNĐ/hồ sơ**.
+
+      Nếu có phát sinh lệ phí, hệ thống sẽ hướng dẫn anh/chị thanh toán trực tuyến
+      ở bước cuối cùng.
+
+      '
+  - id: b1_dang_nhap
+    say: 'B1) Truy cập Cổng Dịch vụ công Bộ Công an tại: **dichvucong.bocongan.gov.vn**
+      và **''Đăng nhập''** bằng tài khoản VNeID.'
+    confirm: Anh/chị đã đăng nhập thành công chưa?
+  - id: b2_tim_thu_tuc
+    say: B2) Tại ô tìm kiếm, gõ **'Đăng ký thường trú'** và chọn thủ tục hành chính
+      tương ứng.
+    confirm: Anh/chị đã tìm thấy và chọn thủ tục chưa?
+  - id: b3_ke_khai
+    say: B3) Điền đầy đủ thông tin vào tờ khai trực tuyến (Mẫu CT01). Các thông tin
+      cá nhân cơ bản sẽ được tự động điền từ VNeID.
+    confirm: Anh/chị đã điền xong tờ khai chưa?
+  - id: b4_tai_ho_so
+    say: B4) Đính kèm các file ảnh chụp hoặc bản scan giấy tờ đã chuẩn bị vào các
+      mục tương ứng.
+    confirm: Anh/chị đã đính kèm đủ hồ sơ theo hướng dẫn chưa?
+  - id: b5_chon_co_quan
+    say: B5) Tại mục **Cơ quan thực hiện**, anh/chị chọn đúng đơn vị Công an cấp xã/phường/thị
+      trấn nơi mình muốn đăng ký thường trú.
+    confirm: Anh/chị đã chọn xong cơ quan thực hiện chưa?
+  - id: b6_nop_va_theo_doi
+    say: B6) Kiểm tra lại toàn bộ thông tin, nộp hồ sơ. Anh/chị sẽ nhận được mã hồ
+      sơ để theo dõi tiến độ.
+  - id: b7_nhan_ket_qua
+    say: Sau khoảng 5-7 ngày làm việc, anh/chị sẽ nhận được thông báo kết quả qua
+      Cổng Dịch vụ công hoặc tin nhắn SMS. Chúc anh/chị thực hiện thành công!
+notes:
+- 'Lưu ý về đồng sở hữu: Đối với trường hợp vợ/chồng, cha/mẹ/con, chỉ cần sự đồng
+  ý của **01 đồng sở hữu**. Các trường hợp khác cần sự đồng ý của **TẤT CẢ** đồng
+  sở hữu.'
+- Tất cả các giấy tờ phải được scan hoặc chụp ảnh rõ nét, không bị mờ, lóa.
+- Bắt buộc phải có tài khoản Định danh điện tử (VNeID) mức 2 để đăng nhập và nộp hồ
+  sơ.

@@ -1,0 +1,150 @@
+intents:
+  - id: thay_doi_chu_ho
+    synonyms:
+      - thay đổi chủ hộ
+      - đổi chủ hộ
+      - điều chỉnh chủ hộ
+      - cập nhật chủ hộ
+      - thay đổi thông tin cư trú (chủ hộ)
+      - đổi người đại diện hộ gia đình
+      - đổi chủ hộ khẩu
+metadata:
+  id: dieu_chinh_thong_tin_cu_tru_thay_doi_chu_ho.v1
+  version: '1.0'
+  effective_date: '2025-10-03'
+  scope: Kịch bản hướng dẫn công dân thực hiện thủ tục điều chỉnh thông tin cư trú (thay đổi Chủ hộ) trên Cổng DVC Bộ Công an; có nhánh xử lý các trường hợp đặc biệt.
+nlu:
+  slot:
+    - ten: nguoi_thuc_hien
+      kieu: enum
+      gia_tri:
+        - thanh_vien_duoc_de_cu: "Thành viên hộ gia đình được đề cử làm Chủ hộ mới"
+        - thanh_vien_khac: "Thành viên khác trong hộ gia đình"
+      cau_hoi: "Xin chào, Anh/Chị vui lòng xác nhận ai là người thực hiện thủ tục Thay đổi Chủ hộ này?"
+      goi_y:
+        - "Thành viên hộ gia đình được đề cử làm chủ hộ mới"
+        - "Thành viên khác trong hộ gia đình"
+    - ten: tinh_trang_chu_ho_cu
+      kieu: enum
+      gia_tri:
+        - con_song: "Chủ hộ cũ còn sống"
+        - da_chet: "Chủ hộ cũ đã chết"
+        - mat_tich: "Chủ hộ cũ bị tuyên bố mất tích"
+        - mat_nang_luc: "Chủ hộ cũ mất năng lực hành vi dân sự"
+      cau_hoi: "Tình trạng của Chủ hộ cũ là gì ạ?"
+      optional: true
+    - ten: quan_he_so_huu_cho_o
+      kieu: enum
+      gia_tri:
+        - tu_so_huu_dong_so_huu: "Chỗ ở thuộc sở hữu của chính các thành viên trong hộ (hoặc đồng sở hữu)"
+        - thue_muon_o_nho: "Chỗ ở do thuê, mượn, ở nhờ hoặc thuộc sở hữu người khác"
+      cau_hoi: "Chỗ ở hợp pháp của hộ thuộc trường hợp nào sau đây?"
+      optional: true
+    - ten: co_thong_nhat_chu_ho_moi
+      kieu: boolean
+      cau_hoi: "Các thành viên hộ gia đình đã thống nhất được người làm Chủ hộ mới chưa ạ?"
+      optional: true
+    - ten: co_tranh_chap_quyen_so_huu
+      kieu: boolean
+      cau_hoi: "Chỗ ở có đang phát sinh tranh chấp về quyền sở hữu/sử dụng đất không ạ?"
+      optional: true
+
+script:
+  - step: xac_nhan_chu_the_thuc_hien
+    trigger:
+      - thay đổi chủ hộ
+      - đổi chủ hộ
+      - điều chỉnh chủ hộ
+      - cập nhật chủ hộ
+    bot: |
+      Xin chào 👋. Đầu tiên, Anh/Chị vui lòng xác nhận **ai là người thực hiện thủ tục**.
+    ask_slot: nguoi_thuc_hien
+
+  - step: thong_bao_da_chon_thanh_vien
+    condition: "nguoi_thuc_hien in ['thanh_vien_duoc_de_cu','thanh_vien_khac']"
+    bot: |
+      ✅ Đã ghi nhận: *{{nguoi_thuc_hien}}* là người thực hiện thủ tục.
+
+  - step: can_cu_va_y_nghia
+    bot: |
+      **Vì sao cần thay đổi Chủ hộ?**
+      Thủ tục này cần thực hiện khi có thay đổi người đại diện hộ gia đình theo thực tế (ví dụ: Chủ hộ cũ qua đời hoặc chuyển đi).
+
+      **Ý nghĩa quan trọng:**
+      1) Cập nhật chính xác Chủ hộ mới vào Cơ sở dữ liệu quốc gia về dân cư.  
+      2) Bảo đảm dữ liệu của các thành viên còn lại đầy đủ, thống nhất.  
+      3) Tạo điều kiện làm các thủ tục liên quan đến Chủ hộ (ví dụ xóa đăng ký thường trú cho người đã qua đời; đăng ký khai tử...).
+
+  - step: giay_to_ho_so
+    bot: |
+      **Hồ sơ cần chuẩn bị (01 bộ):**
+      - **Tờ khai thay đổi thông tin cư trú (Mẫu CT01).**
+      - **Giấy tờ chứng minh việc điều chỉnh:**
+        • Ý kiến **đồng ý của Chủ hộ cũ** (ghi ngay trên CT01 hoặc văn bản riêng), **hoặc** **ý kiến thống nhất của các thành viên hộ gia đình** đề cử Chủ hộ mới.  
+        • **Trường hợp Chủ hộ cũ đã chết/mất tích/mất năng lực hành vi dân sự**: bổ sung **Giấy chứng tử** hoặc **Quyết định của Tòa án** (tuyên bố chết/mất tích/mất năng lực).
+
+  - step: cach_thuc_nop_le_phi_thoi_han
+    bot: |
+      **Cách nộp:** Thực hiện **trực tuyến** trên **Cổng Dịch vụ công Bộ Công an**. Gợi ý thao tác: vào Cổng → ô **Tìm kiếm** nhập *"thay đổi chủ hộ"* → chọn thủ tục tương ứng → bấm **"Nộp hồ sơ"** → khai CT01, đính kèm giấy tờ → ký/xác thực điện tử và thanh toán.
+      
+      **Lệ phí:** **5.000 đồng/lần** (thanh toán online).
+
+      **Thời hạn giải quyết:** tối đa **03 ngày làm việc** kể từ khi nhận **đủ hồ sơ hợp lệ**, Công an cấp xã điều chỉnh thông tin và thông báo kết quả.
+
+  - step: xac_nhan_chu_so_huu
+    bot: |
+      **Ý kiến của Chủ sở hữu chỗ ở hợp pháp có bắt buộc không?**  
+      → **Có**, đa số trường hợp cần **ý kiến xác nhận của Chủ sở hữu chỗ ở hợp pháp** (ghi trên CT01, văn bản riêng, hoặc xác nhận điện tử qua VNeID).
+
+      **Cụ thể:**
+      - **Không cần ý kiến Chủ sở hữu**: nếu chỗ ở **thuộc sở hữu của chính thành viên trong hộ** (hoặc **đồng sở hữu**).  
+      - **Cần ý kiến Chủ sở hữu**: nếu chỗ ở **do thuê, mượn, ở nhờ** hoặc **thuộc sở hữu người khác**.
+    ask_slot: quan_he_so_huu_cho_o
+    quick_replies:
+      - "Tôi/Chúng tôi là chủ sở hữu hoặc đồng sở hữu"
+      - "Nhà thuê/mượn/ở nhờ/thuộc người khác"
+
+  - step: tranh_chap_va_thong_nhat
+    bot: |
+      Để xử lý nhanh hồ sơ, cho mình hỏi thêm 2 thông tin sau:
+    ask_slot:
+      - co_thong_nhat_chu_ho_moi
+      - co_tranh_chap_quyen_so_huu
+    quick_replies:
+      - "Đã thống nhất & Không tranh chấp"
+      - "Chưa thống nhất"
+      - "Có tranh chấp"
+
+  - step: xu_ly_khi_chua_thong_nhat
+    condition: "co_thong_nhat_chu_ho_moi == false"
+    bot: |
+      **Chưa thống nhất Chủ hộ:**  
+      Khi các thành viên **không thống nhất** được người làm Chủ hộ mới, thì **Tòa án sẽ quyết định**.  
+      👉 Anh/Chị cần **nộp Quyết định của Tòa án** về người là Chủ hộ để hoàn tất thủ tục thay đổi Chủ hộ.
+
+  - step: xu_ly_khi_tranh_chap
+    condition: "co_tranh_chap_quyen_so_huu == true"
+    bot: |
+      **Đang có tranh chấp quyền sở hữu/sử dụng đất:**  
+      Việc thay đổi Chủ hộ **tạm thời chưa thể thực hiện** do không thể có **ý kiến đồng ý hợp lệ của Chủ sở hữu** chỗ ở hợp pháp.  
+      👉 Khuyến nghị: giải quyết tranh chấp trước; sau đó tiến hành thủ tục thay đổi Chủ hộ.
+
+  - step: luu_y_xoa_dktt_nguoi_da_chet
+    condition: "tinh_trang_chu_ho_cu in ['da_chet']"
+    bot: |
+      **Lưu ý về người đã chết:**  
+      Thủ tục **Xóa đăng ký thường trú** cho người đã chết (có **Giấy chứng tử**) là **độc lập** và **bắt buộc** thực hiện **trong vòng 07 ngày**.  
+      Việc chưa đổi được Chủ hộ **không phải** là lý do từ chối xóa đăng ký thường trú.  
+      Sau khi xử lý xóa đăng ký thường trú, hệ thống ghi nhận trạng thái **“bị xóa do chết”** theo đúng lý do quy định.
+
+  - step: tong_ket_checklist
+    bot: |
+      **Checklist trước khi nộp hồ sơ trực tuyến:**
+      - [ ] CT01 đã khai đủ thông tin Chủ hộ mới.  
+      - [ ] Có **ý kiến đồng ý của Chủ hộ cũ** hoặc **ý kiến thống nhất các thành viên** (nếu chủ hộ cũ không còn).  
+      - [ ] Trường hợp đặc biệt: đã có **Giấy chứng tử/Quyết định Tòa án** (chết/mất tích/mất NLHVDS).  
+      - [ ] **Ý kiến Chủ sở hữu** chỗ ở hợp pháp (nếu nhà **thuê/mượn/ở nhờ**).  
+      - [ ] Tài liệu scan/ảnh rõ nét, định dạng phổ biến (PDF/JPG/PNG).  
+      - [ ] Sẵn sàng **thanh toán lệ phí 5.000đ** trên Cổng DVC.
+
+      Khi sẵn sàng, Anh/Chị có thể tiếp tục nộp hồ sơ trực tuyến trên Cổng DVC Bộ Công an. Chúc Anh/Chị thực hiện thủ tục thuận lợi! 🙌

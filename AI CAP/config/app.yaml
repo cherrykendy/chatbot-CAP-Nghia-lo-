@@ -1,0 +1,6 @@
+static:
+  url_prefix: "/assets"
+  fs_path: "knowledge_base/assets"
+server:
+  host: "0.0.0.0"
+  port: 8000

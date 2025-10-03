@@ -1,0 +1,454 @@
+script:
+- step: giải thích thường trú vs tạm trú
+  trigger:
+  - thường trú
+  - tạm trú
+  - khác nhau
+  - so sánh
+  bot: '🔎 Giải thích ngắn gọn:
+
+    - **Thường trú** 🏡: nơi ở **ổn định lâu dài**, được ghi nhận trong Cơ sở dữ liệu
+    cư trú, là địa chỉ gốc để Nhà nước quản lý dân cư.
+
+    - **Tạm trú** 🛏️: nơi ở thực tế hiện nay, khác với nơi thường trú, và cần đăng
+    ký khi ở đó **từ 30 ngày trở lên**.
+
+    👉 Nói đơn giản: thường trú = **nhà chính lâu dài**; tạm trú = **chỗ ở hiện tại**.'
+- step: tư vấn nên đăng ký gì
+  trigger:
+  - nên đăng ký tạm trú hay thường trú
+  - tôi nên đăng ký gì
+  - nên làm thủ tục nào
+  bot: '📌 Tùy trường hợp:
+
+    - Nếu bạn **đang thuê trọ, ở ký túc xá, khu công nhân, cơ sở xã hội/tôn giáo**,
+    hoặc ở tạm thời chưa có nhà ở ổn định → nên **đăng ký tạm trú** để được quản lý
+    và hưởng quyền lợi tại nơi đang ở.
+
+    - Nếu bạn có **nhà ở hợp pháp ổn định lâu dài tại nơi mới** và muốn chuyển nơi
+    thường trú gốc → có thể làm **thủ tục đăng ký thường trú** (điều kiện chặt chẽ
+    hơn).
+
+    👉 Tóm gọn: **ngắn hạn → tạm trú; ổn định lâu dài → thường trú.**'
+- step: chào hỏi
+  bot: 'Xin chào! Tôi sẽ hỗ trợ bạn đăng ký **tạm trú trực tuyến** trên Cổng dịch
+    vụ công Bộ Công an. Trước tiên, bạn mô tả ngắn gọn nơi đang ở và hoàn cảnh của
+    bạn (ví dụ: thuê trọ ở quận X; sinh viên ở ký túc xá; công nhân ở khu công nghiệp;
+    đang ở cơ sở xã hội/tôn giáo; v.v.).'
+  trigger: []
+- step: phân tích chỗ ở & xác định chủ thể
+  logic:
+  - if: câu trả lời có 'thuê' hoặc 'trọ'
+    set.case: nha_tro
+    bot: 'Xác định: **đăng ký tạm trú tại nhà thuê/trọ**. Chủ thể đăng ký: **bạn**.
+
+      📑 Hồ sơ gồm:
+
+      1. **CT01** (điền trực tuyến).
+
+      2. **Hợp đồng thuê nhà** *(không cần công chứng/chứng thực)*.
+
+      3. **Xác nhận về nhà ở – Mẫu số 02 (Nghị định 154/2024)** do **chủ nhà** ký.
+
+      💡 Lưu ý: Hợp đồng nên **ký trong vòng 30 ngày** tính đến ngày nộp hồ sơ.'
+  - if: câu trả lời có 'ở nhờ' hoặc 'ở nhà người thân' hoặc 'ở nhà anh trai' hoặc
+      'ở nhà chị gái' hoặc 'ở nhà bố mẹ' hoặc 'ở nhà ông bà'
+    set.case: o_nho_nguoi_than
+    bot: 'Xác định: **đăng ký tạm trú tại chỗ ở của người thân**. Chủ thể đăng ký:
+      **bạn**.
+
+      📑 Hồ sơ gồm:
+
+      1. **CT01** (điền trực tuyến).
+
+      2. **Mẫu số 02 (Nghị định 154/2024)** do **chủ nhà** ký xác nhận chỗ ở hợp pháp.
+
+      ➡️ **Không yêu cầu** hợp đồng thuê nhà **hoặc** văn bản đồng ý riêng.'
+  - if: câu trả lời có 'nhà của tôi' hoặc 'nhà riêng' hoặc 'tôi có nhà nhưng hộ khẩu
+      ở nơi khác'
+    set.case: nha_cua_minh
+    bot: 'Xác định: **đăng ký tạm trú tại nhà ở thuộc sở hữu của bạn**. Chủ thể đăng
+      ký: **bạn**.
+
+      📑 Hồ sơ gồm:
+
+      1. **CT01** (điền trực tuyến).
+
+      2. **Giấy tờ chứng minh quyền sở hữu nhà ở** (Sổ đỏ/Sổ hồng đứng tên bạn).'
+  trigger: []
+  bot: ''
+- step: cảnh báo đăng ký muộn
+  trigger:
+  - 40 ngày
+  - quá hạn
+  - muộn
+  - chậm
+  bot: '⏰ Theo Luật Cư trú, bạn phải đăng ký tạm trú trong vòng **30 ngày** kể từ
+    khi đến ở. Nếu bạn đã ở **40 ngày** mới đăng ký → tức là quá hạn.
+
+    📌 Theo Nghị định 144/2021/NĐ-CP, hành vi này có thể bị **cảnh cáo hoặc phạt tiền
+    từ 500.000 – 1.000.000 đồng**. Tuy nhiên, nếu bạn chủ động khai báo, nhiều nơi
+    thường **chỉ nhắc nhở**.
+
+    👉 Bạn nên đăng ký ngay để tránh vi phạm tiếp.'
+- step: nhận diện trẻ em (xử lý nội bộ)
+  logic:
+  - if: câu trả lời có 'trẻ em' hoặc 'dưới 16' hoặc 'con nhỏ'
+    set.fee: mien_child
+    bot: 'Ghi nhận: **đối tượng trẻ em** → thuộc diện **miễn lệ phí**. Tôi sẽ chuyển
+      sang hướng dẫn nộp trực tuyến.'
+  trigger: []
+  bot: ''
+- step: hiển thị danh mục miễn lệ phí (trừ trẻ em)
+  bot: 'Bạn có thuộc **một trong các diện miễn lệ phí** sau không (trả lời tên nhóm
+    hoặc ''không''):
+
+    • Người cao tuổi
+
+    • Người khuyết tật
+
+    • Người có công với cách mạng hoặc **thân nhân** người có công
+
+    • Hộ nghèo
+
+    • Đồng bào dân tộc thiểu số **ở xã đặc biệt khó khăn**
+
+    • Công dân **thường trú xã biên giới**
+
+    • Công dân **thường trú huyện đảo**'
+  logic:
+  - if: câu trả lời khớp diện miễn
+    set.fee: mien
+  - if: câu trả lời là 'không' hoặc 'ko'
+    set.fee: thu
+  trigger: []
+- step: hướng dẫn nộp trực tuyến
+  bot: 'Thực hiện trên **dichvucong.bocongan.gov.vn** (đăng nhập **VNeID mức 2**)
+    → chọn **Đăng ký tạm trú** → điền **CT01**, tải hồ sơ theo trường hợp (ví dụ nhà
+    thuê/trọ: **Hợp đồng thuê** + **Mẫu 02**). Thanh toán (nếu có) → nhận **Phiếu
+    tiếp nhận & hẹn trả kết quả**.'
+  trigger: []
+- step: thời hạn & kết quả
+  bot: '⏳ Thời hạn giải quyết: **03 ngày làm việc** kể từ khi hồ sơ hợp lệ. 📩 Kết
+    quả trả qua tài khoản dịch vụ công/email/SMS. Nếu hồ sơ thiếu, bạn sẽ được yêu
+    cầu bổ sung.'
+  trigger: []
+- step: kết thúc
+  bot: Bạn muốn tôi mở ngay liên kết thủ tục **Đăng ký tạm trú** để bắt đầu nộp không?
+  trigger: []
+- step: nên đăng ký tạm trú hay thường trú
+  trigger:
+  - nên đăng ký tạm trú hay thường trú
+  - nên tạm trú hay thường trú
+  bot: '✅ Nếu **đủ điều kiện** nhập hộ khẩu nơi đang ở và **muốn ở lâu dài**, hãy
+    làm **thường trú**.
+
+    ✅ Nếu **chưa đủ điều kiện** hoặc **ở có thời hạn**, hãy **đăng ký tạm trú**.
+
+    💡 Bạn có thể tạm trú trước; khi đủ điều kiện thì chuyển sang thường trú.'
+- step: không có hợp đồng thuê nhà
+  trigger:
+  - không có hợp đồng thuê
+  - không có hợp đồng nhà trọ
+  - chưa có hợp đồng
+  bot: '📄 Nếu bạn **chưa có hợp đồng thuê nhà**, hãy liên hệ **chủ trọ** để lập hợp
+    đồng/giấy xác nhận cho thuê.
+
+    Bạn có thể dùng **Mẫu hợp đồng thuê nhà (rút gọn)** dưới đây để tham khảo và điền:
+
+
+    --- MẪU RÚT GỌN ---
+
+    BÊN CHO THUÊ: Họ tên/đơn vị …; CCCD/ĐKKD …; Địa chỉ …; Điện thoại …
+
+    BÊN THUÊ: Họ tên …; CCCD …; Ngày sinh …; Điện thoại …
+
+    ĐỊA CHỈ CHO THUÊ: …
+
+    THỜI HẠN THUÊ: Từ … đến …
+
+    GIÁ THUÊ & THANH TOÁN: …
+
+    CAM KẾT: Bên cho thuê đồng ý cho bên thuê **sử dụng chỗ ở** và **xác nhận chỗ
+    ở** để thực hiện thủ tục tạm trú theo quy định.
+
+    KÝ, GHI RÕ HỌ TÊN, NGÀY THÁNG NĂM
+
+    --- HẾT MẪU ---'
+- step: mất CCCD vẫn đăng ký được
+  trigger:
+  - không có cccd
+  - không có căn cước
+  - làm mất căn cước
+  - mất cccd
+  - mất cmnd
+  - mất cmt
+  - mất căn cước
+  - thẻ căn cước bị mất
+  bot: 🆔 Nếu bạn bị **mất CCCD**, vẫn có thể đăng ký tạm trú khi bạn có **tài khoản
+    định danh điện tử mức 2 (VNeID)** để xác thực trực tuyến.
+- step: thời hạn tạm trú
+  trigger:
+  - thời hạn tạm trú
+  - bao lâu được tạm trú
+  - tạm trú tối đa
+  bot: ⏳ **Thời hạn tạm trú tối đa là 02 năm** kể từ ngày đăng ký tạm trú thành công.
+    Hết hạn có thể **đăng ký lại/gia hạn**.
+- step: ở 40 ngày có bị phạt không
+  trigger:
+  - 40 ngày
+  - ở 40 ngày có bị phạt không
+  - quá 30 ngày
+  bot: '⚠️ Nếu bạn **lưu trú thực tế đã 40 ngày** mà chưa đăng ký tạm trú, có thể
+    bị **xem xét xử phạt vi phạm hành chính** theo quy định.
+
+    👉 Hãy **nộp hồ sơ ngay** và nêu rõ **lý do chậm** để cơ quan xem xét.'
+- step: hồ sơ tạm trú và hợp đồng 30 ngày
+  trigger:
+  - hồ sơ tạm trú
+  - giấy tờ cần nộp
+  - hợp đồng 30 ngày
+  bot: '📚 Hồ sơ tạm trú thông thường gồm: **tờ khai**, **giấy tờ chứng minh chỗ ở**
+    (ví dụ: hợp đồng thuê/giấy xác nhận của chủ sở hữu).
+
+    💡 Khi **nộp trực tuyến**, nên dùng **hợp đồng/giấy xác nhận ký trong vòng 30 ngày**
+    tính đến ngày nộp để tránh bị yêu cầu bổ sung.'
+- step: đăng ký muộn có bị phạt không
+  trigger:
+  - đăng ký muộn
+  - quá hạn đăng ký
+  - bị phạt không
+  bot: ⚠️ Đăng ký tạm trú sau thời hạn quy định có thể bị **xử phạt vi phạm hành chính**.
+    Hãy nộp sớm nhất có thể và nêu **lý do chậm** (nếu có).
+- step: gia hạn tạm trú (hội thoại nhiều bước)
+  trigger:
+  - gia hạn tạm trú
+  - kéo dài tạm trú
+  - hết hạn tạm trú
+  bot: '**Công dân:** Tôi muốn gia hạn tạm trú thì làm thế nào?
+
+    **Bot:** ♻️ Bạn có thể gia hạn tạm trú, nhưng cần **nộp trước ít nhất 15 ngày**
+    tính đến ngày hết hạn tạm trú.
+
+
+    **Công dân:** Hồ sơ có cần hợp đồng thuê nhà hoặc giấy tờ chỗ ở không?
+
+    **Bot:** 📝 **Không cần**. Gia hạn chỉ cần **tờ khai Mẫu CT01** (không cần giấy
+    tờ khác).
+
+
+    **Công dân:** Tôi nộp hồ sơ ở đâu?
+
+    **Bot:** 🌐 Hồ sơ **chỉ nộp trực tuyến** trên **Cổng Dịch vụ công Bộ Công an**.
+    Đăng nhập tài khoản định danh mức 2, điền **CT01** và ký xác nhận.
+
+
+    **Công dân:** Bao lâu có kết quả?
+
+    **Bot:** ⏱️ Tra cứu tiến độ trên Cổng DVC. **Thời hạn xử lý** thể hiện trên **phiếu
+    tiếp nhận điện tử** sau khi nộp.'
+- step: chuyển nơi tạm trú
+  trigger:
+  - chuyển tạm trú
+  - chuyển sang địa chỉ khác
+  - thay đổi chỗ ở
+  bot: 🚚 Khi chuyển sang chỗ ở mới, bạn cần **xóa đăng ký tạm trú** tại địa chỉ cũ
+    và **đăng ký tạm trú** tại địa chỉ mới.
+- step: hủy đăng ký tạm trú (xóa tạm trú)
+  trigger:
+  - hủy tạm trú
+  - xóa tạm trú
+  - hủy đăng ký tạm trú
+  bot: 🗑️ Để hủy đăng ký tạm trú, thực hiện **thủ tục xóa tạm trú** (sẽ có hướng dẫn
+    riêng). Thông thường nộp **trực tuyến** trên Cổng DVC.
+- step: không có giấy tờ chứng minh chỗ ở
+  trigger:
+  - không có giấy tờ chỗ ở
+  - chứng minh chỗ ở
+  bot: 📌 Liên hệ **chủ nhà** để lập **hợp đồng/giấy xác nhận cho thuê**; hoặc xin
+    **văn bản đồng ý** của chủ sở hữu chỗ ở để bổ sung hồ sơ.
+- step: chủ nhà không hợp tác
+  trigger:
+  - chủ nhà không hợp tác
+  - chủ trọ không ký
+  - không cho xác nhận
+  bot: 🤝 Trao đổi với chủ nhà về **nghĩa vụ cung cấp thông tin** khi cho thuê/cho
+    ở; nếu vẫn vướng, liên hệ **Công an phường Nghĩa Lộ, tỉnh Quảng Ngãi/phường**
+    để được hướng dẫn.
+- step: đăng ký trực tuyến & tra cứu
+  trigger:
+  - đăng ký online
+  - nộp hồ sơ trực tuyến
+  - tra cứu hồ sơ
+  - kiểm tra kết quả
+  bot: '🌐 Bạn có thể **nộp trực tuyến** trên Cổng DVC. Chuẩn bị ảnh/scan rõ **giấy
+    tờ chỗ ở** và **định danh mức 2** để ký số.
+
+    🔍 Tra cứu tình trạng bằng **mã hồ sơ** hoặc đăng nhập tài khoản để xem tiến độ.'
+- step: bổ sung hồ sơ thiếu sót
+  trigger:
+  - bổ sung hồ sơ
+  - thiếu giấy tờ
+  - bị yêu cầu bổ sung
+  bot: ➕ Khi có thông báo bổ sung, hãy **tải lên tài liệu** theo yêu cầu và ghi chú
+    phần đã chỉnh sửa để cán bộ dễ đối chiếu.
+- step: sửa thông tin sai sau khi nộp
+  trigger:
+  - sai thông tin
+  - điền nhầm
+  - chỉnh sửa hồ sơ
+  bot: ✏️ Nếu phát hiện sai sau khi nộp, bạn có thể **gửi yêu cầu chỉnh sửa** trên
+    cổng dịch vụ hoặc **rút hồ sơ** và nộp lại bản đúng.
+- step: đổi liên hệ nhận thông báo
+  trigger:
+  - đổi số điện thoại
+  - đổi email
+  - không nhận được thông báo
+  bot: 📧 Vào **Thông tin tài khoản** trên cổng dịch vụ để **cập nhật số điện thoại/email**
+    rồi lưu lại để đảm bảo nhận đủ thông báo.
+- step: đăng ký tạm trú cho trẻ em
+  trigger:
+  - bé nhà tôi
+  - con nhỏ
+  - dưới 14 tuổi
+  - trẻ dưới 16
+  - trẻ em
+  - đăng ký cho con
+  - đăng ký tạm trú cho trẻ em
+  bot: 👶 Trẻ em **dưới 14 tuổi** đăng ký tạm trú **thông qua cha/mẹ/người giám hộ**.
+    Cần giấy tờ chứng minh quan hệ (nếu có).
+- step: ở ghép/ở nhờ (không hợp đồng)
+  trigger:
+  - không đứng tên
+  - không đứng tên hợp đồng
+  - ở chung
+  - ở ghép
+  - ở ké
+  - ở nhà anh trai
+  - ở nhà bố mẹ
+  - ở nhà chị gái
+  - ở nhà người thân
+  - ở nhà ông bà
+  - ở nhờ
+  - ở với bạn
+  - ở với người thân
+  bot: 'Xác định: **đăng ký tạm trú tại chỗ ở của người thân**. Chủ thể đăng ký: **bạn**.
+
+    📑 Hồ sơ gồm:
+
+    1. **CT01** (điền trực tuyến).
+
+    2. **Mẫu số 02 (Nghị định 154/2024)** do **chủ nhà** ký xác nhận chỗ ở hợp pháp.
+
+    ➡️ **Không yêu cầu** hợp đồng thuê nhà **hoặc** văn bản đồng ý riêng.'
+- step: tạm trú cho người nước ngoài
+  trigger:
+  - người nước ngoài tạm trú
+  - foreigners
+  - người nước ngoài ở trọ
+  bot: 🌏 Người nước ngoài tạm trú phải thực hiện **khai báo tạm trú** theo quy định
+    xuất nhập cảnh. Chủ cơ sở lưu trú có trách nhiệm **khai báo tạm trú**.
+- step: ký túc xá/nhà ở tập thể
+  trigger:
+  - ký túc xá
+  - nhà ở tập thể
+  - khu công nhân
+  bot: 🏫 Với ký túc xá/nhà ở tập thể, **đơn vị quản lý** thường phối hợp đăng ký/khai
+    báo. Liên hệ **ban quản lý** để được hướng dẫn cụ thể.
+- step: địa chỉ không số/không tên đường
+  trigger:
+  - không số nhà
+  - không tên đường
+  - địa chỉ đặc thù
+  bot: 🗺️ Mô tả **vị trí cụ thể** (mốc, hẻm, ảnh mặt tiền nếu có) và nộp kèm **giấy
+    tờ chứng minh** chỗ ở; liên hệ công an địa phương để chuẩn hóa địa chỉ.
+- step: thời gian giải quyết
+  trigger:
+  - bao lâu có kết quả
+  - thời gian xử lý
+  - mấy ngày xong
+  bot: ⏱️ **Thời hạn giải quyết** phụ thuộc từng nơi và hồ sơ; thông tin thể hiện
+    trên **phiếu tiếp nhận điện tử** sau khi nộp trực tuyến.
+- step: hủy đăng ký tạm trú
+  trigger:
+  - hủy tạm trú
+  - xóa tạm trú
+  bot: 🗑️ Nếu bạn muốn hủy đăng ký tạm trú, bạn cần làm thủ tục **xóa đăng ký tạm
+    trú**. 👉 Sẽ có hướng dẫn chi tiết thủ tục xóa tạm trú riêng để bạn thực hiện.
+- step: gia hạn tạm trú
+  trigger:
+  - gia hạn cư trú
+  - gia hạn lưu trú
+  - gia hạn tạm trú
+  - gia hạn tạm vắng
+  - hết hạn tạm trú
+  - kéo dài tạm trú
+  bot: '♻️ Bạn có thể **gia hạn tạm trú** (nộp **trước ít nhất 15 ngày** so với ngày
+    hết hạn). Hồ sơ **chỉ cần tờ khai CT01**, không cần hợp đồng/giấy tờ chỗ ở. Bạn
+    muốn tôi **hướng dẫn chi tiết từng bước** không? (trả lời: *có/chi tiết/ok*)'
+  logic:
+  - if: có hoặc chi tiết hoặc ok
+    goto: gia hạn tạm trú (hội thoại nhiều bước)
+- step: hợp đồng thuê hết hạn
+  trigger:
+  - hợp đồng hết hạn
+  - hợp đồng quá hạn
+  bot: 📝 Hãy **gia hạn hoặc ký lại hợp đồng** trước khi nộp hồ sơ; nên đảm bảo hợp
+    đồng **ký trong 30 ngày gần nhất** khi nộp trực tuyến.
+- step: đăng ký tạm trú trực tuyến
+  trigger:
+  - đăng ký online
+  - nộp hồ sơ trực tuyến
+  - Cổng dịch vụ công
+  bot: 🌐 Bạn có thể nộp hồ sơ **trực tuyến** trên Cổng Dịch vụ công. Hãy chuẩn bị
+    file ảnh/chụp rõ **giấy tờ chỗ ở** và **định danh mức 2** để ký số.
+- step: tra cứu tình trạng hồ sơ
+  trigger:
+  - tra cứu hồ sơ
+  - kiểm tra kết quả
+  - hồ sơ đến đâu
+  bot: 🔍 Vào mục **Tra cứu/ Theo dõi hồ sơ** trên Cổng Dịch vụ công, nhập **mã hồ
+    sơ** hoặc đăng nhập tài khoản để xem trạng thái xử lý.
+- step: sửa thông tin sai
+  trigger:
+  - sai thông tin
+  - điền nhầm
+  - chỉnh sửa hồ sơ
+  bot: ✏️ Nếu đã nộp hồ sơ nhưng phát hiện sai, hãy **gửi yêu cầu chỉnh sửa** trên
+    cổng dịch vụ hoặc **rút hồ sơ** và nộp lại bản đúng.
+- step: đổi số điện thoại/ email nhận thông báo
+  trigger:
+  - đổi số điện thoại
+  - đổi email
+  - không nhận được thông báo
+  bot: 📧 Vào phần **Thông tin tài khoản** trên cổng dịch vụ để **cập nhật số điện
+    thoại/ email** rồi lưu lại; đảm bảo nhận đầy đủ thông báo.
+- step: tạm trú ký túc xá/ nhà ở tập thể
+  trigger:
+  - ký túc xá
+  - nhà ở tập thể
+  - khu công nhân
+  bot: 🏫 Với ký túc xá/ nhà ở tập thể, đơn vị quản lý thường **phối hợp đăng ký/ khai
+    báo**. Bạn liên hệ **ban quản lý** để được hướng dẫn hồ sơ cụ thể.
+- step: đăng ký tạm trú khi tạm vắng
+  trigger:
+  - tạm vắng
+  - đăng ký tạm trú khi tạm vắng
+  bot: 📍 Tạm trú và tạm vắng là **thủ tục khác nhau**. Bạn có thể vừa khai báo **tạm
+    vắng** nơi thường trú và **đăng ký tạm trú** nơi đang ở (nếu đáp ứng điều kiện).
+- step: địa chỉ không số/ không tên đường
+  trigger:
+  - không số nhà
+  - không tên đường
+  - địa chỉ đặc thù
+  bot: 🗺️ Hãy mô tả **địa điểm cụ thể** (mốc, hẻm, ảnh mặt tiền nếu có) và đính kèm
+    **giấy tờ chứng minh** chỗ ở; liên hệ công an địa phương để được hướng dẫn chuẩn
+    hóa địa chỉ.
+- step: chuyển từ tạm trú sang thường trú
+  trigger:
+  - có nên thường trú
+  - đủ điều kiện thường trú
+  - đăng ký thường trú
+  bot: 🏡 Nếu bạn đã đủ điều kiện **thường trú**, nên làm thủ tục thường trú để **ổn
+    định lâu dài**. Nếu **chưa đủ điều kiện**, tiếp tục **tạm trú** và hoàn thiện
+    điều kiện sau.

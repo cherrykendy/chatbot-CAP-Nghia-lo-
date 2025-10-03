@@ -1,0 +1,91 @@
+id: xac_nhan_cu_tru_v4
+version: "4.1"
+effective_date: "2025-10-01"
+intent: xac_nhan_thong_tin_cu_tru
+scope: "Áp dụng cho công dân Việt Nam"
+
+synonyms:
+  - "xác nhận cư trú"
+  - "xác nhận thông tin cư trú"
+  - "giấy xác nhận cư trú"
+  - "xin giấy xác nhận ở địa phương"
+  - "giấy tờ thay sổ hộ khẩu"
+  - "sổ hộ khẩu"
+  - "mất sổ hộ khẩu"
+  - "công an phường thu sổ hộ khẩu"
+  - "VNeID"
+  - "tài khoản VNeID"
+  - "quên mật khẩu VNeID"
+
+variables:
+  mau_to_khai: "CT01 (theo TT 53/2025 của Bộ Công an)"
+  link_dvc: "https://dichvucong.bocongan.gov.vn/bocongan/bothutuc/tthc?matt=26497"
+  link_video: "https://youtu.be/gxGrj8tb3TA?si=grX9YMh_FfG5xw5K"
+
+# Hỏi NGẮN GỌN trước – slot cốt lõi
+slots:
+  - name: da_co_vneid
+    question: "Cho hỏi hiện nay anh/chị đã có tài khoản định danh mức 2 chưa (đã có tài khoản ứng dụng VNeID chưa)?"
+    required: true
+    type: boolean
+
+# FAQ trúng ý thì trả lời ngắn gọn
+faq:
+  - question_patterns:
+      - "sổ hộ khẩu"
+      - "công an phường thu sổ hộ khẩu"
+      - "mất sổ hộ khẩu giấy"
+    answer: |
+      📌 Từ 01/01/2023, **sổ hộ khẩu giấy đã hết hiệu lực** theo Luật Cư trú.
+      👉 Thông tin cư trú được hiển thị trong **VNeID** (mục “Thông tin cư trú”).
+      - Nếu cần **bản giấy**: thực hiện **xác nhận cư trú trực tuyến** bằng tờ khai CT01; sau khi nộp, Công an phường cấp **giấy xác nhận** có dấu đỏ.
+    # image: "/assets/vneid_thong_tin_cu_tru.png"
+
+  - question_patterns:
+      - "VNeID là gì"
+      - "tài khoản VNeID"
+      - "không biết VNeID"
+    answer: |
+      📱 **VNeID** là ứng dụng định danh điện tử quốc gia của Bộ Công an.
+      👉 Dùng để đăng nhập làm thủ tục trực tuyến; mục **“Thông tin cư trú”** thay cho sổ hộ khẩu giấy.
+    # image: "/assets/vneid_icon.png"
+
+  - question_patterns:
+      - "quên mật khẩu VNeID"
+      - "lấy lại mật khẩu VNeID"
+    answer: |
+      🔑 Lấy lại mật khẩu:
+      1) Mở app **VNeID** → bấm **“Quên mật khẩu”** (chữ đỏ dưới nút **“Đăng nhập”**).
+      2) Chọn **“Nhập thông tin xác thực”**, nhập **CCCD 12 số** + **SĐT** đã đăng ký.
+      3) Nhập **OTP 6 số** gửi về SMS → đặt **mật khẩu mới** (>=8 ký tự, mạnh).
+         *Gợi ý cấu trúc tham khảo:* `Vietnam@1234` *(không dùng y hệt ở nhiều nơi)*.
+    security_notes: |
+      - **Không chia sẻ OTP** cho bất kỳ ai.
+      - Có thể ghi mật khẩu ra giấy (cất an toàn) hoặc dùng password manager.
+    images: []
+    # images:
+    #   - "/assets/vneid_login_quen_mk.png"
+    #   - "/assets/vneid_nhap_otp.png"
+
+# Trả lời NGẮN + điều kiện
+final_response: |
+  {% if da_co_vneid == true %}
+    👉 Anh/chị có thể nộp **xác nhận cư trú trực tuyến** bằng tờ khai {{mau_to_khai}} tại:
+    {{link_dvc}}  (Video: {{link_video}})
+  {% else %}
+    👉 Trước tiên cần **tài khoản VNeID mức 2**. Vui lòng đăng ký/nâng cấp trên app VNeID và xác thực tại Công an cấp xã/phường, rồi quay lại nộp online.
+  {% endif %}
+
+responses:
+  summary: "Xác nhận cư trú – hỏi ngắn, hướng dẫn theo tình trạng VNeID."
+  hosos:
+    - "Tờ khai {{mau_to_khai}} (điền đầy đủ thông tin)"
+  place: "Nộp trực tuyến trên Cổng DVC Bộ Công an"
+  fee: "Theo quy định địa phương (thường miễn phí)"
+  time_limit: "Theo quy trình xử lý trực tuyến"
+
+fallback:
+  answer: |
+    Hiện chưa có thông tin trong kịch bản.
+    👉 Vui lòng liên hệ **Công an phường Nghĩa Lộ, tỉnh Quảng Ngãi**
+    📍 210 Hùng Vương, phường Nghĩa Lộ, tỉnh Quảng Ngãi

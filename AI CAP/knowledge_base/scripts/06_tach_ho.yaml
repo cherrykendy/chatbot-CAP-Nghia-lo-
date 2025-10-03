@@ -1,0 +1,99 @@
+metadata:
+  id: tach_ho_nghia_lo.v2
+  version: "1.1"
+  effective_date: "2025-10-02"
+  scope: Kịch bản hướng dẫn thủ tục Tách hộ cho Chatbot Công an phường Nghĩa Lộ. Chỉ hướng dẫn nộp trực tuyến qua Cổng dịch vụ công Bộ Công an.
+  locale: vi-VN
+
+intents:
+  - id: tach_ho
+    synonyms:
+      - tách hộ
+      - tách hộ khẩu
+      - tách sổ hộ khẩu
+      - tách sổ hộ khẩu riêng
+      - lập hộ mới
+      - muốn tách hộ
+      - xin tách hộ
+      - làm thủ tục tách hộ
+      - hướng dẫn tách hộ
+      - chia hộ
+      - tách khẩu
+      - tách hộ online
+      - đăng ký tách hộ
+      - chuyển ra hộ riêng
+      - tách ra hộ riêng
+
+nlu:
+  slots:
+    - ten: noi_o_khong_cam_dang_ky
+      kieu: boolean
+      bat_buoc: true
+      cau_hoi: "Trước tiên, xin xác nhận: nơi ở của anh/chị **không thuộc diện cấm đăng ký thường trú mới** (nhà tranh chấp, khu vực có quyết định thu hồi/giải tỏa, khu vực cấm xây dựng...), đúng không ạ?"
+      lua_chon:
+        - "Đúng, không thuộc diện cấm"
+        - "Không, thuộc diện cấm"
+      map_gia_tri:
+        "Đúng, không thuộc diện cấm": true
+        "Không, thuộc diện cấm": false
+
+    - ten: truong_hop_tach_ho
+      kieu: enum
+      bat_buoc: true
+      gia_tri_hop_le:
+        - thong_thuong
+        - sau_ly_hon
+      cau_hoi: "Để tư vấn chính xác hồ sơ, xin anh/chị cho biết mình thuộc **nhóm trường hợp** nào dưới đây:"
+      lua_chon:
+        - "① Tách hộ **thông thường** (đủ 18 tuổi, có đồng ý của **chủ hộ** và **chủ sở hữu chỗ ở**)"
+        - "② Tách hộ **sau ly hôn** (không cần đồng ý của chủ hộ, **cần** giấy tờ ly hôn và quyền sử dụng chỗ ở)"
+      map_gia_tri:
+        "① Tách hộ **thông thường** (đủ 18 tuổi, có đồng ý của **chủ hộ** và **chủ sở hữu chỗ ở**)": thong_thuong
+        "② Tách hộ **sau ly hôn** (không cần đồng ý của chủ hộ, **cần** giấy tờ ly hôn và quyền sử dụng chỗ ở)": sau_ly_hon
+
+responses:
+  mo_dau:
+    - "Xin chào 👋 Tôi là Trợ lý ảo **Công an phường Nghĩa Lộ**. Tôi sẽ hướng dẫn anh/chị **thủ tục tách hộ khẩu** trực tuyến."
+
+  dieu_kien_khong_dat:
+    - "⚠️ Rất tiếc, nơi ở của anh/chị thuộc diện cấm đăng ký thường trú mới nên chưa thể thực hiện tách hộ. Vui lòng liên hệ trực tiếp Công an phường để được hỗ trợ."
+
+  thong_thuong:
+    - "👉 **Hồ sơ cần chuẩn bị (Tách hộ thông thường):**\n
+       1) **Tờ khai CT01** – ghi rõ nội dung 'Tách hộ'.\n
+       2) **Ý kiến đồng ý** của Chủ hộ và Chủ sở hữu chỗ ở hợp pháp (ký trên CT01 hoặc văn bản riêng).\n
+       3) **Giấy tờ chứng minh chỗ ở hợp pháp**: sổ đỏ/sổ hồng; hợp đồng mua bán/thuê/mượn có công chứng/chứng thực; hoặc văn bản đồng ý cho ở nhờ (có chữ ký).\n
+       \n💻 **Cách nộp trực tuyến:**\n
+       - Truy cập [Cổng Dịch vụ công Bộ Công an](https://dichvucong.bocongan.gov.vn).\n
+       - Đăng nhập bằng tài khoản VNeID mức 2.\n
+       - Tại ô tìm kiếm, nhập **'Tách hộ'** → bấm **Tìm kiếm**.\n
+       - Chọn thủ tục **Tách hộ** → nhấn **Nộp hồ sơ**.\n
+       - Điền CT01 trực tuyến, tải lên ảnh/chụp giấy tờ chứng minh.\n
+       - Bấm **Gửi hồ sơ** và theo dõi kết quả trên hệ thống.\n
+       \n💰 **Lệ phí:** 5.000đ/lần (giảm 50% khi nộp online). Miễn phí cho: trẻ em <16 tuổi, người ≥60 tuổi, người khuyết tật, người có công, hộ nghèo, đồng bào DTTS vùng khó khăn.\n
+       ⏱ **Thời hạn giải quyết:** 05 ngày làm việc."
+
+  sau_ly_hon:
+    - "👉 **Hồ sơ cần chuẩn bị (Tách hộ sau ly hôn):**\n
+       1) **Tờ khai CT01**.\n
+       2) **Bản án hoặc Quyết định ly hôn** đã có hiệu lực pháp luật.\n
+       3) **Giấy tờ chứng minh quyền tiếp tục sử dụng chỗ ở hợp pháp**: Quyết định phân chia tài sản của Tòa; văn bản thỏa thuận có công chứng; hoặc Giấy chứng nhận quyền sử dụng đất/nhà đứng tên anh/chị.\n
+       \n💻 **Cách nộp trực tuyến:**\n
+       - Truy cập [Cổng Dịch vụ công Bộ Công an](https://dichvucong.bocongan.gov.vn).\n
+       - Đăng nhập bằng tài khoản VNeID mức 2.\n
+       - Tại ô tìm kiếm, nhập **'Tách hộ'** → bấm **Tìm kiếm**.\n
+       - Chọn thủ tục **Tách hộ** → nhấn **Nộp hồ sơ**.\n
+       - Điền CT01 trực tuyến, tải lên ảnh/chụp giấy tờ chứng minh.\n
+       - Bấm **Gửi hồ sơ** và theo dõi kết quả trên hệ thống.\n
+       \n💰 **Lệ phí:** 5.000đ/lần (giảm 50%). Miễn phí cho các đối tượng ưu tiên như trên.\n
+       ⏱ **Thời hạn giải quyết:** 05 ngày làm việc."
+
+faq:
+  - cau_hoi: "Nếu chủ hộ không đồng ý thì sao?"
+    tra_loi: "Theo Luật Cư trú, tách hộ thông thường bắt buộc phải có sự đồng ý của cả Chủ hộ và Chủ sở hữu. Nếu không có, hồ sơ sẽ bị từ chối. Trường hợp sau ly hôn thì không cần sự đồng ý này."
+
+  - cau_hoi: "Người chưa đủ 18 tuổi có tách hộ được không?"
+    tra_loi: "Không. Người tách hộ phải từ đủ 18 tuổi và có năng lực hành vi dân sự. Nếu cha/mẹ tách hộ sau ly hôn, con có thể nhập vào hộ mới cùng cha/mẹ."
+
+  - cau_hoi: "Hồ sơ bị từ chối thì sao?"
+    tra_loi: "Công an sẽ cấp Phiếu từ chối tiếp nhận, giải quyết hồ sơ (Mẫu CT06), nêu rõ lý do. Anh/chị cần bổ sung, hoàn thiện hồ sơ rồi nộp lại."

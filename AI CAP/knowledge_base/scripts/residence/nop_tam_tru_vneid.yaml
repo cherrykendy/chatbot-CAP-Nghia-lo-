@@ -1,0 +1,255 @@
+meta:
+  name: nop_ho_so_truc_tuyen
+  version: 1.1.0
+  description: >
+    Kịch bản nộp hồ sơ cư trú trực tuyến (web DVC BCA & app VNeID). Tổ chức dạng module
+    để import/tích hợp vào kịch bản lớn khác. Đã bổ sung quy trình chi tiết tạm trú trên app VNeID.
+
+intents:
+  - nộp hồ sơ trực tuyến
+  - nộp hồ sơ online
+  - đăng ký cư trú online
+  - làm thủ tục cư trú trên web
+  - làm thủ tục trên app vneid
+  - nộp tạm trú online
+  - nộp thường trú online
+  - chi tiết vneid tạm trú
+
+entities:
+  - kenh_nop: [web, app]
+  - loai_ho_so: [thường trú, tạm trú]
+  - dia_ban: [Công an phường Nghĩa Lộ, tỉnh Quảng Ngãi]
+  - thoi_gian_cu_tru_ngay: number
+  - co_hop_dong_thue: [có, không]
+  - hop_dong_trong_30_ngay: [có, không]
+  - ma_ho_so
+
+slots:
+  kenh_nop: null
+  loai_ho_so: null
+  thoi_gian_cu_tru_ngay: null
+  co_hop_dong_thue: null
+  hop_dong_trong_30_ngay: null
+  ma_ho_so: null
+
+script:
+- step: chao_hoi
+  trigger:
+    - nộp hồ sơ trực tuyến
+    - nộp hồ sơ online
+    - đăng ký cư trú online
+    - làm thủ tục cư trú trên web
+    - làm thủ tục trên app vneid
+    - nộp tạm trú online
+    - nộp thường trú online
+  bot: |
+    👋 Mình hướng dẫn bạn **nộp hồ sơ cư trú trực tuyến** theo 2 kênh:
+    1) **Web Dịch vụ công Bộ Công an** (máy tính/điện thoại có trình duyệt)
+    2) **Ứng dụng VNeID** (điện thoại)
+    Bạn muốn nộp qua **web** hay **app**? (gõ: web/app)
+
+- step: nhan_kenh_nop
+  trigger:
+    - web
+    - app
+  action:
+    set_slot:
+      kenh_nop: $last_utterance
+  bot: |
+    ✅ Kênh nộp: **{kenh_nop}**. Bạn làm hồ sơ **thường trú** hay **tạm trú**?
+
+- step: chon_loai_ho_so
+  trigger:
+    - thường trú
+    - thuong tru
+    - tạm trú
+    - tam tru
+  action:
+    set_slot:
+      loai_ho_so: $normalized_last_utterance
+  bot: |
+    ✅ Loại hồ sơ: **{loai_ho_so}**.
+    Trước khi nộp, mình kiểm tra nhanh **điều kiện & hồ sơ** để bạn khỏi bị trả lại nhé.
+
+- step: kiem_tra_dieu_kien_co_ban
+  when: "{loai_ho_so} == 'tạm trú'"
+  bot: |
+    🔎 **Điều kiện tạm trú (tóm tắt):**
+    - Ở thực tế tại địa chỉ xin tạm trú.
+    - Thời gian cư trú từ **30 ngày trở lên** phải đăng ký.
+    - Có sự đồng ý của chủ hộ/chủ cơ sở lưu trú (nếu cần).
+    📄 **Hồ sơ cơ bản:**
+    - Tờ khai điện tử tạm trú (trên web/app).
+    - (Nếu là nhà thuê) **Hợp đồng thuê** hoặc giấy tờ chứng minh chỗ ở hợp pháp.
+    - Giấy tờ nhân thân (trên VNeID mức 2 là tốt nhất).
+    ⚠️ **Lưu ý:** Hợp đồng thuê **nên còn hiệu lực và ký trong vòng 30 ngày** tính tới ngày nộp để tránh bị yêu cầu giải trình.
+
+- step: kiem_tra_dieu_kien_co_ban_tt
+  when: "{loai_ho_so} == 'thường trú'"
+  bot: |
+    🔎 **Điều kiện thường trú (tóm tắt):** phụ thuộc từng trường hợp (có chỗ ở hợp pháp; nhập hộ khẩu vợ/chồng/cha/mẹ/con; nhà ở mua/được tặng cho; v.v.).
+    📄 **Hồ sơ cơ bản:**
+    - Tờ khai điện tử thường trú (trên web/app).
+    - Giấy tờ chỗ ở hợp pháp hoặc văn bản đồng ý của chủ hộ (nếu nhập hộ).
+    - Giấy tờ chứng minh quan hệ (nếu có).
+    👉 Nếu cần, bạn nói tình huống cụ thể để mình kiểm tra chi tiết điều kiện.
+
+- step: hoi_hop_dong_thue
+  when: "{loai_ho_so} == 'tạm trú'"
+  bot: |
+    Bạn **có hợp đồng thuê nhà** không? (gõ: có/không)
+
+- step: nhan_hop_dong_thue
+  trigger:
+    - có
+    - co
+    - không
+    - khong
+  action:
+    set_slot:
+      co_hop_dong_thue: $normalized_last_utterance
+  bot: |
+    Ghi nhận: **{co_hop_dong_thue} hợp đồng thuê**.
+    Nếu có, hợp đồng có được ký **trong vòng 30 ngày** tính tới ngày nộp không? (gõ: có/không)
+
+- step: nhan_thong_tin_30_ngay
+  trigger:
+    - có
+    - co
+    - không
+    - khong
+  action:
+    set_slot:
+      hop_dong_trong_30_ngay: $normalized_last_utterance
+  bot: |
+    ✅ Cảm ơn bạn.
+    Tiếp theo, mình hướng dẫn chi tiết theo **kênh nộp {kenh_nop}**.
+
+- step: huong_dan_web
+  when: "{kenh_nop} == 'web'"
+  bot: |
+    🌐 **Nộp qua Web Dịch vụ công Bộ Công an**
+    1) Đăng nhập/đăng ký tài khoản (ưu tiên tài khoản **VNeID mức 2**).
+    2) Vào mục **Cư trú** → chọn **{loai_ho_so}**.
+    3) **Chọn địa bàn** tiếp nhận: **Công an phường Nghĩa Lộ, tỉnh Quảng Ngãi**.
+    4) Điền **tờ khai điện tử**, đính kèm hồ sơ:
+       - Hợp đồng thuê (nếu có; nên ký trong 30 ngày gần đây).
+       - Giấy tờ chứng minh chỗ ở/quan hệ (nếu thường trú).
+    5) Xác nhận thông tin, nộp hồ sơ, nhận **mã hồ sơ** để tra cứu.
+    6) Theo dõi kết quả, bổ sung (nếu được yêu cầu), nhận thông báo.
+
+- step: huong_dan_app
+  when: "{kenh_nop} == 'app'"
+  bot: |
+    📱 **Nộp qua ứng dụng VNeID**
+    1) Mở app VNeID → đăng nhập **mức 2**.
+    2) Vào **Dịch vụ công** → **Cư trú** → chọn **{loai_ho_so}**.
+    3) **Chọn nơi tiếp nhận**: **Công an phường Nghĩa Lộ, tỉnh Quảng Ngãi**.
+    4) Điền tờ khai, **scan/đính kèm** tài liệu (hợp đồng thuê, giấy tờ liên quan).
+    5) Gửi hồ sơ và lưu **mã hồ sơ** để tra cứu.
+
+- step: huong_dan_app_tam_tru_chi_tiet
+  when: "{kenh_nop} == 'app' and {loai_ho_so} == 'tạm trú'"
+  bot: |
+    📱 **Quy trình chi tiết nộp tạm trú trên VNeID (điện thoại)**
+    **Phạm vi:** Công dân có thể đăng ký tạm trú cho **bản thân** hoặc **khai hộ** người khác; tra cứu tình trạng xử lý hồ sơ; xem và tải **bản điện tử** khi có kết quả.
+
+    **Bước 1.** Đăng nhập VNeID → màn hình trang chủ (tài khoản **mức 2**) → nhấn **"Thủ tục hành chính"**.
+    **Bước 2.** Nhấn **"Đăng ký tạm trú"**.
+    **Bước 3.** Xác thực **passcode** (mã PIN 6 số, vân tay/khuôn mặt tùy thiết bị).
+       - Nếu **quên mã PIN**, xem mục hướng dẫn “quên mã PIN” trong kịch bản **01_vneid.yaml** (đường dẫn nội bộ: `C:\Users\VTTH\Desktop\chí việt\AI CAP\knowledge_base\scripts`).
+    **Bước 4.** Nhấn **"Tạo mới yêu cầu"**.
+    **Bước 5.** **Chọn đối tượng đăng ký:**
+       - **"Bản thân"** để đăng ký cho chính mình.
+       - **"Khai hộ"** để đăng ký cho người khác.
+    **Bước 6.** (Nếu **khai hộ**) Nhập đầy đủ thông tin của **người đề nghị đăng ký tạm trú** → nhấn **"Tiếp tục"**.
+       - Có thể nhấn biểu tượng **quét mã** (góc trên cùng bên phải) để **quét QR thẻ CCCD gắn chip**; hệ thống tự động điền thông tin người đề nghị.
+    **Bước 7.1.** (Nếu **bản thân**) **Kiểm tra thông tin đăng ký tạm trú** → nhập đầy đủ, hợp lệ các trường theo yêu cầu → nhấn **"Kiểm tra"**.
+       - Lưu ý 1: Nếu cần **xác nhận đồng ý** của **Chủ hộ/Chủ sở hữu chỗ ở hợp pháp** và **Cha/Mẹ/Người giám hộ** (đối với người chưa thành niên), các chủ thể này cần có **tài khoản VNeID mức 2** đang hoạt động để thực hiện xác nhận.
+       - Lưu ý 2: Nếu công dân **chưa đủ 18 tuổi** hoặc **hạn chế năng lực hành vi dân sự**, cần khai thêm thông tin **Cha/Mẹ/Người giám hộ**.
+    **Bước 7.2.** (Nếu **khai hộ**) **Kiểm tra thông tin đăng ký tạm trú** → nhập đầy đủ các trường → nhấn **"Kiểm tra"**.
+       - Lưu ý tương tự bước 7.1 (xác nhận đồng ý & nhóm chưa thành niên).
+    **Bước 8.** **Nhập thông tin đăng ký tạm trú** → điền đầy đủ các trường → nhấn **"Tiếp tục"**.
+    **Bước 9.1.** **Thêm thành viên cùng thay đổi** → nhấn **"Thêm thành viên"** (hoặc **"Tiếp tục"** để bỏ qua nếu không có).
+    **Bước 9.2.** Nhập thông tin thành viên cùng thay đổi → nhấn **"Lưu"**.
+       - Có thể quét **QR CCCD gắn chip** để tự động điền thông tin.
+       - Lưu ý: Nếu người đề nghị thuộc nhóm **chưa đủ 18 tuổi** hoặc **hạn chế năng lực**, kê khai thêm thông tin **Cha/Mẹ/Người giám hộ**.
+    **Bước 9.3.** Nhấn **"Tiếp tục"**.
+       - Mẹo: Nhấn **"Thêm thành viên"** để đăng ký cho nhiều người; nhấn **mũi tên** để xem chi tiết; nhấn **dấu chéo** để xóa.
+    **Bước 10.** **Xác nhận thông tin hồ sơ**:
+       - (Tùy chọn) **Chọn hình thức nhận kết quả khác**.
+       - **Chọn đối tượng nộp lệ phí**.
+       - **Kiểm tra** lại thông tin đã khai & **phí** cần thanh toán.
+       - Tích chọn **cam đoan** và nhấn **"Gửi hồ sơ"**.
+       - Lưu ý: **"Xóa"** để xóa tệp đính kèm; **"Xem"** để xem ảnh hồ sơ; **"Thêm thành phần hồ sơ khác"** để bổ sung tệp.
+    **Bước 11.** Nhấn **"Thanh toán"** (nếu hồ sơ **có lệ phí**).
+    **Bước 12.** **Xác nhận chia sẻ dữ liệu** → tích chọn đồng ý → nhấn **"Xác nhận chia sẻ dữ liệu"**.
+    **Bước 13.1.** **Thanh toán bằng thẻ nội địa**:
+       - Chọn tab **"Thẻ"** → nhập thông tin theo yêu cầu → nhấn **"Tiếp tục"**.
+       - Ghi chú: chỉ thực hiện được nếu đã đăng ký dịch vụ thanh toán trực tuyến với **Ngân hàng phát hành thẻ/tài khoản**.
+       - Có thể nhấn **"Hủy"** để dừng.
+    **Bước 13.2.** **Thanh toán bằng tài khoản**:
+       - Chọn tab **"Tài khoản"** → chọn ngân hàng → nhập thông tin → **"Tiếp tục"**.
+       - Ghi chú: điều kiện tương tự bước 13.1 (đăng ký dịch vụ online với ngân hàng).
+       - Có thể nhấn **"Hủy"** để dừng.
+    **Bước 13.3.** **Thanh toán bằng mã QR**:
+       - Chọn tab **"Mã QR"**.
+    **Bước 14.1.** (Thẻ/Tài khoản) Nhập **OTP** → nhấn **"Tiếp tục"** (yêu cầu cụ thể tùy ngân hàng).
+    **Bước 14.2.** (Mã QR) Hai cách:
+       - **Cách 1:** Mở app ngân hàng trên **thiết bị khác** để quét mã QR.
+       - **Cách 2:** **Chụp màn hình** mã QR → mở app ngân hàng → thanh toán bằng QR và **chọn hình ảnh** đã lưu để quét.
+    **Bước 15.** Gửi yêu cầu **thành công** → kết quả sẽ thông báo trên **VNeID**.
+       - Kết quả kèm **bản điện tử** sẽ cập nhật trong ứng dụng.
+       - Nếu chọn **xác nhận đồng ý qua VNeID**, hệ thống gửi yêu cầu đến tài khoản của **Chủ hộ/Chủ sở hữu chỗ ở hợp pháp** và **Cha/Mẹ/Người giám hộ** (đối với người **<18 tuổi**).
+       - **Thời hạn xác nhận tối đa 7 ngày** tính từ ngày nộp; quá hạn không xác nhận → **hồ sơ bị từ chối**.
+    **Bước 16.** Khi hồ sơ **đã xử lý xong**:
+       - Mở hồ sơ để **xem chi tiết**.
+       - Nhấn **"Xem bản điện tử"** để xem **phiếu trả kết quả**.
+       - Nhấn **"Tải xuống"** để lưu về thiết bị.
+
+- step: canh_bao_vi_pham
+  when: "{loai_ho_so} == 'tạm trú' and {thoi_gian_cu_tru_ngay} != null"
+  bot: |
+    ⏱️ Bạn đang khai thời gian cư trú **{thoi_gian_cu_tru_ngay} ngày**.
+    - Nếu **≥ 30 ngày** mà **chưa đăng ký**, có thể bị xử phạt.
+    - Bạn đang tiến hành nộp, nên chủ động nộp sớm để hạn chế rủi ro.
+
+- step: phi_le_phi
+  bot: |
+    💰 **Lệ phí**: tùy địa phương/trường hợp. Ở nhiều nơi **miễn lệ phí** cho:
+    - Người có công, thân nhân liệt sĩ; hộ nghèo; người cao tuổi; người khuyết tật; trẻ em; đồng bào dân tộc thiểu số ở vùng đặc biệt khó khăn; v.v.
+    👉 Khi nộp trực tuyến, hệ thống sẽ hiển thị mức phí (nếu có) và phương thức thanh toán.
+
+- step: nhac_kheo_chat_luong_ho_so
+  bot: |
+    📝 **Mẹo tránh bị trả hồ sơ:**
+    - Ảnh chụp/scan rõ nét, đủ 4 góc, dung lượng < 5MB/tệp (nếu hệ thống yêu cầu).
+    - Thông tin địa chỉ trùng khớp với **Công an phường Nghĩa Lộ, tỉnh Quảng Ngãi**.
+    - Ghi rõ số phòng, số nhà, tổ, khối, đường… nếu là nhà thuê/trọ.
+    - Kiểm tra chính tả họ tên, số định danh, ngày tháng.
+
+- step: tra_cuu_tinh_trang
+  bot: |
+    🔍 **Tra cứu hồ sơ**: dùng **mã hồ sơ** hoặc vào mục **Hồ sơ của tôi** trên web/app.
+    ⏳ Thời hạn giải quyết tùy loại hồ sơ và thực tế xác minh tại địa bàn.
+
+- step: ho_tro_bo_sung
+  bot: |
+    Bạn cần mình **tạo checklist hồ sơ** theo tình huống cụ thể (ví dụ: nhập hộ với vợ/chồng, thuê trọ…) không?
+    Hoặc bạn cung cấp:
+    - Loại hồ sơ (thường trú/tạm trú)
+    - Tình huống (nhập hộ/nhà thuê/mua nhà…)
+    - Thời gian cư trú dự kiến (ngày)
+    Mình sẽ xuất **checklist + luồng thao tác** chi tiết cho bạn.
+
+- step: handoff
+  trigger:
+    - gặp người thật
+    - hỗ trợ trực tiếp
+  bot: |
+    📞 Bạn có thể liên hệ **Công an phường Nghĩa Lộ, tỉnh Quảng Ngãi** để được hỗ trợ trực tiếp.
+    Mình vẫn có thể soạn trước bộ hồ sơ theo yêu cầu để bạn mang lên làm nhanh hơn.
+
+fallbacks:
+  - pattern: .*
+    reply: "Mình chưa rõ ý bạn. Bạn muốn nộp qua **web** hay **app** và là **thường trú** hay **tạm trú**?"
