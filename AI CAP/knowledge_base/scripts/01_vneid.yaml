@@ -422,10 +422,37 @@ intents:
     final_response:
       - type: text
         content: |
-          “Chứng thư chữ ký số” cho phép bạn ký các tài liệu, giao dịch trực tuyến có giá trị pháp lý tương đương chữ ký tay.
-          - **Cách dùng:** Vào VNeID → Dịch vụ khác → Chữ ký số → Làm theo hướng dẫn.
-          - **Lưu ý:** Tính năng này đang được triển khai theo giai đoạn. Nếu chưa thấy, vui lòng chờ các bản cập nhật tiếp theo.
+        Chào bạn, để đăng ký chứng thư chữ ký số miễn phí trên ứng dụng VNeID, bạn có thể làm theo 4 bước đơn giản sau đây. ✍️
 
+      **Lưu ý:** Tính năng này có thể đang được triển khai theo giai đoạn. Nếu bạn chưa thấy mục "Chứng thư chữ ký số", vui lòng chờ các bản cập nhật tiếp theo của ứng dụng.
+      ---
+      ### **Hướng dẫn 4 bước đăng ký chữ ký số trên VNeID**
+
+      * **Bước 1: Truy cập dịch vụ**
+          - Tại màn hình chính của VNeID, bạn chọn mục **"Dịch vụ khác"**.
+          - Tiếp theo, tìm và chọn **"Chứng thư chữ ký số"**.
+          *Ảnh minh họa Bước 1:*
+          [https://link-den-anh-minh-hoa-buoc-1.jpg]
+
+      * **Bước 2: Bắt đầu đăng ký**
+          - Trong giao diện mới hiện ra, hãy nhấn vào **"Đăng ký chứng thư chữ ký số"** để bắt đầu.
+          *Ảnh minh họa Bước 2:*
+          [https://link-den-anh-minh-hoa-buoc-2.jpg]
+
+      * **Bước 3: Chọn nhà cung cấp và đồng ý điều khoản**
+          - Lựa chọn nhà cung cấp dịch vụ chứng thực chữ ký số (ví dụ trong ảnh là **VNPT SmartCA**).
+          - Bạn cần đọc và tick vào ô "Tôi đồng ý với **Điều khoản sử dụng dịch vụ** và **Chính sách quyền riêng tư**..." rồi nhấn **"Tiếp tục"**.
+          *Ảnh minh họa Bước 3:*
+          [https://link-den-anh-minh-hoa-buoc-3.jpg]
+
+      * **Bước 4: Xác nhận thông tin và hoàn tất**
+          - Kiểm tra lại các thông tin cá nhân của bạn sẽ được chia sẻ.
+          - Tick vào ô đồng ý với các điều khoản về chia sẻ dữ liệu rồi nhấn **"Xác nhận"**.
+          - Hệ thống sẽ hiển thị thông báo "Tạo yêu cầu thành công" và tự động chuyển hướng bạn đến trang của nhà cung cấp dịch vụ để hoàn tất đăng ký.
+          *Ảnh minh họa Bước 4:*
+          [https://link-den-anh-minh-hoa-buoc-4.jpg]
+
+      Sau khi hoàn tất, chữ ký số của bạn sẽ có giá trị pháp lý tương đương với chữ ký tay khi thực hiện các giao dịch điện tử.
   # ========= 15) THÔNG TIN TRUY NÃ =========
   - id: vneid_thongtin_truyna
     intent: vneid_thongtin_truyna
@@ -454,3 +481,4 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
