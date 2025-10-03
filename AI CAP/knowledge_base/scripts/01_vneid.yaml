@@ -449,7 +449,27 @@ intents:
             - type: image
               url: "https://link-den-file-04-so-suc-khoe-dien-tu.png"
               alt_text: "Màn hình hiển thị thông tin Sổ sức khỏe điện tử"
+              
+# ========= 12.1) GIẤY HẸN KHÁM LẠI (CẬP NHẬT) =========
+  - id: giay_hen_kham_lai
+    intent: giay_hen_kham_lai
+    synonyms: ["giấy hẹn khám lại", "xem lịch tái khám", "lịch hẹn khám bệnh", "giấy hẹn vneid"]
+    final_response:
+      - type: image
+        url: "https://link-den-file-giay-hen-kham-lai.jpg"
+        alt_text: "Hướng dẫn xem Giấy hẹn khám lại trên VNeID"
+      - type: text
+        content: |
+          Chào bạn, để xem **Giấy hẹn khám lại** trên VNeID, bạn vui lòng làm theo các bước sau:
 
+          **Bước 1:** Tại màn hình chính, chọn mục **"Hồ sơ sức khỏe"**.
+
+          **Bước 2:** Trong các tiện ích hiện ra, chọn **"Giấy hẹn khám lại"**.
+
+          **Bước 3:** Nhập **passcode** (mã PIN gồm 6 số) để xác thực bảo mật.
+
+          **Bước 4:** Xem thông tin chi tiết lịch hẹn. Bạn có thể bấm **"Cập nhật dữ liệu"** để làm mới thông tin từ bệnh viện.
+          
   # ========= 13) LỖI XÁC THỰC KHUÔN MẶT =========
   - id: vneid_xacthuc_khuonmat_thatbai
     intent: vneid_xacthuc_khuonmat_thatbai
@@ -530,5 +550,6 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
 
