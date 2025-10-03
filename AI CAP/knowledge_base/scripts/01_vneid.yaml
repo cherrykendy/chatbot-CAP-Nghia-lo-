@@ -394,12 +394,61 @@ intents:
         alt_text: "Logo VNeID chính thức"
 
   # ========= 12) SỔ SỨC KHỎE ĐIỆN TỬ =========
-  - id: so_suc_khoe
-    intent: so_suc_khoe
-    synonyms: ["sổ sức khỏe điện tử", "thông tin sức khỏe"]
-    final_response:
-      - type: text
-        content: "🩺 **Sổ sức khỏe điện tử** trong VNeID hiển thị thông tin khám chữa bệnh, lịch sử tiêm chủng, bệnh án (nếu đã được cập nhật), giúp bạn theo dõi sức khỏe và thay thế sổ giấy."
+- id: so_suc_khoe
+  intent: so_suc_khoe
+  synonyms: ["sổ sức khỏe điện tử", "thông tin sức khỏe", "xem bệnh án", "lịch sử khám bệnh"]
+  guided_flows:
+    - id: huong_dan_xem_sskdt
+      entry_patterns: ["xem sổ sức khỏe", "sổ sức khỏe điện tử"]
+      confirm_keywords: ["xong", "ok", "tiếp", "rồi"]
+      cancel_keywords: ["dừng", "hủy", "thoát"]
+      steps:
+        - id: b1_chon_hssk
+          response:
+            - type: text
+              content: |
+                Để xem Sổ sức khỏe điện tử, bạn làm theo các bước sau nhé.
+                
+                **Bước 1:** Tại màn hình chính VNeID, chọn mục **"Hồ sơ sức khỏe"**.
+            - type: image
+              url: "https://link-den-file-01-so-suc-khoe-dien-tu.png"
+              alt_text: "Chọn mục Hồ sơ sức khỏe trên màn hình chính"
+          actions:
+            - type: quick_reply
+              title: "Đã xong"
+              payload: "sskdt_xac_nhan_buoc_1"
+        - id: b2_chon_sskdt
+          response:
+            - type: text
+              content: '**Bước 2:** Tiếp tục chọn **"Sổ sức khỏe điện tử"**.'
+            - type: image
+              url: "https://link-den-file-02-so-suc-khoe-dien-tu.png"
+              alt_text: "Chọn Sổ sức khỏe điện tử"
+          actions:
+            - type: quick_reply
+              title: "Tiếp tục"
+              payload: "sskdt_xac_nhan_buoc_2"
+        - id: b3_nhap_passcode
+          response:
+            - type: text
+              content: "**Bước 3:** Nhập **passcode** (mã PIN gồm 6 số) của bạn để xác thực bảo mật."
+            - type: image
+              url: "https://link-den-file-03-so-suc-khoe-dien-tu.png"
+              alt_text: "Nhập passcode 6 số để xác thực"
+          actions:
+            - type: quick_reply
+              title: "Tiếp tục"
+              payload: "sskdt_xac_nhan_buoc_3"
+        - id: b4_xem_thong_tin
+          response:
+            - type: text
+              content: |
+                **Bước 4:** Hoàn tất! Giờ bạn có thể xem lịch sử khám chữa bệnh của mình.
+                
+                🩺 **Lưu ý:** Dữ liệu được đồng bộ từ Cổng bảo hiểm xã hội. Nếu chưa thấy thông tin, bạn có thể bấm **"Cập nhật dữ liệu"** hoặc kiểm tra lại sau.
+            - type: image
+              url: "https://link-den-file-04-so-suc-khoe-dien-tu.png"
+              alt_text: "Màn hình hiển thị thông tin Sổ sức khỏe điện tử"
 
   # ========= 13) LỖI XÁC THỰC KHUÔN MẶT =========
   - id: vneid_xacthuc_khuonmat_thatbai
@@ -481,4 +530,5 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
