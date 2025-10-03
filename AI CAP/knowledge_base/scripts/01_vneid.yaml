@@ -469,6 +469,25 @@ intents:
           **Bước 3:** Nhập **passcode** (mã PIN gồm 6 số) để xác thực bảo mật.
 
           **Bước 4:** Xem thông tin chi tiết lịch hẹn. Bạn có thể bấm **"Cập nhật dữ liệu"** để làm mới thông tin từ bệnh viện.
+# ========= 12.2) GIẤY CHUYỂN TUYẾN (THÊM MỚI) =========
+  - id: giay_chuyen_tuyen
+    intent: giay_chuyen_tuyen
+    synonyms: ["giấy chuyển tuyến", "xin chuyển tuyến", "giấy chuyển viện", "chuyển tuyến vneid"]
+    final_response:
+      - type: image
+        url: "https://link-den-file-giay-chuyen-tuyen.jpg"
+        alt_text: "Hướng dẫn xem Giấy chuyển tuyến trên VNeID"
+      - type: text
+        content: |
+          Chào bạn, để xem **Giấy chuyển tuyến** trên ứng dụng VNeID, bạn hãy làm theo hướng dẫn sau:
+
+          **Bước 1:** Từ màn hình chính, truy cập mục **"Hồ sơ sức khỏe"**.
+
+          **Bước 2:** Trong danh sách tiện ích, chọn **"Giấy chuyển tuyến"**.
+
+          **Bước 3:** Nhập **passcode** (mã PIN gồm 6 số) để xác thực và xem thông tin.
+
+          **Bước 4:** Chi tiết giấy chuyển tuyến của bạn sẽ được hiển thị. Bạn có thể bấm **"Cập nhật dữ liệu"** để làm mới thông tin từ cơ sở y tế.
           
   # ========= 13) LỖI XÁC THỰC KHUÔN MẶT =========
   - id: vneid_xacthuc_khuonmat_thatbai
@@ -550,6 +569,7 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
 
 
