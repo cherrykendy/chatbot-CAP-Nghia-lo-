@@ -1,270 +1,456 @@
-id: vneid_suite_v1
-version: "1.0"
-effective_date: "2025-10-01"
-scope: "Bộ kịch bản VNeID (10 nhóm tính năng + đăng ký mức 2)"
+id: vneid_suite_v2_final
+version: "2.0-final"
+effective_date: "2025-10-03"
+scope: "Bộ kịch bản VNeID hoàn chỉnh, tối ưu đa kênh và trải nghiệm người dùng"
+
+# LƯU Ý KỸ THUẬT:
+# Kịch bản này sử dụng các biến (variables) để quản lý thông tin địa phương.
+# Các biến như {{diadiem_dangky_1}}, {{donvi_cong_an_lienhe}}... sẽ được định nghĩa
+# trong một file cấu hình riêng của nền tảng chatbot để dễ dàng thay đổi.
+# Ví dụ file cấu hình (config.yaml):
+# diadiem_dangky_1: "160 Phan Bội Châu, phường Nghĩa Lộ, Quảng Ngãi"
+# diadiem_dangky_2: "96 Lê Thánh Tôn, phường Cẩm Thành, Quảng Ngãi"
+# donvi_cong_an_lienhe: "Công an phường Nghĩa Lộ, thành phố Quảng Ngãi"
+# diachi_cong_an_lienhe: "210 Hùng Vương, phường Nghĩa Lộ, TP. Quảng Ngãi"
 
 intents:
 
-  # ========= 1) CÀI & KÍCH HOẠT =========
+  # ========= 0) LỜI CHÀO & MENU CHÍNH =========
+  - id: chao_hoi_menu
+    intent: chao_hoi_menu
+    synonyms: ["xin chào", "chào bot", "hello", "bắt đầu", "menu", "giúp tôi", "trợ giúp"]
+    final_response:
+      - type: text
+        content: "Chào anh/chị, tôi là Trợ lý ảo VNeID. Tôi có thể hỗ trợ các vấn đề sau:"
+      - type: text
+        content: "Vui lòng chọn một mục hoặc đặt câu hỏi trực tiếp."
+    actions:
+      - type: quick_reply
+        title: "📲 Cài đặt & Kích hoạt"
+        payload: "cai_va_kich_hoat_vneid"
+      - type: quick_reply
+        title: "🔑 Quên mật khẩu"
+        payload: "quen_mat_khau_vneid"
+      - type: quick_reply
+        title: "📝 Đăng ký mức 2"
+        payload: "dang_ky_vneid_muc2"
+
+  # ========= 1) CÀI & KÍCH HOẠT (ĐÃ SỬA LỖI CÚ PHÁP) =========
   - id: cai_va_kich_hoat_vneid
     intent: cai_va_kich_hoat_vneid
     synonyms: ["cài VNeID", "cài đặt VNeID", "kích hoạt VNeID", "tải ứng dụng VNeID"]
     guided_flows:
       - id: huong_dan_cai_kich_hoat
-        entry_patterns: ["cài VNeID", "kích hoạt VNeID", "tải ứng dụng VNeID"]
+        entry_patterns: ["cài VNeID", "kích hoạt VNeID"]
         confirm_keywords: ["xong", "ok", "rồi", "tiếp", "done"]
         cancel_keywords: ["dừng", "hủy", "thoát"]
         steps:
           - id: b1_tai
-            say: "B1) Tải app **VNeID**: iPhone/iPad vào **App Store**, Android vào **CH Play**."
-            confirm: "Xong bước 1 chưa?"
+            response:
+              - type: text
+                content: "B1) Tải app **VNeID**: iPhone/iPad vào **App Store**, Android vào **CH Play**."
+            actions:
+              - type: quick_reply
+                title: "Đã tải xong"
+                payload: "cai_dat_xac_nhan_buoc_1"
           - id: b2_mo
-            say: "B2) Mở app → bấm mũi tên qua màn hình giới thiệu → tới màn hình **BỘ CÔNG AN** → chọn **Kích hoạt tài khoản định danh điện tử**."
-            confirm: "Xong bước 2 chưa?"
+            response:
+              - type: text
+                content: "B2) Mở app → đi qua các màn hình giới thiệu → chọn **Kích hoạt tài khoản định danh điện tử**."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/01-kich-hoat-vneid.png"
+                alt_text: "Màn hình kích hoạt VNeID"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "cai_dat_xac_nhan_buoc_2"
           - id: b3_nhap
-            say: "B3) Nhập **Số định danh (CCCD 12 số)** và **SĐT đăng ký**."
-            confirm: "Xong bước 3 chưa?"
+            response:
+              - type: text
+                content: "B3) Nhập **Số định danh (CCCD 12 số)** và **SĐT đăng ký**."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/02-kich-hoat-vneid.png"
+                alt_text: "Ảnh minh họa"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "cai_dat_xac_nhan_buoc_3"
           - id: b4_otp
-            say: "B4) Nhập **OTP 6 số** được gửi qua SMS để xác thực."
-            confirm: "Xong bước 4 chưa?"
+            response:
+              - type: text
+                content: "B4) Nhập **OTP 6 số** được gửi qua SMS để xác thực."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/03-kich-hoat-vneid.png"
+                alt_text: "Bấm nút 'Xác nhận'"
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/05-nhap-otp-vneid.png"
+                alt_text: "Nhập mã OTP 6 số từ tin nhắn điện thoại"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "cai_dat_xac_nhan_buoc_4"
           - id: b5_mk
-            say: "B5) Đặt **mật khẩu đăng nhập** (>=8 ký tự, gồm chữ hoa, chữ thường, số, ký tự đặc biệt)."
-            confirm: "Xong bước 5 chưa?"
+            response:
+              - type: text
+                content: "B5) Đặt **mật khẩu đăng nhập** (>=8 ký tự, gồm chữ hoa, chữ thường, số, ký tự đặc biệt)."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/06-thiet-lap-mk-vneid.png"
+                alt_text: "Thiết lập mật khẩu"
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/07-thiet-lap-mk-vneid.png"
+                alt_text: "Thông báo đặt mật khẩu thành công, bấm nút 'Đóng'"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "cai_dat_xac_nhan_buoc_5"
           - id: b6_pin
-            say: "B6) Đặt **mã PIN 6 số** (dùng cho tính năng nâng cao)."
-            confirm: "Xong bước 6 chưa?"
+            response:
+              - type: text
+                content: "B6) Đặt **mã PIN 6 số** (dùng cho tính năng nâng cao)."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/08-dat-ma-passcode.png"
+                alt_text: "Đặt mã Pin 6 chữ số"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "cai_dat_xac_nhan_buoc_6"
           - id: b7_cauhoi
-            say: "B7) Chọn **câu hỏi bảo mật** và nhập câu trả lời dễ nhớ."
-            confirm: "Xong bước 7 chưa?"
+            response:
+              - type: text
+                content: "B7) Chọn **câu hỏi bảo mật** và nhập câu trả lời dễ nhớ."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/09-thiet-lap-cau-hoi-bao-mat.png"
+                alt_text: "Chọn câu hỏi bảo mật và trả lời"
+            actions:
+              - type: quick_reply
+                title: "Hoàn tất"
+                payload: "cai_dat_xac_nhan_buoc_7"
           - id: b8_dangnhap
-            say: "B8) Khi báo **kích hoạt thành công**, đăng nhập bằng **Số định danh + Mật khẩu**."
-            confirm: null
+            response:
+              - type: text
+                content: "B8) Khi báo **kích hoạt thành công**, bạn hãy đăng nhập lại bằng **Số định danh + Mật khẩu** để hoàn tất!"
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/10-tb-kich-hoat-thanh-cong.png"
+                alt_text: "Kích hoạt tài khoản thành công"
 
   # ========= 2) ĐĂNG KÝ VNeID MỨC 2 =========
   - id: dang_ky_vneid_muc2
     intent: dang_ky_vneid_muc2
-    synonyms:
-      - "đăng ký VNeID mức 2"
-      - "tạo tài khoản VNeID mức 2"
-      - "làm định danh điện tử"
-      - "định danh tích hợp giấy tờ"
-      - "định danh mức 2"
-      - "định danh để nhận tiền xã hội"
+    synonyms: ["đăng ký VNeID mức 2", "tạo tài khoản VNeID mức 2", "làm định danh điện tử"]
     slots:
       - name: da_dang_ky_lan2
         question: "Anh/chị đã từng đến Công an **chụp ảnh, lăn tay và khai số điện thoại lần 2** chưa?"
         required: true
         type: boolean
-    final_response: |
-      {% if da_dang_ky_lan2 == true %}
-        👉 Anh/chị đã làm **sinh trắc (lần 2)**:
-        - Kiểm tra: đã cài **VNeID** chưa?
-        - Nếu đã cài: mở app → vào **Kích hoạt** để kích hoạt tài khoản **mức 2**.
-        - Nếu chưa cài: tải app **VNeID** (App Store/CH Play) hoặc dùng **máy tính** để kích hoạt.
-        ⏱️ Thời gian cấp tài khoản mức 2: thường **1–3 ngày làm việc** (có trường hợp nhanh, **ngay trong ngày**).
-        ⚠️ Tài khoản chỉ **đi vào hoạt động** sau khi **kích hoạt** trên điện thoại hoặc máy vi tính.
-      {% else %}
-        👉 Anh/chị **chưa làm lần 2**:
-        - Đến **một** trong hai điểm để đăng ký định danh mức 2:
-          1) **160 Phan Bội Châu, phường Nghĩa Lộ, Quảng Ngãi** (trụ sở CA TP Quảng Ngãi cũ)
-          2) **96 Lê Thánh Tôn, phường Cẩm Thành, Quảng Ngãi** (trụ sở CA phường Nghĩa Chánh cũ)
-        - Mang theo: **CCCD gắn chip** và **SIM chính chủ** (đã định danh).
-        ⏱️ Thời gian cấp tài khoản mức 2: thường **1–3 ngày làm việc** (có trường hợp nhanh, **ngay trong ngày**).
-        ⚠️ Sau khi có tài khoản, **bắt buộc kích hoạt** trên điện thoại/máy tính để sử dụng.
-      {% endif %}
-    responses:
-      summary: "Đăng ký VNeID mức 2 – hỏi ngắn, có thời gian xử lý & lưu ý kích hoạt."
-      notes:
-        - "Thời gian cấp tài khoản mức 2: 1–3 ngày làm việc (có thể ngay trong ngày)."
-        - "Muốn sử dụng phải kích hoạt tài khoản mức 2."
-        - "Điều kiện: CCCD gắn chip & SIM chính chủ."
+    final_response:
+      - type: text
+        content: |
+          {% if da_dang_ky_lan2 == true %}
+            👉 Anh/chị đã làm **sinh trắc (lần 2)**:
+            - Kiểm tra: đã cài **VNeID** chưa?
+            - Nếu đã cài: mở app → vào **Kích hoạt** để kích hoạt tài khoản **mức 2**.
+            - Nếu chưa cài: tải app **VNeID** (App Store/CH Play) hoặc dùng **máy tính** để kích hoạt.
+            ⏱️ Thời gian cấp tài khoản mức 2: thường **1–3 ngày làm việc**.
+            ⚠️ Tài khoản chỉ **đi vào hoạt động** sau khi **kích hoạt**.
+          {% else %}
+            👉 Anh/chị **chưa làm lần 2**:
+            - Đến **một** trong hai điểm để đăng ký định danh mức 2:
+              1) **{{diadiem_dangky_1}}**
+              2) **{{diadiem_dangky_2}}**
+            - Mang theo: **CCCD gắn chip** và **SIM chính chủ**.
+            ⏱️ Thời gian cấp tài khoản mức 2: thường **1–3 ngày làm việc**.
+            ⚠️ Sau khi có tài khoản, **bắt buộc kích hoạt** để sử dụng.
+            ![Bản đồ điểm đăng ký](https://your-domain.com/path/to/image/vneid/dang-ky-muc-2/01-ban-do-diem-dang-ky.png)
+          {% endif %}
 
   # ========= 3) QUÊN MẬT KHẨU =========
   - id: quen_mat_khau_vneid
     intent: quen_mat_khau_vneid
-    synonyms:
-      - "quên mật khẩu VNeID"
-      - "lấy lại mật khẩu VNeID"
-    final_response: |
-      🔑 Lấy lại mật khẩu:
-      1) Mở **VNeID** → bấm **“Quên mật khẩu”** (chữ đỏ dưới **“Đăng nhập”**).
-      2) Chọn **“Nhập thông tin xác thực”**, nhập **CCCD 12 số** + **SĐT** đã đăng ký.
-      3) Nhập **OTP 6 số** gửi về SMS → **đặt mật khẩu mới** (mạnh).
-      4) Đăng nhập lại bằng mật khẩu vừa đặt.
-      ⚠️ Không chia sẻ OTP; có thể ghi mật khẩu ra giấy (cất an toàn) hoặc dùng password manager.
-    images: []
-    # images:
-    #   - "/assets/vneid_login_quen_mk.png"
-    #   - "/assets/vneid_nhap_otp.png"
+    synonyms: ["quên mật khẩu VNeID", "lấy lại mật khẩu VNeID"]
+    final_response:
+      - type: text
+        content: |
+          🔑 Lấy lại mật khẩu:
+          1) Mở **VNeID** → bấm **“Quên mật khẩu”** (chữ đỏ dưới **“Đăng nhập”**).
+          2) Chọn **“Nhập thông tin xác thực”**, nhập **CCCD 12 số** + **SĐT** đã đăng ký.
+          3) Nhập **OTP 6 số** gửi về SMS → **đặt mật khẩu mới** (mạnh).
+          4) Đăng nhập lại bằng mật khẩu vừa đặt.
+          ⚠️ Không chia sẻ OTP; có thể ghi mật khẩu ra giấy (cất an toàn).
+      - type: image
+        url: "https://your-domain.com/path/to/image/vneid/quen-mat-khau/01-man-hinh-dang-nhap.png"
+        alt_text: "Nút Quên mật khẩu trên màn hình đăng nhập"
 
   # ========= 4) ĐỔI SỐ ĐIỆN THOẠI =========
   - id: thay_doi_sdt
     intent: thay_doi_sdt
-    synonyms:
-      - "đổi số điện thoại"
-      - "cập nhật số điện thoại VNeID"
-      - "thay đổi số điện thoại trong VNeID"
+    synonyms: ["đổi số điện thoại", "cập nhật số điện thoại VNeID"]
     guided_flows:
       - id: doi_sdt_tren_app
-        entry_patterns: ["đổi số điện thoại", "cập nhật số điện thoại"]
-        confirm_keywords: ["xong", "ok", "rồi", "tiếp"]
+        entry_patterns: ["đổi số điện thoại"]
+        confirm_keywords: ["xong", "ok", "tiếp"]
         cancel_keywords: ["dừng", "hủy"]
         steps:
           - id: b1_mo
-            say: "B1) Mở **VNeID** → vào **Cài đặt** → **Thông tin cá nhân**."
-            confirm: "Xong bước 1 chưa?"
+            response:
+              - type: text
+                content: "B1) Mở **VNeID** → vào **Cài đặt** → **Thông tin cá nhân**."
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "doi_sdt_xac_nhan_buoc_1"
           - id: b2_chon
-            say: "B2) Chọn **Thay đổi số điện thoại**."
-            confirm: "Xong bước 2 chưa?"
+            response:
+              - type: text
+                content: "B2) Chọn **Thay đổi số điện thoại**."
+              - type: image
+                url: "https://your-domain.com/path/to/image/vneid/doi-sdt/01-thay-doi-sdt.png"
+                alt_text: "Mục Thay đổi số điện thoại"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "doi_sdt_xac_nhan_buoc_2"
           - id: b3_nhap
-            say: "B3) Nhập **Số định danh**, **Số điện thoại mới** (SIM chính chủ)."
-            confirm: "Xong bước 3 chưa?"
+            response:
+              - type: text
+                content: "B3) Nhập **Số định danh**, **Số điện thoại mới** (SIM chính chủ)."
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "doi_sdt_xac_nhan_buoc_3"
           - id: b4_otp
-            say: "B4) Nhập **OTP 6 số** gửi về số mới để xác thực."
-            confirm: "Xong bước 4 chưa?"
+            response:
+              - type: text
+                content: "B4) Nhập **OTP 6 số** gửi về số mới để xác thực."
+            actions:
+              - type: quick_reply
+                title: "Hoàn tất"
+                payload: "doi_sdt_xac_nhan_buoc_4"
           - id: b5_xn
-            say: "B5) Xác nhận → cập nhật thành công. Đăng nhập lại bằng số mới (nếu hệ thống yêu cầu)."
-            confirm: null
-    notes:
-      - "Nếu gặp lỗi/không nhận OTP hoặc số chưa định danh → đến cơ quan Công an để hỗ trợ cập nhật."
+            response:
+              - type: text
+                content: "B5) Xác nhận → cập nhật thành công. Bạn có thể cần đăng nhập lại."
 
   # ========= 5) VÍ GIẤY TỜ =========
   - id: vi_giay_to
     intent: vi_giay_to
-    synonyms:
-      - "ví giấy tờ"
-      - "giấy tờ trong VNeID"
-      - "thêm giấy tờ"
+    synonyms: ["ví giấy tờ", "giấy tờ trong VNeID"]
     guided_flows:
       - id: huong_dan_vi_giay_to
-        entry_patterns: ["ví giấy tờ", "thêm giấy tờ", "thêm BHYT", "thêm GPLX", "thêm đăng ký xe"]
+        entry_patterns: ["ví giấy tờ"]
         confirm_keywords: ["xong", "ok", "tiếp"]
-        cancel_keywords: ["dừng", "hủy"]
+        cancel_keywords: ["dừng"]
         steps:
           - id: b1_mo
-            say: "B1) Mở **VNeID** → chọn **Ví giấy tờ**."
-            confirm: "Xong bước 1 chưa?"
+            response:
+              - type: text
+                content: "B1) Mở **VNeID** → chọn **Ví giấy tờ**."
+              - type: image
+                url: "https://your-domain.com/path/to/image/vneid/vi-giay-to/01-giao-dien-chinh.png"
+                alt_text: "Giao diện Ví giấy tờ"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "vi_giay_to_xac_nhan_buoc_1"
           - id: b2_them
-            say: "B2) Bấm **Thêm giấy tờ**."
-            confirm: "Xong bước 2 chưa?"
+            response:
+              - type: text
+                content: "B2) Bấm **Thêm giấy tờ**."
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "vi_giay_to_xac_nhan_buoc_2"
           - id: b3_loai
-            say: "B3) Chọn loại giấy tờ: **CCCD, GPLX, BHYT, BHXH, Đăng ký xe, Người phụ thuộc**."
-            confirm: "Xong bước 3 chưa?"
+            response:
+              - type: text
+                content: "B3) Chọn loại giấy tờ: **CCCD, GPLX, BHYT, Đăng ký xe**..."
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "vi_giay_to_xac_nhan_buoc_3"
           - id: b4_xn
-            say: "B4) Kiểm tra thông tin → xác nhận. Giấy tờ sẽ hiển thị trong Ví giấy tờ."
-            confirm: null
-    notes:
-      - "Nếu dữ liệu chưa đồng bộ, liên hệ cơ quan cấp giấy tờ để cập nhật."
+            response:
+              - type: text
+                content: "B4) Kiểm tra thông tin → xác nhận. Nếu dữ liệu chưa đồng bộ, liên hệ cơ quan cấp giấy tờ để cập nhật."
 
   # ========= 6) TÍCH HỢP THÔNG TIN =========
   - id: tich_hop_thong_tin
     intent: tich_hop_thong_tin
-    synonyms:
-      - "tích hợp thông tin"
-      - "tích hợp BHYT"
-      - "tích hợp GPLX"
-      - "tích hợp đăng ký xe"
-    final_response: |
-      👉 Tích hợp thông tin vào VNeID:
-      - Vào **Ví giấy tờ** → **Thêm giấy tờ** → chọn loại cần tích hợp (BHYT, BHXH, GPLX, đăng ký xe, người phụ thuộc…).
-      - Xác nhận thông tin để hiển thị trong Ví giấy tờ.
-      - Nếu chưa thấy, liên hệ cơ quan cấp để đồng bộ dữ liệu.
+    synonyms: ["tích hợp thông tin", "tích hợp BHYT", "tích hợp GPLX", "tích hợp đăng ký xe"]
+    final_response:
+      - type: text
+        content: |
+          👉 Để tích hợp thông tin vào VNeID:
+          - Vào **Ví giấy tờ** → **Thêm giấy tờ** → chọn loại cần tích hợp (BHYT, BHXH, GPLX, đăng ký xe, người phụ thuộc…).
+          - Xác nhận thông tin để hiển thị trong Ví giấy tờ.
+          - Nếu chưa thấy, liên hệ cơ quan cấp để đồng bộ dữ liệu.
 
   # ========= 7) THÔNG BÁO LƯU TRÚ =========
   - id: thong_bao_luu_tru
     intent: thong_bao_luu_tru
-    synonyms:
-      - "thông báo lưu trú"
-      - "khai báo lưu trú"
-      - "báo lưu trú"
+    synonyms: ["thông báo lưu trú", "khai báo lưu trú", "báo lưu trú"]
     guided_flows:
       - id: huong_dan_luu_tru
-        entry_patterns: ["thông báo lưu trú", "khai báo lưu trú"]
-        confirm_keywords: ["xong", "ok", "tiếp"]
+        entry_patterns: ["thông báo lưu trú"]
+        confirm_keywords: ["tiếp tục", "ok"]
         cancel_keywords: ["dừng"]
         steps:
           - id: b1_dvc
-            say: "B1) Mở **VNeID** → vào **Dịch vụ công**."
-            confirm: "Xong bước 1 chưa?"
+            response:
+              - type: text
+                content: |
+                  ⚠️ **Lưu ý quan trọng:** Trên VNeID, chức năng “Thông báo lưu trú” hiện chỉ dành cho **CƠ SỞ KINH DOANH LƯU TRÚ** (khách sạn, nhà nghỉ...), **chưa áp dụng cho NHÀ Ở** hộ gia đình.
+                  
+                  Nếu anh/chị là chủ cơ sở kinh doanh, vui lòng thực hiện các bước sau:
+                  B1) Mở **VNeID** → vào **Dịch vụ công**.
+            actions:
+              - type: quick_reply
+                title: "Tôi đã rõ, tiếp tục"
+                payload: "luu_tru_xac_nhan_buoc_1"
           - id: b2_chon
-            say: "B2) Chọn **Thông báo lưu trú**."
-            confirm: "Xong bước 2 chưa?"
+            response:
+              - type: text
+                content: "B2) Chọn **Thông báo lưu trú**."
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "luu_tru_xac_nhan_buoc_2"
           - id: b3_nhap
-            say: "B3) Nhập **địa chỉ**, **thời gian lưu trú**, **thông tin chủ hộ/cơ sở**."
-            confirm: "Xong bước 3 chưa?"
+            response:
+              - type: text
+                content: "B3) Nhập **địa chỉ**, **thời gian lưu trú**, và **thông tin người lưu trú**."
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "luu_tru_xac_nhan_buoc_3"
           - id: b4_gui
-            say: "B4) Kiểm tra → bấm **Gửi** để nộp trực tuyến đến Công an địa phương."
-            confirm: null
+            response:
+              - type: text
+                content: "B4) Kiểm tra → bấm **Gửi** để nộp trực tuyến đến Công an địa phương."
 
   # ========= 8) THÔNG TIN CƯ TRÚ =========
   - id: thong_tin_cu_tru
     intent: thong_tin_cu_tru
-    synonyms:
-      - "thông tin cư trú"
-      - "cư trú trong VNeID"
-      - "thay sổ hộ khẩu"
-    final_response: |
-      🏠 Mục **Thông tin cư trú** hiển thị: địa chỉ thường trú, tạm trú, thông tin hộ gia đình.
-      👉 Thay thế **sổ hộ khẩu giấy** từ 01/01/2023.
+    synonyms: ["thông tin cư trú", "cư trú trong VNeID", "thay sổ hộ khẩu"]
+    final_response:
+      - type: text
+        content: |
+          🏠 Mục **Thông tin cư trú** hiển thị: địa chỉ thường trú, tạm trú, thông tin hộ gia đình.
+          👉 Chức năng này thay thế **sổ hộ khẩu giấy** từ 01/01/2023.
 
   # ========= 9) THÔNG BÁO HỆ THỐNG =========
   - id: thong_bao_he_thong
     intent: thong_bao_he_thong
-    synonyms:
-      - "thông báo hệ thống"
-      - "tin nhắn VNeID"
-      - "nhắc nhở VNeID"
-    final_response: |
-      🔔 VNeID hiển thị thông báo: kết quả dịch vụ công, nhắc hết hạn CCCD, chúc mừng sinh nhật và thông báo từ cơ quan Công an.
+    synonyms: ["thông báo hệ thống", "tin nhắn VNeID", "nhắc nhở VNeID"]
+    final_response:
+      - type: text
+        content: "🔔 VNeID hiển thị thông báo về: kết quả dịch vụ công, nhắc hết hạn CCCD, chúc mừng sinh nhật và các thông báo quan trọng từ cơ quan Công an."
 
   # ========= 10) KIẾN NGHỊ, PHẢN ÁNH ANTT =========
   - id: kien_nghi_antt
     intent: kien_nghi_antt
-    synonyms:
-      - "kiến nghị"
-      - "phản ánh an ninh"
-      - "tố giác ANTT"
+    synonyms: ["kiến nghị", "phản ánh an ninh", "tố giác ANTT"]
     guided_flows:
       - id: huong_dan_kien_nghi
-        entry_patterns: ["kiến nghị", "phản ánh ANTT", "gửi phản ánh"]
+        entry_patterns: ["kiến nghị", "phản ánh ANTT"]
         confirm_keywords: ["xong", "ok", "tiếp"]
         cancel_keywords: ["dừng"]
         steps:
           - id: b1_mo
-            say: "B1) Mở **VNeID** → chọn **Phản ánh kiến nghị ANTT**."
-            confirm: "Xong bước 1 chưa?"
+            response:
+              - type: text
+                content: "B1) Mở **VNeID** → chọn **Phản ánh kiến nghị ANTT**."
+              - type: image
+                url: "https://your-domain.com/path/to/image/vneid/kien-nghi-antt/01-man-hinh-chinh.png"
+                alt_text: "Chức năng Phản ánh ANTT"
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "kien_nghi_xac_nhan_buoc_1"
           - id: b2_nhap
-            say: "B2) Nhập nội dung, có thể kèm hình ảnh/video."
-            confirm: "Xong bước 2 chưa?"
+            response:
+              - type: text
+                content: "B2) Nhập nội dung, có thể đính kèm hình ảnh/video."
+            actions:
+              - type: quick_reply
+                title: "Tiếp tục"
+                payload: "kien_nghi_xac_nhan_buoc_2"
           - id: b3_gui
-            say: "B3) Bấm **Gửi** → chuyển đến cơ quan Công an để xử lý."
-            confirm: null
+            response:
+              - type: text
+                content: "B3) Bấm **Gửi** để chuyển phản ánh đến cơ quan Công an xử lý."
 
   # ========= 11) XÁC MINH APP THẬT/GIẢ =========
   - id: xac_minh_app
     intent: xac_minh_app
-    synonyms:
-      - "xác minh app"
-      - "ứng dụng thật giả"
-      - "check app VNeID"
-    final_response: |
-      ✅ Xác minh ứng dụng VNeID thật:
-      - Quét **mã QR** hiển thị trong ứng dụng để kiểm tra.
-      - Ứng dụng chính thức do **Bộ Công an** phát hành (logo xanh, chữ V trắng).
+    synonyms: ["xác minh app", "ứng dụng thật giả", "check app VNeID"]
+    final_response:
+      - type: text
+        content: |
+          ✅ Để xác minh ứng dụng VNeID thật:
+          - Quét **mã QR** hiển thị trong ứng dụng để kiểm tra.
+          - Ứng dụng chính thức phải do **Bộ Công an** phát hành.
+      - type: image
+        url: "https://your-domain.com/path/to/image/vneid/xac-minh-app/01-logo-chuan.png"
+        alt_text: "Logo VNeID chính thức"
 
   # ========= 12) SỔ SỨC KHỎE ĐIỆN TỬ =========
   - id: so_suc_khoe
     intent: so_suc_khoe
-    synonyms:
-      - "sổ sức khỏe điện tử"
-      - "thông tin sức khỏe"
-    final_response: |
-      🩺 **Sổ sức khỏe điện tử** trong VNeID:
-      - Hiển thị thông tin khám chữa bệnh, lịch sử tiêm chủng, bệnh án điện tử (nếu đã cập nhật).
-      - Hỗ trợ theo dõi sức khỏe, thay thế sổ giấy.
+    synonyms: ["sổ sức khỏe điện tử", "thông tin sức khỏe"]
+    final_response:
+      - type: text
+        content: "🩺 **Sổ sức khỏe điện tử** trong VNeID hiển thị thông tin khám chữa bệnh, lịch sử tiêm chủng, bệnh án (nếu đã được cập nhật), giúp bạn theo dõi sức khỏe và thay thế sổ giấy."
+
+  # ========= 13) LỖI XÁC THỰC KHUÔN MẶT =========
+  - id: vneid_xacthuc_khuonmat_thatbai
+    intent: vneid_xacthuc_khuonmat_thatbai
+    synonyms: ["xác thực khuôn mặt không được", "không xác minh được khuôn mặt", "face id vneid thất bại"]
+    final_response:
+      - type: text
+        content: |
+          Nếu xác thực khuôn mặt thất bại, vui lòng thử phương án dự phòng:
+          1) Mượn một điện thoại khác (ví dụ: iPhone). Nhờ chủ máy đăng xuất VNeID của họ.
+          2) Đăng nhập tài khoản VNeID của **bạn** trên máy mượn.
+          3) Thực hiện lại việc xác thực khuôn mặt.
+          4) Khi thành công, hãy **lập tức đăng xuất** khỏi máy mượn.
+          ⚠️ **Lưu ý an toàn:** không bật lưu mật khẩu, không chia sẻ mã OTP.
+
+  # ========= 14) CHỨNG THƯ CHỮ KÝ SỐ =========
+  - id: vneid_chungthu_chukyso
+    intent: vneid_chungthu_chukyso
+    synonyms: ["chứng thư chữ ký số", "ký số trên vneid", "chữ ký số vneid"]
+    final_response:
+      - type: text
+        content: |
+          “Chứng thư chữ ký số” cho phép bạn ký các tài liệu, giao dịch trực tuyến có giá trị pháp lý tương đương chữ ký tay.
+          - **Cách dùng:** Vào VNeID → Dịch vụ khác → Chữ ký số → Làm theo hướng dẫn.
+          - **Lưu ý:** Tính năng này đang được triển khai theo giai đoạn. Nếu chưa thấy, vui lòng chờ các bản cập nhật tiếp theo.
+
+  # ========= 15) THÔNG TIN TRUY NÃ =========
+  - id: vneid_thongtin_truyna
+    intent: vneid_thongtin_truyna
+    synonyms: ["thông tin truy nã", "tra cứu truy nã", "danh sách truy nã"]
+    final_response:
+      - type: text
+        content: |
+          Mục “Thông tin truy nã” trong VNeID cung cấp dữ liệu về các đối tượng bị truy nã do cơ quan Công an công bố.
+          - Nếu có thông tin, hãy **báo ngay cho cơ quan Công an gần nhất**.
+          - ⚠️ **Cảnh báo:** Tuyệt đối **không tự ý tiếp cận hay khống chế đối tượng** để đảm bảo an toàn.
 
 fallback:
-  answer: |
-    Hiện chưa có thông tin trong kịch bản.
-    👉 Vui lòng liên hệ **Công an phường Nghĩa Lộ, tỉnh Quảng Ngãi**
-    📍 210 Hùng Vương, phường Nghĩa Lộ, tỉnh Quảng Ngãi
+  response:
+    - type: text
+      content: "Tôi chưa hiểu rõ câu hỏi của anh/chị. Có phải anh/chị đang muốn tìm hiểu về một trong các chủ đề sau?"
+  actions:
+    - type: quick_reply
+      title: "📲 Cài đặt & Kích hoạt"
+      payload: "cai_va_kich_hoat_vneid"
+    - type: quick_reply
+      title: "🔑 Quên mật khẩu"
+      payload: "quen_mat_khau_vneid"
+    - type: quick_reply
+      title: "🌍 Thông báo lưu trú"
+      payload: "thong_bao_luu_tru"
+    - type: quick_reply
+      title: "Khác..."
+      payload: "chao_hoi_menu"
