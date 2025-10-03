@@ -160,8 +160,10 @@ intents:
             - Mang theo: **CCCD gắn chip** và **SIM chính chủ**.
             ⏱️ Thời gian cấp tài khoản mức 2: thường **1–3 ngày làm việc**.
             ⚠️ Sau khi có tài khoản, **bắt buộc kích hoạt** để sử dụng.
-            ![Bản đồ điểm đăng ký](https://your-domain.com/path/to/image/vneid/dang-ky-muc-2/01-ban-do-diem-dang-ky.png)
           {% endif %}
+      - type: image
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/01-thong-bao-luu-tru-tren-VNeID.png"
+        alt_text: "Ví dụ giao diện dịch vụ công trên VNeID"
 
   # ========= 3) QUÊN MẬT KHẨU =========
   - id: quen_mat_khau_vneid
@@ -177,8 +179,17 @@ intents:
           4) Đăng nhập lại bằng mật khẩu vừa đặt.
           ⚠️ Không chia sẻ OTP; có thể ghi mật khẩu ra giấy (cất an toàn).
       - type: image
-        url: "https://your-domain.com/path/to/image/vneid/quen-mat-khau/01-man-hinh-dang-nhap.png"
-        alt_text: "Nút Quên mật khẩu trên màn hình đăng nhập"
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/01-lay-lai-mat-khau-VNeID.png"
+        alt_text: "Chọn mục Quên mật khẩu trong VNeID"
+      - type: image
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/02-lay-lai-mat-khau-VNeID.png"
+        alt_text: "Nhập thông tin xác thực để lấy lại mật khẩu"
+      - type: image
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/03-lay-lai-mat-khau-VNeID.png"
+        alt_text: "Nhập mã OTP xác minh khôi phục mật khẩu"
+      - type: image
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/04-lay-lai-mat-khau-VNeID.png"
+        alt_text: "Đặt lại mật khẩu mới cho tài khoản VNeID"
 
   # ========= 4) ĐỔI SỐ ĐIỆN THOẠI =========
   - id: thay_doi_sdt
@@ -194,17 +205,20 @@ intents:
             response:
               - type: text
                 content: "B1) Mở **VNeID** → vào **Cài đặt** → **Thông tin cá nhân**."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/01-thay-sdt-vneid.png"
+                alt_text: "Mở phần Thông tin cá nhân trong VNeID"
             actions:
               - type: quick_reply
                 title: "Tiếp tục"
                 payload: "doi_sdt_xac_nhan_buoc_1"
           - id: b2_chon
             response:
-              - type: text
-                content: "B2) Chọn **Thay đổi số điện thoại**."
-              - type: image
-                url: "https://your-domain.com/path/to/image/vneid/doi-sdt/01-thay-doi-sdt.png"
-                alt_text: "Mục Thay đổi số điện thoại"
+                - type: text
+                  content: "B2) Chọn **Thay đổi số điện thoại**."
+                - type: image
+                  url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/02-thay-sdt-vneid.png"
+                  alt_text: "Chọn mục Thay đổi số điện thoại"
             actions:
               - type: quick_reply
                 title: "Tiếp tục"
@@ -213,6 +227,9 @@ intents:
             response:
               - type: text
                 content: "B3) Nhập **Số định danh**, **Số điện thoại mới** (SIM chính chủ)."
+                - type: image
+                  url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/03-thay-sdt-vneid.png"
+                  alt_text: "Nhập số điện thoại mới trên ứng dụng"
             actions:
               - type: quick_reply
                 title: "Tiếp tục"
@@ -221,6 +238,9 @@ intents:
             response:
               - type: text
                 content: "B4) Nhập **OTP 6 số** gửi về số mới để xác thực."
+                - type: image
+                  url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/04-thay-sdt-vneid.png"
+                  alt_text: "Xác thực OTP cho số điện thoại mới"
             actions:
               - type: quick_reply
                 title: "Hoàn tất"
@@ -245,8 +265,8 @@ intents:
               - type: text
                 content: "B1) Mở **VNeID** → chọn **Ví giấy tờ**."
               - type: image
-                url: "https://your-domain.com/path/to/image/vneid/vi-giay-to/01-giao-dien-chinh.png"
-                alt_text: "Giao diện Ví giấy tờ"
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-giay-phep-lai-xe-vao-vneid.png"
+                alt_text: "Ví giấy tờ hiển thị các loại giấy tờ tích hợp"
             actions:
               - type: quick_reply
                 title: "Tiếp tục"
@@ -263,6 +283,9 @@ intents:
             response:
               - type: text
                 content: "B3) Chọn loại giấy tờ: **CCCD, GPLX, BHYT, Đăng ký xe**..."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/tich-hop-BHYT.png"
+                alt_text: "Ví dụ giao diện chọn giấy tờ trong VNeID"
             actions:
               - type: quick_reply
                 title: "Tiếp tục"
@@ -283,6 +306,9 @@ intents:
           - Vào **Ví giấy tờ** → **Thêm giấy tờ** → chọn loại cần tích hợp (BHYT, BHXH, GPLX, đăng ký xe, người phụ thuộc…).
           - Xác nhận thông tin để hiển thị trong Ví giấy tờ.
           - Nếu chưa thấy, liên hệ cơ quan cấp để đồng bộ dữ liệu.
+      - type: image
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-dang-ky-xe-vao-vneid.png"
+        alt_text: "Minh họa thao tác tích hợp đăng ký xe vào Ví giấy tờ"
 
   # ========= 7) THÔNG BÁO LƯU TRÚ =========
   - id: thong_bao_luu_tru
@@ -299,9 +325,12 @@ intents:
               - type: text
                 content: |
                   ⚠️ **Lưu ý quan trọng:** Trên VNeID, chức năng “Thông báo lưu trú” hiện chỉ dành cho **CƠ SỞ KINH DOANH LƯU TRÚ** (khách sạn, nhà nghỉ...), **chưa áp dụng cho NHÀ Ở** hộ gia đình.
-                  
+
                   Nếu anh/chị là chủ cơ sở kinh doanh, vui lòng thực hiện các bước sau:
                   B1) Mở **VNeID** → vào **Dịch vụ công**.
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/02-thong-bao-luu-tru-tren-VNeID.png"
+                alt_text: "Trang Dịch vụ công trên VNeID"
             actions:
               - type: quick_reply
                 title: "Tôi đã rõ, tiếp tục"
@@ -310,6 +339,9 @@ intents:
             response:
               - type: text
                 content: "B2) Chọn **Thông báo lưu trú**."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/03-thong-bao-luu-tru-tren-VNeID.png"
+                alt_text: "Chọn chức năng Thông báo lưu trú"
             actions:
               - type: quick_reply
                 title: "Tiếp tục"
@@ -318,6 +350,9 @@ intents:
             response:
               - type: text
                 content: "B3) Nhập **địa chỉ**, **thời gian lưu trú**, và **thông tin người lưu trú**."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/04-thong-bao-luu-tru-tren-VNeID.png"
+                alt_text: "Nhập thông tin lưu trú trên ứng dụng"
             actions:
               - type: quick_reply
                 title: "Tiếp tục"
@@ -326,6 +361,9 @@ intents:
             response:
               - type: text
                 content: "B4) Kiểm tra → bấm **Gửi** để nộp trực tuyến đến Công an địa phương."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/05-thong-bao-luu-tru-tren-VNeID.png"
+                alt_text: "Gửi thông báo lưu trú đến cơ quan Công an"
 
   # ========= 8) THÔNG TIN CƯ TRÚ =========
   - id: thong_tin_cu_tru
@@ -360,8 +398,8 @@ intents:
               - type: text
                 content: "B1) Mở **VNeID** → chọn **Phản ánh kiến nghị ANTT**."
               - type: image
-                url: "https://your-domain.com/path/to/image/vneid/kien-nghi-antt/01-man-hinh-chinh.png"
-                alt_text: "Chức năng Phản ánh ANTT"
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/01-kien-nghi-ANTT.png"
+                alt_text: "Mục Phản ánh kiến nghị ANTT trong VNeID"
             actions:
               - type: quick_reply
                 title: "Tiếp tục"
@@ -370,6 +408,9 @@ intents:
             response:
               - type: text
                 content: "B2) Nhập nội dung, có thể đính kèm hình ảnh/video."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/02-kien-nghi-ANTT.png"
+                alt_text: "Nhập nội dung phản ánh ANTT"
             actions:
               - type: quick_reply
                 title: "Tiếp tục"
@@ -378,6 +419,9 @@ intents:
             response:
               - type: text
                 content: "B3) Bấm **Gửi** để chuyển phản ánh đến cơ quan Công an xử lý."
+              - type: image
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/03-kien-nghi-ANTT.png"
+                alt_text: "Gửi phản ánh ANTT trên ứng dụng"
 
   # ========= 11) XÁC MINH APP THẬT/GIẢ =========
   - id: xac_minh_app
@@ -390,8 +434,8 @@ intents:
           - Quét **mã QR** hiển thị trong ứng dụng để kiểm tra.
           - Ứng dụng chính thức phải do **Bộ Công an** phát hành.
       - type: image
-        url: "https://your-domain.com/path/to/image/vneid/xac-minh-app/01-logo-chuan.png"
-        alt_text: "Logo VNeID chính thức"
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/05-kien-nghi-ANTT.png"
+        alt_text: "Mã QR kiểm tra ứng dụng VNeID chính thức"
 
   # ========= 12) SỔ SỨC KHỎE ĐIỆN TỬ =========
   - id: so_suc_khoe
@@ -425,6 +469,9 @@ intents:
           “Chứng thư chữ ký số” cho phép bạn ký các tài liệu, giao dịch trực tuyến có giá trị pháp lý tương đương chữ ký tay.
           - **Cách dùng:** Vào VNeID → Dịch vụ khác → Chữ ký số → Làm theo hướng dẫn.
           - **Lưu ý:** Tính năng này đang được triển khai theo giai đoạn. Nếu chưa thấy, vui lòng chờ các bản cập nhật tiếp theo.
+      - type: image
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/01-dang-ky-chu-ky-so-dt.png"
+        alt_text: "Giao diện đăng ký chứng thư chữ ký số trên VNeID"
 
   # ========= 15) THÔNG TIN TRUY NÃ =========
   - id: vneid_thongtin_truyna
