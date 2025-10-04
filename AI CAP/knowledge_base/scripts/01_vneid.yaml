@@ -166,19 +166,85 @@ intents:
   # ========= 3) QUÊN MẬT KHẨU =========
   - id: quen_mat_khau_vneid
     intent: quen_mat_khau_vneid
-    synonyms: ["quên mật khẩu VNeID", "lấy lại mật khẩu VNeID"]
-    final_response:
-      - type: text
-        content: |
-          🔑 Lấy lại mật khẩu:
-          1) Mở **VNeID** → bấm **“Quên mật khẩu”** (chữ đỏ dưới **“Đăng nhập”**).
-          2) Chọn **“Nhập thông tin xác thực”**, nhập **CCCD 12 số** + **SĐT** đã đăng ký.
-          3) Nhập **OTP 6 số** gửi về SMS → **đặt mật khẩu mới** (mạnh).
-          4) Đăng nhập lại bằng mật khẩu vừa đặt.
-          ⚠️ Không chia sẻ OTP; có thể ghi mật khẩu ra giấy (cất an toàn).
-      - type: image
-        url: "[AI CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/01-man-hinh-dang-nhap.png]"
-        alt_text: "Nút Quên mật khẩu trên màn hình đăng nhập"
+    synonyms: 
+    - quên mật khẩu VNeID
+    - lấy lại mật khẩu VNeID
+    - không đăng nhập được VNeID
+    - reset mật khẩu VNeID
+    script:
+    - step: bước_1
+      bot: |
+        🔹 **Bước 1:** Mở ứng dụng **VNeID** → tại màn hình đăng nhập, chọn **“Quên mật khẩu”** (chữ đỏ bên dưới nút **Đăng nhập**).
+      image: 
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/01-lay-lai-mat-khau-VNeID.png"
+        alt: "Nhấn 'Quên mật khẩu' ở màn hình đăng nhập VNeID"
+      options:
+        - text: "Đã xong ✅"
+          next: bước_2_hiển_thị
+
+    - step: bước_2_hiển_thị
+      bot: |
+        👍 Tốt lắm, ta sang **bước 2** nhé 👇  
+        🔹 **Bước 2:** Nhập **Số định danh cá nhân (CCCD 12 số)** và **Số điện thoại** đã đăng ký tài khoản VNeID.  
+        ➤ Chọn phương thức xác thực: **Nhập thông tin xác thực** → nhấn **Gửi yêu cầu**.
+      image: 
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/02-lay-lai-mat-khau-VNeID.png"
+        alt: "Nhập số định danh và số điện thoại, chọn Gửi yêu cầu"
+      options:
+        - text: "Đã xong ✅"
+          next: bước_3_hiển_thị
+
+    - step: bước_3_hiển_thị
+      bot: |
+        ✅ Rất tốt! Giờ đến **bước 3** nhé 👇  
+        🔹 **Bước 3:** Điền **họ và tên khai sinh**, **ngày-tháng-năm sinh** và **ngày cấp thẻ CCCD** theo đúng thông tin trên giấy tờ của bạn → chọn **Tiếp tục**.
+      image: 
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/03-lay-lai-mat-khau-VNeID.png"
+        alt: "Nhập thông tin cá nhân và ngày cấp CCCD để tiếp tục"
+      options:
+        - text: "Đã xong ✅"
+          next: bước_4_hiển_thị
+
+    - step: bước_4_hiển_thị
+      bot: |
+        🌟 Hoàn hảo! Cùng chuyển sang **bước 4** nhé 👇  
+        🔹 **Bước 4:** Hệ thống sẽ gửi **mã OTP 6 số** đến số điện thoại đăng ký.  
+        ➤ Nhập đúng mã OTP để xác thực → nếu chưa nhận được, có thể bấm **“Gửi lại mã”**.
+      image: 
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/04-lay-lai-mat-khau-VNeID.png"
+        alt: "Nhập mã OTP xác thực được gửi đến điện thoại"
+      options:
+        - text: "Đã xong ✅"
+          next: bước_5_hiển_thị
+
+    - step: bước_5_hiển_thị
+      bot: |
+        💪 Tốt lắm! Giờ ta đến **bước 5** nhé 👇  
+        🔹 **Bước 5:** Nhập **mật khẩu mới** và **xác nhận lại mật khẩu**.  
+        ⚙️ Mật khẩu phải:
+        - Có từ **8–20 ký tự**
+        - Bao gồm **chữ hoa, chữ thường, số**
+        - Có ít nhất **1 ký tự đặc biệt** (!@#$%^&*)
+        ➤ Nhấn **Xác nhận** để hoàn tất.
+      image: 
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/05-lay-lai-mat-khau-VNeID.png"
+        alt: "Thiết lập và xác nhận mật khẩu mới"
+      options:
+        - text: "Đã xong ✅"
+          next: bước_6_hiển_thị
+
+    - step: bước_6_hiển_thị
+      bot: |
+        🎉 Xuất sắc! Đây là **bước cuối cùng** 👇  
+        ✅ **Hoàn tất:** Hệ thống hiển thị thông báo **“Thiết lập mật khẩu thành công”**.  
+        ➤ Bây giờ bạn có thể đăng nhập lại bằng mật khẩu mới vừa đặt.  
+        ⚠️ Lưu ý: Không chia sẻ mật khẩu hoặc mã OTP cho người khác.
+      image: 
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/06-lay-lai-mat-khau-VNeID.png"
+        alt: "Thông báo thiết lập mật khẩu thành công trên VNeID"
+      options:
+        - text: "Kết thúc ✅"
+          next: end
 
   # ========= 4) ĐỔI SỐ ĐIỆN THOẠI =========
   - id: thay_doi_sdt
@@ -571,4 +637,5 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
