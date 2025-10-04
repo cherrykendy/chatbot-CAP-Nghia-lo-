@@ -247,54 +247,67 @@ intents:
           next: end
 
   # ========= 4) ĐỔI SỐ ĐIỆN THOẠI =========
-  - id: thay_doi_sdt
-    intent: thay_doi_sdt
-    synonyms: ["đổi số điện thoại", "cập nhật số điện thoại VNeID"]
-    guided_flows:
-      - id: doi_sdt_tren_app
-        entry_patterns: ["đổi số điện thoại"]
-        confirm_keywords: ["xong", "ok", "tiếp"]
-        cancel_keywords: ["dừng", "hủy"]
-        steps:
-          - id: b1_mo
-            response:
-              - type: text
-                content: "B1) Mở **VNeID** → vào **Cài đặt** → **Thông tin cá nhân**."
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "doi_sdt_xac_nhan_buoc_1"
-          - id: b2_chon
-            response:
-              - type: text
-                content: "B2) Chọn **Thay đổi số điện thoại**."
-              - type: image
-                url: "[AI CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/01-thay-doi-sdt.png]"
-                alt_text: "Mục Thay đổi số điện thoại"
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "doi_sdt_xac_nhan_buoc_2"
-          - id: b3_nhap
-            response:
-              - type: text
-                content: "B3) Nhập **Số định danh**, **Số điện thoại mới** (SIM chính chủ)."
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "doi_sdt_xac_nhan_buoc_3"
-          - id: b4_otp
-            response:
-              - type: text
-                content: "B4) Nhập **OTP 6 số** gửi về số mới để xác thực."
-            actions:
-              - type: quick_reply
-                title: "Hoàn tất"
-                payload: "doi_sdt_xac_nhan_buoc_4"
-          - id: b5_xn
-            response:
-              - type: text
-                content: "B5) Xác nhận → cập nhật thành công. Bạn có thể cần đăng nhập lại."
+ - id: thay_doi_sdt
+  intent: thay_doi_sdt
+  synonyms:
+    - đổi số điện thoại
+    - thay số điện thoại
+    - cập nhật số điện thoại VNeID
+    - đổi số đt VNeID
+  script:
+    - step: buoc_1
+      bot: |
+        🔹 **Bước 1:** Mở ứng dụng **VNeID** → vào màn hình **Đăng nhập** (nếu đã đăng nhập thì tiếp tục vào bước 2).
+      image:
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/01-thay-sdt-vneid.png"
+        alt: "Màn hình đăng nhập VNeID"
+      options:
+        - text: "Đã xong ✅"
+          next: buoc_2_hien_thi
+
+    - step: buoc_2_hien_thi
+      bot: |
+        👍 Tốt lắm, ta sang **bước 2** nhé 👇  
+        🔹 **Bước 2:** Tại thanh menu, chọn **Cài đặt** → nhấn **Thay đổi số điện thoại**.
+      image:
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/02-thay-sdt-vneid.png"
+        alt: "Vào Cài đặt và chọn Thay đổi số điện thoại"
+      options:
+        - text: "Đã xong ✅"
+          next: buoc_3_hien_thi
+
+    - step: buoc_3_hien_thi
+      bot: |
+        ✅ Rất tốt! Cùng đến **bước 3** 👇  
+        🔹 **Bước 3:** Ở màn hình **Thay đổi số điện thoại**, bấm **Tạo mới yêu cầu** → đọc kỹ lưu ý và nhấn **Tôi đã hiểu**.
+      image:
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/03-thay-sdt-vneid.png"
+        alt: "Màn hình giới thiệu và nút Tạo mới yêu cầu / Tôi đã hiểu"
+      options:
+        - text: "Đã xong ✅"
+          next: buoc_4_hien_thi
+
+    - step: buoc_4_hien_thi
+      bot: |
+        🌟 Hoàn hảo! Tiếp **bước 4** nhé 👇  
+        🔹 **Bước 4:** Thực hiện **chụp ảnh chân dung** theo hướng dẫn → điền **Số điện thoại mới (SIM chính chủ)** và **Lý do thay đổi** → bấm **Xác nhận**.  
+        🔐 Lưu ý: Số mới sẽ dùng để nhận thông báo và mã OTP.
+      image:
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/04-thay-sdt-vneid.png"
+        alt: "Chụp ảnh chân dung và nhập số điện thoại mới, lý do thay đổi"
+      options:
+        - text: "Đã xong ✅"
+          next: buoc_5_hien_thi
+
+    - step: buoc_5_hien_thi
+      bot: |
+        🎉 Gần xong rồi! Đây là **bước cuối** 👇  
+        🔹 **Bước 5:** Nhập **OTP 6 số** gửi về **số điện thoại mới** để xác thực.  
+        ✅ Hệ thống cập nhật thành công → có thể bạn sẽ cần **đăng nhập lại**.  
+        ⚠️ Không chia sẻ OTP cho bất kỳ ai.
+      options:
+        - text: "Kết thúc ✅"
+          next: end
 
   # ========= 5) VÍ GIẤY TỜ =========
   - id: vi_giay_to
@@ -637,5 +650,6 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
 
