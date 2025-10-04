@@ -886,43 +886,94 @@ intents:
 
   # ========= 14) CHỨNG THƯ CHỮ KÝ SỐ =========
   - id: vneid_chungthu_chukyso
-    intent: vneid_chungthu_chukyso
-    synonyms: ["chứng thư chữ ký số", "ký số trên vneid", "chữ ký số vneid"]
-    final_response:
-      - type: text
-        content: |
-          Chào bạn, để đăng ký chứng thư chữ ký số miễn phí trên ứng dụng VNeID, bạn có thể làm theo 4 bước đơn giản sau đây. ✍️
+  intent: vneid_chungthu_chukyso
+  synonyms:
+    - chứng thư chữ ký số
+    - ký số trên vneid
+    - chữ ký số vneid
+    - đăng ký chữ ký số
+  guided_flows:
+    - id: dang_ky_chu_ky_so
+      entry_patterns: ["đăng ký chữ ký số", "chứng thư chữ ký số", "ký số"]
+      confirm_keywords: ["đã xong", "xong", "tiếp", "ok"]
+      cancel_keywords: ["dừng", "hủy"]
+      steps:
+        - id: b1_truy_cap
+          response:
+            - type: text
+              content: |
+                ✍️ **BƯỚC 1: Truy cập dịch vụ Chứng thư chữ ký số**
 
-          **Lưu ý:** Tính năng này có thể đang được triển khai theo giai đoạn. Nếu bạn chưa thấy mục "Chứng thư chữ ký số", vui lòng chờ các bản cập nhật tiếp theo của ứng dụng.
-          ---
-          ### **Hướng dẫn 4 bước đăng ký chữ ký số trên VNeID**
+                1) Mở ứng dụng **VNeID**  
+                2) Nhấn **Dịch vụ khác** → chọn **Chứng thư chữ ký số**.
 
-          * **Bước 1: Truy cập dịch vụ**
-              - Tại màn hình chính của VNeID, bạn chọn mục **"Dịch vụ khác"**.
-              - Tiếp theo, tìm và chọn **"Chứng thư chữ ký số"**.
-              *Ảnh minh họa Bước 1:*
-              
+                *Lưu ý:* Tính năng có thể triển khai theo giai đoạn. Nếu chưa thấy mục này, vui lòng cập nhật ứng dụng và thử lại sau.
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/01-dang-ky-chu-ky-so.png"
+              alt_text: "Vào Dịch vụ khác → Chứng thư chữ ký số trên VNeID"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "cts_b2_bat_dau"
 
-          * **Bước 2: Bắt đầu đăng ký**
-              - Trong giao diện mới hiện ra, hãy nhấn vào **"Đăng ký chứng thư chữ ký số"** để bắt đầu.
-              *Ảnh minh họa Bước 2:*
-              [AI CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/02-buoc-2.jpg]
+        - id: b2_bat_dau
+          response:
+            - type: text
+              content: |
+                👍 Tốt lắm! **BƯỚC 2: Bắt đầu đăng ký**
 
-          * **Bước 3: Chọn nhà cung cấp và đồng ý điều khoản**
-              - Lựa chọn nhà cung cấp dịch vụ chứng thực chữ ký số (ví dụ trong ảnh là **VNPT SmartCA**).
-              - Bạn cần đọc và tick vào ô "Tôi đồng ý với **Điều khoản sử dụng dịch vụ** và **Chính sách quyền riêng tư**..." rồi nhấn **"Tiếp tục"**.
-              *Ảnh minh họa Bước 3:*
-              [AI CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/03-buoc-3.jpg]
+                1) Vào mục **Chứng thư chữ ký số**  
+                2) Nhấn **Đăng ký chứng thư chữ ký số**.
 
-          * **Bước 4: Xác nhận thông tin và hoàn tất**
-              - Kiểm tra lại các thông tin cá nhân của bạn sẽ được chia sẻ.
-              - Tick vào ô đồng ý với các điều khoản về chia sẻ dữ liệu rồi nhấn **"Xác nhận"**.
-              - Hệ thống sẽ hiển thị thông báo "Tạo yêu cầu thành công" và tự động chuyển hướng bạn đến trang của nhà cung cấp dịch vụ để hoàn tất đăng ký.
-              *Ảnh minh họa Bước 4:*
-              [AI CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/04-buoc-4.jpg]
+                (Sau khi nhấn, ta sẽ chọn nhà cung cấp ở bước kế tiếp.)
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/02-dang-ky-chu-ky-so.png"
+              alt_text: "Nhấn Đăng ký chứng thư chữ ký số"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "cts_b3_chon_ncc"
 
-          Sau khi hoàn tất, chữ ký số của bạn sẽ có giá trị pháp lý tương đương với chữ ký tay khi thực hiện các giao dịch điện tử.
-          
+        - id: b3_chon_ncc
+          response:
+            - type: text
+              content: |
+                👌 Rất tốt! **BƯỚC 3: Chọn nhà cung cấp & đồng ý điều khoản**
+
+                1) Chọn **nhà cung cấp chứng thực chữ ký số** (ví dụ **VNPT SmartCA**).  
+                2) Đọc và **tích chọn** ô “Tôi đồng ý với *Điều khoản sử dụng dịch vụ* và *Chính sách quyền riêng tư*…”.  
+                3) Nhấn **Tiếp tục**.
+
+                (Sang bước cuối để xác nhận và tạo yêu cầu.)
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/03-dang-ky-chu-ky-so.png"
+              alt_text: "Chọn VNPT SmartCA và đồng ý điều khoản → Tiếp tục"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "cts_b4_xac_nhan"
+
+        - id: b4_xac_nhan
+          response:
+            - type: text
+              content: |
+                🎉 Gần xong rồi! **BƯỚC 4: Xác nhận thông tin & hoàn tất**
+
+                1) Kiểm tra lại thông tin sẽ chia sẻ (Số định danh, Họ tên, Ngày sinh, Nơi thường trú, ngày/nơi cấp CCCD, …).  
+                2) Tích chọn cam kết **đồng ý chia sẻ & xử lý dữ liệu**.  
+                3) Nhấn **Xác nhận**.
+
+                ✔️ Hệ thống báo **“Tạo yêu cầu thành công”** và tự chuyển sang trang của nhà cung cấp (VD: VNPT SmartCA) để **hoàn tất kích hoạt**.
+
+                Sau khi hoàn tất, chữ ký số của bạn có **giá trị pháp lý** khi giao dịch điện tử.
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/04-Dang-ky-chu-ky-so.png"
+              alt_text: "Xác nhận chia sẻ dữ liệu → Tạo yêu cầu thành công"
+          actions:
+            - type: quick_reply
+              title: "Hoàn tất ✅"
+              payload: "end"
+
   # ========= 15) THÔNG TIN TRUY NÃ =========
   - id: vneid_thongtin_truyna
     intent: vneid_thongtin_truyna
@@ -951,6 +1002,7 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
 
 
