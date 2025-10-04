@@ -767,7 +767,8 @@ intents:
         content: |
           ✅ Để xác minh ứng dụng VNeID thật:
           - Quét **mã QR** hiển thị trong ứng dụng để kiểm tra.
-          - Ứng dụng chính thức phải do **Bộ Công an** phát hành.
+          - Ứng dụng chính thức phải do **Trung tâm dữ liệu quốc gia về dân cư** phát hành.
+          - Đối với các ứng dụng tải trên CH Play sẽ có ký hiệu của "Chính phủ".
       - type: image
         url: "[AI CAP/knowledge_base/assets/images/VNEID/xac-minh-app/01-logo-chuan.png]"
         alt_text: "Logo VNeID chính thức"
@@ -900,7 +901,7 @@ intents:
               - Tại màn hình chính của VNeID, bạn chọn mục **"Dịch vụ khác"**.
               - Tiếp theo, tìm và chọn **"Chứng thư chữ ký số"**.
               *Ảnh minh họa Bước 1:*
-              [AI CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/01-buoc-1.jpg]
+              
 
           * **Bước 2: Bắt đầu đăng ký**
               - Trong giao diện mới hiện ra, hãy nhấn vào **"Đăng ký chứng thư chữ ký số"** để bắt đầu.
@@ -950,6 +951,7 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
 
 
