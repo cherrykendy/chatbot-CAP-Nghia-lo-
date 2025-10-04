@@ -136,7 +136,7 @@ intents:
   # ========= 2) ĐĂNG KÝ VNeID MỨC 2 =========
   - id: dang_ky_vneid_muc2
     intent: dang_ky_vneid_muc2
-    synonyms: ["đăng ký VNeID mức 2", "tạo tài khoản VNeID mức 2", "làm định danh điện tử"]
+    synonyms: ["đăng ký VNeID mức 2", "tạo tài khoản VNeID mức 2", "làm định danh điện tử", "cách làm mức 2", "làm vneid mức 2 ở đâu", "nâng cấp tài khoản lên mức 2"]
     slots:
       - name: da_dang_ky_lan2
         question: "Anh/chị đã từng đến Công an **chụp ảnh, lăn tay và khai số điện thoại lần 2** chưa?"
@@ -180,6 +180,8 @@ intents:
       options:
         - text: "Đã xong ✅"
           next: bước_2_hiển_thị
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
     - step: bước_2_hiển_thị
       bot: |
@@ -192,6 +194,10 @@ intents:
       options:
         - text: "Đã xong ✅"
           next: bước_3_hiển_thị
+        - text: "↩️ Quay lại"
+          next: bước_1
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
     - step: bước_3_hiển_thị
       bot: |
@@ -203,6 +209,10 @@ intents:
       options:
         - text: "Đã xong ✅"
           next: bước_4_hiển_thị
+        - text: "↩️ Quay lại"
+          next: bước_2_hiển_thị
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
     - step: bước_4_hiển_thị
       bot: |
@@ -215,6 +225,10 @@ intents:
       options:
         - text: "Đã xong ✅"
           next: bước_5_hiển_thị
+        - text: "↩️ Quay lại"
+          next: bước_3_hiển_thị
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
     - step: bước_5_hiển_thị
       bot: |
@@ -231,6 +245,10 @@ intents:
       options:
         - text: "Đã xong ✅"
           next: bước_6_hiển_thị
+        - text: "↩️ Quay lại"
+          next: bước_4_hiển_thị
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
     - step: bước_6_hiển_thị
       bot: |
@@ -244,6 +262,10 @@ intents:
       options:
         - text: "Kết thúc ✅"
           next: end
+        - text: "↩️ Quay lại"
+          next: bước_5_hiển_thị
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
   # ========= 4) ĐỔI SỐ ĐIỆN THOẠI =========
  - id: thay_doi_sdt
@@ -263,6 +285,8 @@ intents:
       options:
         - text: "Đã xong ✅"
           next: buoc_2_hien_thi
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
     - step: buoc_2_hien_thi
       bot: |
@@ -274,6 +298,10 @@ intents:
       options:
         - text: "Đã xong ✅"
           next: buoc_3_hien_thi
+        - text: "↩️ Quay lại"
+          next: buoc_1
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
     - step: buoc_3_hien_thi
       bot: |
@@ -285,6 +313,10 @@ intents:
       options:
         - text: "Đã xong ✅"
           next: buoc_4_hien_thi
+        - text: "↩️ Quay lại"
+          next: buoc_2_hien_thi
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
     - step: buoc_4_hien_thi
       bot: |
@@ -297,6 +329,10 @@ intents:
       options:
         - text: "Đã xong ✅"
           next: buoc_5_hien_thi
+        - text: "↩️ Quay lại"
+          next: buoc_3_hien_thi
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
     - step: buoc_5_hien_thi
       bot: |
@@ -307,6 +343,10 @@ intents:
       options:
         - text: "Kết thúc ✅"
           next: end
+        - text: "↩️ Quay lại"
+          next: buoc_4_hien_thi
+        - text: "🏠 Về menu chính"
+          next: chao_hoi_menu
 
   # ========= 5) VÍ GIẤY TỜ =========
   -id: tich_hop_vi_giay_to
@@ -770,7 +810,7 @@ intents:
           - Ứng dụng chính thức phải do **Trung tâm dữ liệu quốc gia về dân cư** phát hành.
           - Đối với các ứng dụng tải trên CH Play sẽ có ký hiệu của "Chính phủ".
       - type: image
-        url: "[AI CAP/knowledge_base/assets/images/VNEID/xac-minh-app/01-logo-chuan.png]"
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/xac-minh-app/01-logo-chuan.png"
         alt_text: "Logo VNeID chính thức"
 
   # ========= 12) SỔ SỨC KHỎE ĐIỆN TỬ =========
@@ -836,7 +876,7 @@ intents:
     synonyms: ["giấy hẹn khám lại", "xem lịch tái khám", "lịch hẹn khám bệnh", "giấy hẹn vneid"]
     final_response:
       - type: image
-        url: "[https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/giay-hen-kham-lai/giay-hen-kham-lai.png]"
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/giay-hen-kham-lai/giay-hen-kham-lai.png"
         alt_text: "Hướng dẫn xem Giấy hẹn khám lại trên VNeID"
       - type: text
         content: |
@@ -984,6 +1024,72 @@ intents:
           Mục “Thông tin truy nã” trong VNeID cung cấp dữ liệu về các đối tượng bị truy nã do cơ quan Công an công bố.
           - Nếu có thông tin, hãy **báo ngay cho cơ quan Công an gần nhất**.
           - ⚠️ **Cảnh báo:** Tuyệt đối **không tự ý tiếp cận hay khống chế đối tượng** để đảm bảo an toàn.
+
+  # ========= 16) XỬ LÝ SỰ CỐ THƯỜNG GẶP =========
+  - id: vneid_khong_nhan_otp
+    intent: vneid_khong_nhan_otp
+    synonyms:
+      - "không nhận được otp"
+      - "tại sao tôi không nhận được otp"
+      - "chờ mãi không thấy mã otp"
+      - "vneid không gửi otp"
+    final_response:
+      - type: text
+        content: |
+          🔐 **Không nhận được mã OTP?**
+          - Kiểm tra lại **sóng điện thoại/SMS** và đảm bảo SIM vẫn hoạt động bình thường.
+          - Nhấn **“Gửi lại mã”** sau 60 giây hoặc chọn **gửi OTP qua cuộc gọi thoại** (nếu ứng dụng gợi ý).
+          - Đảm bảo số điện thoại đăng ký OTP là **SIM chính chủ** đã khai báo với Công an khi làm VNeID.
+          - Tắt chế độ **chặn tin nhắn rác** hoặc ứng dụng lọc SMS (nếu có) rồi thử lại.
+          📞 Nếu vẫn không nhận được, liên hệ **Tổng đài 1900 0368** hoặc **{{donvi_cong_an_lienhe}} ({{diachi_cong_an_lienhe}})** để được hỗ trợ.
+
+  - id: vneid_tai_khoan_bi_khoa
+    intent: vneid_tai_khoan_bi_khoa
+    synonyms:
+      - "tài khoản vneid bị khóa"
+      - "mở khóa tài khoản"
+      - "vneid bị khóa"
+      - "tài khoản bị tạm khóa"
+    final_response:
+      - type: text
+        content: |
+          🚫 **Tài khoản VNeID bị khóa?**
+          - Nguyên nhân thường gặp: nhập sai mật khẩu quá 5 lần, nghi ngờ bị truy cập trái phép hoặc chưa hoàn tất xác thực.
+          - Chờ **15 phút** rồi thử đăng nhập lại với mật khẩu đúng.
+          - Nếu quên mật khẩu, thực hiện quy trình **“Quên mật khẩu”** để đặt lại.
+          📞 Vẫn bị khóa? Mang theo CCCD và đến **{{donvi_cong_an_lienhe}} ({{diachi_cong_an_lienhe}})** hoặc gọi **1900 0368** để được mở khóa.
+
+  - id: vneid_dung_cho_may_bay
+    intent: vneid_dung_cho_may_bay
+    synonyms:
+      - "dùng vneid thay cccd ở sân bay được không"
+      - "dùng vneid đi máy bay"
+      - "qua an ninh sân bay bằng vneid"
+      - "vneid thay cccd khi bay"
+    final_response:
+      - type: text
+        content: |
+          ✈️ **Dùng VNeID khi đi máy bay**
+          - Từ 2024, nhiều sân bay **chấp nhận VNeID mức 2** để làm thủ tục an ninh nội địa thay CCCD gốc.
+          - Trước khi đi, mở ứng dụng VNeID → vào **Ví giấy tờ** → chọn **CCCD** → nhấn **Xuất trình** để tạo mã QR.
+          - Luôn chuẩn bị **thiết bị có pin** và **kết nối internet**. Nếu mất mạng, có thể dùng **mã QR đã lưu offline** (nếu ứng dụng hỗ trợ).
+          - Một số hãng hoặc sân bay vẫn yêu cầu CCCD giấy, nên hãy mang theo nếu có thể để tránh gián đoạn chuyến bay.
+
+  - id: vneid_sai_thong_tin_ca_nhan
+    intent: vneid_sai_thong_tin_ca_nhan
+    synonyms:
+      - "vneid hiển thị sai ngày sinh"
+      - "cập nhật lại thông tin trên vneid"
+      - "thông tin cá nhân sai trên vneid"
+      - "vneid sai họ tên"
+    final_response:
+      - type: text
+        content: |
+          📝 **VNeID hiển thị sai thông tin cá nhân?**
+          - Thông tin hiển thị được đồng bộ từ **Cơ sở dữ liệu quốc gia về dân cư**.
+          - Nếu sai lệch (ngày sinh, họ tên, địa chỉ...), bạn cần mang **CCCD gắn chip** và giấy tờ liên quan đến **{{donvi_cong_an_lienhe}} ({{diachi_cong_an_lienhe}})** để đề nghị chỉnh sửa.
+          - Sau khi cơ quan Công an cập nhật, thông tin trên VNeID sẽ được đồng bộ lại (thường 1–3 ngày).
+          📞 Cần hỗ trợ gấp? Gọi **Tổng đài 1900 0368** để được hướng dẫn.
 
 fallback:
   response:
