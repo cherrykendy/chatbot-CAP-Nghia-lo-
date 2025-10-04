@@ -310,46 +310,127 @@ intents:
           next: end
 
   # ========= 5) VÍ GIẤY TỜ =========
-  - id: vi_giay_to
-    intent: vi_giay_to
-    synonyms: ["ví giấy tờ", "giấy tờ trong VNeID"]
-    guided_flows:
-      - id: huong_dan_vi_giay_to
-        entry_patterns: ["ví giấy tờ"]
-        confirm_keywords: ["xong", "ok", "tiếp"]
-        cancel_keywords: ["dừng"]
-        steps:
-          - id: b1_mo
-            response:
-              - type: text
-                content: "B1) Mở **VNeID** → chọn **Ví giấy tờ**."
-              - type: image
-                url: "[AI CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/01-giao-dien-chinh.png]"
-                alt_text: "Giao diện Ví giấy tờ"
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "vi_giay_to_xac_nhan_buoc_1"
-          - id: b2_them
-            response:
-              - type: text
-                content: "B2) Bấm **Thêm giấy tờ**."
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "vi_giay_to_xac_nhan_buoc_2"
-          - id: b3_loai
-            response:
-              - type: text
-                content: "B3) Chọn loại giấy tờ: **CCCD, GPLX, BHYT, Đăng ký xe**..."
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "vi_giay_to_xac_nhan_buoc_3"
-          - id: b4_xn
-            response:
-              - type: text
-                content: "B4) Kiểm tra thông tin → xác nhận. Nếu dữ liệu chưa đồng bộ, liên hệ cơ quan cấp giấy tờ để cập nhật."
+  -id: tich_hop_vi_giay_to
+   intent: tich_hop_vi_giay_to
+   synonyms:
+    - tích hợp ví giấy tờ
+    - tích hợp giấy tờ vào VNeID
+    - thêm giấy phép lái xe vào VNeID
+    - thêm đăng ký xe vào VNeID
+    - tích hợp BHYT vào VNeID
+    - ví giấy tờ VNeID
+   script:
+    - step: tong_quan
+      bot: |
+        📘 **HƯỚNG DẪN CHUNG - TÍCH HỢP GIẤY TỜ VÀO VNEID (Ví giấy tờ)**
+
+        Ứng dụng **VNeID** cho phép công dân tích hợp và hiển thị các loại giấy tờ điện tử trong **Ví giấy tờ** như:
+        - 🪪 Giấy phép lái xe  
+        - 🚗 Giấy đăng ký xe  
+        - 💳 Thẻ bảo hiểm y tế  
+
+        ---
+        🔹 **Các bước thực hiện chung:**
+        1️⃣ Mở **VNeID** → chọn mục **“Ví giấy tờ”** ở thanh menu dưới cùng.  
+        2️⃣ Chọn **“Tích hợp thông tin”** → nhấn **“Tạo mới yêu cầu”**.  
+        3️⃣ Chọn loại giấy tờ muốn tích hợp.  
+        4️⃣ Nhập đầy đủ thông tin cần thiết → tick xác nhận → **Gửi yêu cầu**.  
+        5️⃣ Hệ thống sẽ xác thực, nếu hợp lệ, giấy tờ sẽ hiển thị trong Ví giấy tờ.  
+
+        📎 **Theo dõi trạng thái:**  
+        - Đã xác thực ✅  
+        - Chờ xác thực ⏳  
+        - Xác thực không đạt ⚠️  
+
+      image:
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-dang-ky-xe-vao-vneid.png"
+        alt: "Minh họa tổng thể quy trình tích hợp giấy tờ vào Ví giấy tờ VNeID"
+
+    - step: tich_hop_gplx
+      bot: |
+        🚗 **TÍCH HỢP GIẤY PHÉP LÁI XE (GPLX)**  
+
+        🔹 **Cách thực hiện:**
+        1️⃣ Mở ứng dụng **VNeID** → vào **Ví giấy tờ** → chọn **Tích hợp thông tin** → **Tạo mới yêu cầu**.  
+        2️⃣ Trong mục **Loại thông tin**, chọn **“Giấy phép lái xe”**.  
+        3️⃣ Nhập **Số GPLX** và **Hạng GPLX** → tick xác nhận → **Gửi yêu cầu**.  
+        ✅ Nếu thành công, GPLX sẽ hiển thị kèm thông tin số, ngày cấp, nơi cấp.
+
+        ⚠️ **Trường hợp không tích hợp được:**  
+        - Do nhập sai **số GPLX** hoặc **ngày cấp**.  
+        - Do **Giấy phép lái xe loại cũ (bản giấy)** chỉ có **năm sinh**, **không có đầy đủ ngày, tháng, năm sinh**, nên **không thể đồng bộ** với Cơ sở dữ liệu quốc gia.  
+          👉 Vui lòng **đổi sang Giấy phép lái xe mẫu mới (thẻ PET)** có đủ thông tin **ngày-tháng-năm sinh** thì mới tích hợp thành công được.  
+
+        📞 Nếu đã nhập đúng mà vẫn lỗi, liên hệ **Tổng đài 1900 0368** hoặc **Công an cấp tỉnh** để được hỗ trợ.
+
+      image:
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-giay-phep-lai-xe-vao-vneid.png"
+        alt: "Hướng dẫn tích hợp giấy phép lái xe vào Ví giấy tờ VNeID"
+
+    - step: tich_hop_bhyt
+      bot: |
+        💳 **TÍCH HỢP THẺ BẢO HIỂM Y TẾ (BHYT)**  
+
+        🔹 **Các bước thực hiện:**
+        1️⃣ Mở **VNeID** → vào **Ví giấy tờ** → chọn **Tích hợp thông tin** → **Tạo mới yêu cầu**.  
+        2️⃣ Trong mục **Loại thông tin**, chọn **“Thẻ bảo hiểm y tế”**.  
+        3️⃣ Nhập **Mã thẻ BHYT**, chọn **Đơn vị cấp thẻ**, nhập **Số BHYT** (nếu có).  
+        4️⃣ Tick xác nhận thông tin → **Gửi yêu cầu**.  
+
+        🧩 **Hiển thị sau khi xác thực:**  
+        - Thẻ BHYT **màu xanh** là mẫu mới.  
+        - Thẻ BHYT **màu hồng** là mẫu cũ vẫn hợp lệ.
+
+        ⚠️ **Lưu ý:** Nhập đúng mã in trên thẻ; sai 1 ký tự cũng có thể khiến xác thực không thành công.
+
+      image:
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/tich-hop-BHYT.png"
+        alt: "Cách tích hợp thẻ bảo hiểm y tế vào Ví giấy tờ VNeID"
+
+    - step: tich_hop_dang_ky_xe
+      bot: |
+        🪪 **TÍCH HỢP GIẤY ĐĂNG KÝ XE**  
+
+        🔹 **Cách thực hiện:**
+        1️⃣ Mở **VNeID** → vào **Ví giấy tờ** → chọn **Tích hợp thông tin** → **Tạo mới yêu cầu**.  
+        2️⃣ Trong mục **Loại thông tin**, chọn **“Đăng ký xe”**.  
+        3️⃣ Nhập **Số khung** và **Biển số xe** (bỏ qua ký tự đặc biệt như dấu gạch hoặc chấm).  
+        4️⃣ Tick xác nhận → **Gửi yêu cầu**.  
+
+        ✅ Nếu hợp lệ, giấy đăng ký xe sẽ được hiển thị trong Ví giấy tờ.
+
+    - step: xuat_trinh_giay_to
+      bot: |
+        📲 **XUẤT TRÌNH GIẤY TỜ KHI CẦN KIỂM TRA**  
+
+        1️⃣ Mở **VNeID** → chọn **Ví giấy tờ** → nhấn **Xuất trình giấy tờ**.  
+        2️⃣ Nhập **Passcode (mã PIN)** để xác thực.  
+        3️⃣ Chọn loại giấy tờ cần xuất trình (CCCD, GPLX, Đăng ký xe, BHYT...).  
+        4️⃣ Nhấn **Xác nhận**, ứng dụng sẽ hiển thị **mã QR** và thông tin chi tiết của giấy tờ đó.  
+        ✅ Có thể xuất trình **nhiều giấy tờ cùng lúc** khi được yêu cầu kiểm tra.
+
+      image:
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-xuat-trinh-giay-phep-lai-xa.png"
+        alt: "Minh họa cách xuất trình giấy tờ điện tử trên VNeID"
+
+    - step: loi_tich_hop
+      bot: |
+        ⚠️ **TRƯỜNG HỢP KHÔNG TÍCH HỢP ĐƯỢC (XÁC THỰC KHÔNG ĐẠT)**  
+
+        Các nguyên nhân phổ biến:
+        - Nhập sai **số giấy tờ, ngày cấp, nơi cấp**.  
+        - Hệ thống **CSDL quốc gia đang bảo trì hoặc chưa đồng bộ dữ liệu**.  
+        - **Giấy phép lái xe loại cũ (bản giấy)** chỉ có **năm sinh**, không có **đầy đủ ngày-tháng-năm sinh**, nên **không thể đồng bộ**.  
+          👉 Trường hợp này cần **đổi sang GPLX mẫu mới (thẻ PET)** có đủ thông tin ngày-tháng-năm sinh để tích hợp thành công.  
+
+        🧭 Giấy tờ có trạng thái “Xác thực không đạt” sẽ **không hiển thị trong Ví giấy tờ** cho đến khi được xử lý lại.  
+
+        📞 Hỗ trợ: **Tổng đài 1900 0368** hoặc **Công an cấp tỉnh nơi cư trú**.
+
+      image:
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/yeu-cau-tich-hop-dang-ky-xe-gplx-khong-duoc-duyet.png"
+        alt: "Minh họa trường hợp xác thực không đạt khi tích hợp giấy tờ"
+
 
   # ========= 6) TÍCH HỢP THÔNG TIN =========
   - id: tich_hop_thong_tin
@@ -650,6 +731,7 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
 
 
