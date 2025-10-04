@@ -790,7 +790,7 @@ intents:
                   
                   **Bước 1:** Tại màn hình chính VNeID, chọn mục **"Hồ sơ sức khỏe"**.
               - type: image
-                url: "[AI CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/01-man-hinh-chinh.png]"
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/01-so-suc-khoe-dien-tu.png"
                 alt_text: "Chọn mục Hồ sơ sức khỏe trên màn hình chính"
             actions:
               - type: quick_reply
@@ -801,7 +801,7 @@ intents:
               - type: text
                 content: '**Bước 2:** Tiếp tục chọn **"Sổ sức khỏe điện tử"**.'
               - type: image
-                url: "[AI CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/02-chon-muc.png]"
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/02-so-suc-khoe-dien-tu.png"
                 alt_text: "Chọn Sổ sức khỏe điện tử"
             actions:
               - type: quick_reply
@@ -812,7 +812,7 @@ intents:
               - type: text
                 content: "**Bước 3:** Nhập **passcode** (mã PIN gồm 6 số) của bạn để xác thực bảo mật."
               - type: image
-                url: "[AI CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/03-nhap-passcode.png]"
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/03-so-suc-khoe-dien-tu.png"
                 alt_text: "Nhập passcode 6 số để xác thực"
             actions:
               - type: quick_reply
@@ -826,7 +826,7 @@ intents:
                   
                   🩺 **Lưu ý:** Dữ liệu được đồng bộ từ Cổng bảo hiểm xã hội. Nếu chưa thấy thông tin, bạn có thể bấm **"Cập nhật dữ liệu"** hoặc kiểm tra lại sau.
               - type: image
-                url: "[AI CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/04-ket-qua.png]"
+                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/04-so-suc-khoe-dien-tu.png"
                 alt_text: "Màn hình hiển thị thông tin Sổ sức khỏe điện tử"
               
   # ========= 12.1) GIẤY HẸN KHÁM LẠI (CẬP NHẬT) =========
@@ -835,7 +835,7 @@ intents:
     synonyms: ["giấy hẹn khám lại", "xem lịch tái khám", "lịch hẹn khám bệnh", "giấy hẹn vneid"]
     final_response:
       - type: image
-        url: "[AI CAP/knowledge_base/assets/images/VNEID/giay-hen-kham-lai/01-huong-dan.jpg]"
+        url: "[https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/giay-hen-kham-lai/giay-hen-kham-lai.png]"
         alt_text: "Hướng dẫn xem Giấy hẹn khám lại trên VNeID"
       - type: text
         content: |
@@ -855,7 +855,7 @@ intents:
     synonyms: ["giấy chuyển tuyến", "xin chuyển tuyến", "giấy chuyển viện", "chuyển tuyến vneid"]
     final_response:
       - type: image
-        url: "[AI CAP/knowledge_base/assets/images/VNEID/giay-chuyen-tuyen/01-huong-dan.jpg]"
+        url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/giay-chuyen-tuyen/giay-chuyen-tuyen.png"
         alt_text: "Hướng dẫn xem Giấy chuyển tuyến trên VNeID"
       - type: text
         content: |
@@ -950,6 +950,7 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
 
 
