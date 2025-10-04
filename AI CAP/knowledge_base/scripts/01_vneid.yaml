@@ -97,7 +97,7 @@ intents:
                 url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/06-thiet-lap-mk-vneid.png"
                 alt_text: "Thiết lập mật khẩu"
               - type: image
-                url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/07-thiet-lap-mk-vneid.png"
+                url: "https://github.com/cherrykendy/chatbot-CAP-Nghia-lo-/blob/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/07-thiet-lap-mk-vneid.png"
                 alt_text: "Thông báo đặt mật khẩu thành công, bấm nút 'Đóng'"
             actions:
               - type: quick_reply
@@ -571,3 +571,4 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
