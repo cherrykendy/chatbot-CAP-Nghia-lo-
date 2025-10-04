@@ -1,79 +1,479 @@
-intents:
-- id: dinh_danh_to_chuc
-  synonyms:
-  - định danh tổ chức
-  - định danh doanh nghiệp
-  - đăng ký định danh doanh nghiệp
-  - tạo định danh tổ chức
-  - xác thực tổ chức
-metadata:
-  id: dinh_danh_to_chuc.v6
-  version: '6.0'
-  effective_date: '2025-10-04'
-  scope: Hướng dẫn đăng ký định danh tổ chức/doanh nghiệp trên ứng dụng VNeID (ưu tiên), và trực tiếp tại Công an cấp tỉnh (trường hợp chưa có VNeID mức 2)
+dinh_danh_to_chuc:
+  metadata:
+    id: dinh_danh_to_chuc.v1
+    version: "1.0.3"
+    effective_date: "2025-10-04"
+    scope: Kịch bản tính năng Định danh tổ chức trên VNeID, bổ sung lệ phí và điều hướng từng bước.
+    ngon_ngu: vi-VN
 
-nlu:
-  slot:
-  - ten: co_tai_khoan_VNeID_muc2
-    kieu: boolean
-    cau_hoi: Để định danh tổ chức, anh/chị cần có tài khoản định danh điện tử mức 2. Anh/chị đã có tài khoản này chưa?
+  nguyen_tac_hien_thi:
+    - Mỗi bước có thể đính kèm hình minh họa.
+    - Định dạng hiển thị ảnh trong chatbot Facebook:
+        type: image
+        url: <link ảnh>
+        alt: <mô tả ngắn>
+    - Nếu kênh không hỗ trợ ảnh, chỉ hiển thị alt và link.
 
-redirects:
-  - condition: "người dùng nói 'chưa kích hoạt', 'chưa có', 'quên mật khẩu', 'quên mã pin', 'không đăng nhập được'"
-    action: "Chuyển sang kịch bản VNeID"
+  yeu_cau_chung:
+    le_phi: "Không tốn phí"
+    ghi_chu: "Thủ tục định danh tổ chức trên VNeID hiện không thu lệ phí."
 
-steps:
-- step: mo_dau
-  bot: "📌 Định danh tổ chức/doanh nghiệp trên VNeID giúp đơn vị có tài khoản điện tử để giao dịch trực tuyến, ký số và thực hiện thủ tục hành chính. Có 2 cách: **trực tuyến qua VNeID** (ưu tiên) hoặc **trực tiếp tại Công an cấp tỉnh**."
+  cau_hinh_tuong_tac:
+    che_do_tung_buoc:
+      enabled: true
+      mo_ta: "Bot chỉ gửi 1 bước mỗi lần. Khi công dân nhấn 'Đã xong' mới chuyển sang bước tiếp theo."
+    bien_ngu_canh:
+      hien_anh_mac_dinh: true   # nếu người dùng không chọn gì, mặc định hiển thị ảnh
+    quick_replies_mac_dinh: &qr_auto
+      - title: "Xem ảnh minh hoạ"
+        payload: "SHOW_IMAGE"
+      - title: "Chỉ văn bản"
+        payload: "TEXT_ONLY"
+      - title: "Đã xong"
+        payload: "NEXT_STEP"
+    hanh_vi_khi_nhan_payload:
+      SHOW_IMAGE:
+        set_context:
+          hien_anh_mac_dinh: true
+      TEXT_ONLY:
+        set_context:
+          hien_anh_mac_dinh: false
+      NEXT_STEP:
+        navigate:
+          action: "NEXT"
+          fallback: "Đã là bước cuối cùng."
+    huong_dan_tich_hop:
+      - "Facebook Messenger: dùng quick_replies {content_type: 'text', title, payload}. Khi nhận 'NEXT_STEP', webhook tăng chỉ số bước và gửi bước kế tiếp."
+      - "Zalo OA: dùng quick_reply/action_list tương đương. Bản đồ payload như trên."
 
-- step: dieu_kien
-  bot: |
-    ✅ **Điều kiện**:
-    - Người thực hiện là **người đại diện pháp luật** của tổ chức/doanh nghiệp.
-    - Có tài khoản VNeID mức 2 đã kích hoạt (để làm trực tuyến).
-    - Nếu chưa có tài khoản VNeID mức 2 ➝ cần xử lý trước (sẽ được chuyển sang kịch bản VNeID).
+  tinh_huong_bo_sung:
+    - step: dia_diem_dinh_danh_truc_tiep
+      trigger:
+        - làm trực tiếp ở đâu
+        - định danh tổ chức trực tiếp
+        - đến đâu để định danh
+        - địa chỉ định danh tổ chức
+      bot: |
+        🏢 Đối với trường hợp **chủ cơ sở chưa có định danh điện tử mức độ 2**, cần đến **Công an tỉnh Quảng Ngãi** tại địa chỉ: **160 Phan Bội Châu, phường Nghĩa Lộ, tỉnh Quảng Ngãi** (trụ sở Công an TP Quảng Ngãi cũ) để làm định danh tổ chức.  
+        🔑 Tuy nhiên, hệ thống vẫn **ưu tiên công dân thực hiện qua ứng dụng VNeID** nếu đã có tài khoản mức độ 2, để nhanh chóng và thuận tiện hơn.
 
-- step: quy_trinh_truc_tuyen
-  bot: |
-    📱 **Quy trình định danh tổ chức qua ứng dụng VNeID**:
+    - step: ly_do_tu_choi_phe_duyet
+      trigger:
+        - tại sao không được phê duyệt
+        - vì sao bị từ chối định danh tổ chức
+        - yêu cầu định danh tổ chức bị từ chối
+        - hồ sơ định danh không được duyệt
+      bot: |
+        ❗ Trường hợp yêu cầu **định danh tổ chức** không được phê duyệt/thành công có thể do một số nguyên nhân sau:
+        1️⃣ Hồ sơ chưa đầy đủ hoặc sai thông tin (ví dụ: tên tổ chức, giấy tờ pháp lý, thông tin người đại diện).  
+        2️⃣ Người gửi yêu cầu không có đủ thẩm quyền theo quy định (không phải người đại diện pháp luật hoặc chưa được phân quyền).  
+        3️⃣ Thiếu hoặc xuất trình sai tài liệu gốc khi cơ quan công an kiểm tra.  
+        4️⃣ Lỗi kỹ thuật hoặc kết nối trong quá trình gửi yêu cầu.  
 
-    1️⃣ **Đăng nhập & chọn chức năng**
-    - Mở ứng dụng VNeID, đăng nhập bằng tài khoản mức 2 của người đại diện.
-    - Trên màn hình chính ➝ chọn **Định danh tổ chức** (Hình 1.1).
-    - Chọn **Đăng ký định danh tổ chức** (Hình 1.2, 3.1).
+        👉 Cách xử lý:
+        - Kiểm tra lại thông tin, bổ sung hồ sơ theo hướng dẫn.  
+        - Đảm bảo người thực hiện là **người đại diện pháp luật** hoặc **được phân quyền hợp lệ**.  
+        - Nếu vẫn gặp lỗi, vui lòng đến **Công an tỉnh Quảng Ngãi, số 160 Phan Bội Châu, phường Nghĩa Lộ, tỉnh Quảng Ngãi** để được hỗ trợ xử lý trực tiếp.  
+        - Trong mọi trường hợp, ưu tiên thực hiện lại trên **ứng dụng VNeID** để tiết kiệm thời gian.
 
-    2️⃣ **Nhập thông tin tổ chức**
-    - Chọn loại tổ chức (Doanh nghiệp, Hợp tác xã, Cơ quan, …).
-    - Nhập: tên tổ chức, mã số doanh nghiệp/mã số thuế, ngày thành lập, ngành nghề.
-    - Tải logo tổ chức (định dạng PNG/JPG, 128x128px, ≤500KB).
-    - Xác nhận cam kết thông tin đúng sự thật (Hình 2, 3).
+  chuc_nangs:
+    - ten_chuc_nang: "Yêu cầu cập nhật thông tin tổ chức"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn tài khoản tổ chức"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn chức năng cập nhật thông tin"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Bắt đầu cập nhật"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 4"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Form nhập thông tin và gửi yêu cầu"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 5"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Màn hình xác thực"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 6"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Thông báo thành công"
+          quick_replies: *qr_auto
 
-    3️⃣ **Xác thực & gửi yêu cầu**
-    - Xác thực bằng passcode, vân tay hoặc FaceID (Hình 4.1, 4.2, 4.3).
-    - Nhấn **Gửi yêu cầu** ➝ hệ thống báo “Tạo yêu cầu thành công” (Hình 8).
-    - Theo dõi trạng thái tại mục **Tổ chức của tôi**.
+    - ten_chuc_nang: "Xem Lịch sử yêu cầu thay đổi thông tin tổ chức"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Màn hình Lịch sử"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Bộ lọc tìm kiếm lịch sử"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Xem chi tiết yêu cầu"
+          quick_replies: *qr_auto
 
-- step: quy_trinh_truc_tiep
-  bot: |
-    🏢 **Quy trình định danh trực tiếp tại Công an cấp tỉnh**:
-    - Chỉ thực hiện tại **Công an tỉnh Quảng Ngãi**, địa chỉ: **160 Phan Bội Châu, phường Nghĩa Lộ, TP. Quảng Ngãi** (trụ sở cũ Công an TP. Quảng Ngãi).
-    - Hồ sơ: CCCD gắn chip/hộ chiếu của người đại diện pháp luật + Giấy chứng nhận đăng ký doanh nghiệp hoặc quyết định thành lập.
-    - Nộp hồ sơ tại bộ phận định danh điện tử ➝ nhận giấy hẹn ➝ chờ phê duyệt.
+    - ten_chuc_nang: "Yêu cầu thay đổi người đứng đầu, người đại diện"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn tài khoản tổ chức"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn chức năng yêu cầu thay đổi"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Đăng ký người đại diện mới"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 4"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Form nhập thông tin ứng cử"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 5"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Màn hình xác thực"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 6"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Thông báo tạo yêu cầu thành công"
+          quick_replies: *qr_auto
 
-- step: tra_cuu
-  bot: |
-    🔍 **Tra cứu kết quả**:
-    - Trực tuyến: vào mục **Tổ chức của tôi** trong VNeID.
-    - Trực tiếp: tra cứu bằng giấy hẹn tại Công an tỉnh.
+    - ten_chuc_nang: "Xem Lịch sử yêu cầu thay đổi người đứng đầu, người đại diện"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Nút Lịch sử"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Bộ lọc lịch sử"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chi tiết yêu cầu"
+          quick_replies: *qr_auto
 
-- step: phan_quyen
-  bot: |
-    👥 **Phân quyền & thêm thành viên** (sau khi định danh thành công):
-    - Người đại diện đăng nhập VNeID ➝ chọn **Quản lý tổ chức**.
-    - Thêm thành viên ➝ nhập số định danh cá nhân ➝ gán vai trò (**Quản trị viên**, **Người ký hồ sơ**, **Người nộp hồ sơ**).
-    - Thành viên xác nhận trên VNeID ➝ quyền có thể sửa hoặc thu hồi bất kỳ lúc nào.
+    - ten_chuc_nang: "Cập nhật thông tin thành viên"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn tài khoản tổ chức"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Danh sách thành viên"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn thành viên"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 4"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Sửa thông tin thành viên"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 5"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Form phân quyền và Lưu"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 6"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Màn hình xác thực"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 7"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Thông báo cập nhật thành công"
+          quick_replies: *qr_auto
 
-- step: ket_luan
-  bot: |
-    ✅ Sau khi phê duyệt, tổ chức sẽ có định danh điện tử chính thức.  
-    👉 Nếu đã có VNeID mức 2 thì **nên ưu tiên làm trực tuyến**, vừa nhanh vừa tiện.
+    - ten_chuc_nang: "Xóa thành viên khỏi tổ chức"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn tài khoản tổ chức"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Danh sách thành viên"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn thành viên cần xóa"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 4"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Nút Xóa thành viên"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 5"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Hộp thoại xác nhận xóa"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 6"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Màn hình xác thực"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 7"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Thông báo xóa thành công"
+          quick_replies: *qr_auto
+
+    - ten_chuc_nang: "Thành viên xác nhận tham gia tổ chức"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Tài khoản chờ xác nhận"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Xác nhận tham gia"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Màn hình xác thực"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 4"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Thông báo tham gia thành công"
+          quick_replies: *qr_auto
+
+    - ten_chuc_nang: "Phê duyệt thành viên vào tổ chức"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn tài khoản tổ chức"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn chức năng Phê duyệt"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Danh sách yêu cầu chờ duyệt"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 4"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn và duyệt thành viên"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 5"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Màn hình xác thực"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 6"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Thông báo duyệt thành công"
+          quick_replies: *qr_auto
+
+    - ten_chuc_nang: "Phân quyền thực hiện giao dịch trực tuyến"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn tài khoản tổ chức"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn chức năng Phân quyền"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn thành viên và quyền"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 4"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Màn hình xác thực"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 5"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Thông báo phân quyền thành công"
+          quick_replies: *qr_auto
+
+    - ten_chuc_nang: "Phê duyệt phân quyền giao dịch trực tuyến"
+      quy_trinh:
+        - ten_buoc: "Bước 1"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn tài khoản tổ chức"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 2"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn chức năng Phê duyệt"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 3"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Danh sách yêu cầu phân quyền"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 4"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Chọn và duyệt yêu cầu"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 5"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Màn hình xác thực"
+          quick_replies: *qr_auto
+        - ten_buoc: "Bước 6"
+          hinh_anh:
+            enabled_if: "${context.hien_anh_mac_dinh == true}"
+            type: image
+            url: "link_se_duoc_gan_sau"
+            alt: "Thông báo duyệt phân quyền thành công"
+          quick_replies: *qr_auto
