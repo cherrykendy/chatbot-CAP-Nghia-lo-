@@ -160,7 +160,6 @@ intents:
             - Mang theo: **CCCD gắn chip** và **SIM chính chủ**.
             ⏱️ Thời gian cấp tài khoản mức 2: thường **1–3 ngày làm việc**.
             ⚠️ Sau khi có tài khoản, **bắt buộc kích hoạt** để sử dụng.
-            ![Bản đồ điểm đăng ký]([AI CAP/knowledge_base/assets/images/VNEID/dang-ky-muc-2/01-ban-do.png])
           {% endif %}
 
   # ========= 3) QUÊN MẬT KHẨU =========
@@ -614,39 +613,151 @@ intents:
         content: "🔔 VNeID hiển thị thông báo về: kết quả dịch vụ công, nhắc hết hạn CCCD, chúc mừng sinh nhật và các thông báo quan trọng từ cơ quan Công an."
 
   # ========= 10) KIẾN NGHỊ, PHẢN ÁNH ANTT =========
-  - id: kien_nghi_antt
-    intent: kien_nghi_antt
-    synonyms: ["kiến nghị", "phản ánh an ninh", "tố giác ANTT"]
-    guided_flows:
-      - id: huong_dan_kien_nghi
-        entry_patterns: ["kiến nghị", "phản ánh ANTT"]
-        confirm_keywords: ["xong", "ok", "tiếp"]
-        cancel_keywords: ["dừng"]
-        steps:
-          - id: b1_mo
-            response:
-              - type: text
-                content: "B1) Mở **VNeID** → chọn **Phản ánh kiến nghị ANTT**."
-              - type: image
-                url: "[AI CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/01-man-hinh-chinh.png]"
-                alt_text: "Chức năng Phản ánh ANTT"
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "kien_nghi_xac_nhan_buoc_1"
-          - id: b2_nhap
-            response:
-              - type: text
-                content: "B2) Nhập nội dung, có thể đính kèm hình ảnh/video."
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "kien_nghi_xac_nhan_buoc_2"
-          - id: b3_gui
-            response:
-              - type: text
-                content: "B3) Bấm **Gửi** để chuyển phản ánh đến cơ quan Công an xử lý."
+- id: kien_nghi_antt
+  intent: kien_nghi_antt
+  synonyms:
+    - kiến nghị
+    - phản ánh an ninh
+    - tố giác ANTT
+    - phản ánh ANTT
+  guided_flows:
+    - id: huong_dan_kien_nghi
+      entry_patterns: ["kiến nghị", "phản ánh ANTT", "tố giác"]
+      confirm_keywords: ["xong", "ok", "tiếp", "đã xong"]
+      cancel_keywords: ["dừng", "hủy"]
+      steps:
+        - id: b1_mo
+          response:
+            - type: text
+              content: |
+                🧭 **HƯỚNG DẪN GỬI KIẾN NGHỊ / PHẢN ÁNH ANTT TRÊN ỨNG DỤNG VNeID**
 
+                Bước 1️⃣: Mở ứng dụng **VNeID**  
+                → Chọn **Dịch vụ khác**  
+                → Sau đó chọn **Kiến nghị, phản ánh về ANTT**.
+
+                ⚠️ **Lưu ý quan trọng:**  
+                - Phản ánh vụ việc xảy ra **ở đâu**, gửi cho **Công an nơi đó**.  
+                - **Công an phường Nghĩa Lộ** chỉ tiếp nhận **các vụ việc xảy ra trong địa bàn phường Nghĩa Lộ**.  
+                - Vụ việc trên **không gian mạng**: phản ánh theo **nơi cư trú thực tế** của người kiến nghị hoặc người bị kiến nghị.  
+
+                🚨 **Trường hợp khẩn cấp:**  
+                Gọi ngay trực ban Công an phường Nghĩa Lộ (24/7):  
+                🔴 **📞 0255 · 3823 · 558**  
+                📍 **Địa chỉ:** 210 Hùng Vương, phường Nghĩa Lộ, TP Quảng Ngãi.
+
+                Khi mở đúng mục rồi, bấm **“Đã xong ✅”** để sang bước tiếp theo 👇
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/01-kien-nghi-ANTT.png"
+              alt_text: "Chọn Dịch vụ khác → Kiến nghị, phản ánh ANTT"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "kien_nghi_b2_tao_yeu_cau"
+            - type: call
+              title: "📞 Gọi trực ban"
+              payload: "tel:02553823558"
+
+        - id: b2_tao_yeu_cau
+          response:
+            - type: text
+              content: |
+                ✳️ **BƯỚC 2: TẠO YÊU CẦU**
+
+                Trong giao diện “Kiến nghị, phản ánh về ANTT”, nhấn **Tạo yêu cầu** để bắt đầu quy trình.
+
+                👉 Khi đã nhấn, bấm “Đã xong ✅” để tiếp tục nhé 👇
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/02-kien-nghi-ANTT.png"
+              alt_text: "Màn hình chọn Tạo yêu cầu phản ánh ANTT"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "kien_nghi_b3_nhap_thong_tin"
+
+        - id: b3_nhap_thong_tin
+          response:
+            - type: text
+              content: |
+                💪 Rất tốt! Ta sang **Bước 3: NHẬP THÔNG TIN VỤ VIỆC** 👇
+
+                1️⃣ Xác định thông tin người gửi:  
+                - ✅ Có thể chọn “Ẩn danh” nếu không muốn hiển thị danh tính.  
+                - 🏢 Hoặc “Đại diện cơ quan/tổ chức” nếu gửi thay mặt đơn vị.  
+
+                2️⃣ Nhập thông tin vụ việc:  
+                - Người bị kiến nghị / phản ánh  
+                - Hành vi (ví dụ: gây rối trật tự, trộm cắp, bạo hành, …)  
+                - Ngày, địa điểm xảy ra vụ việc (có thể chọn “Không rõ” nếu không xác định được).  
+
+                3️⃣ Đính kèm hình ảnh hoặc video minh chứng (nếu có).  
+                4️⃣ Viết **tóm tắt nội dung vụ việc** ngắn gọn, trung thực.  
+                5️⃣ Tích chọn “Tôi chịu trách nhiệm trước pháp luật về nội dung trên”.  
+
+                📎 Sau khi điền đủ, nhấn **Tiếp tục** để sang bước xác nhận.  
+
+                Khi đã nhập xong, nhấn **“Đã xong ✅”** để tiếp nhé.
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/03-kien-nghi-ANTT.png"
+              alt_text: "Nhập thông tin người gửi và vụ việc phản ánh ANTT"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "kien_nghi_b4_xac_nhan"
+
+        - id: b4_xac_nhan
+          response:
+            - type: text
+              content: |
+                👏 Rất tốt! Đây là **Bước 4: KIỂM TRA & XÁC NHẬN NỘI DUNG**
+
+                Trước khi gửi, hệ thống sẽ hiển thị bản tóm tắt gồm:  
+                - Thông tin người gửi (hoặc ẩn danh nếu chọn)  
+                - Nội dung, hành vi, thời gian, địa điểm vụ việc  
+                - Tường trình / mô tả chi tiết  
+
+                👉 Kiểm tra kỹ, rồi tích chọn **cam kết trách nhiệm pháp lý**  
+                → Nhấn **Xác nhận** để gửi đi.
+
+                Khi đã xác nhận, bấm **Đã xong ✅** để sang bước cuối cùng 👇
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/04-kien-nghi-ANTT.png"
+              alt_text: "Màn hình xác nhận nội dung phản ánh ANTT"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "kien_nghi_b5_gui_thanh_cong"
+
+        - id: b5_gui_thanh_cong
+          response:
+            - type: text
+              content: |
+                ✅ **BƯỚC 5: GỬI YÊU CẦU THÀNH CÔNG**
+
+                Khi thấy thông báo **“Gửi yêu cầu thành công”**, nghĩa là phản ánh của bạn đã được **ghi nhận** và **chuyển đến cơ quan Công an phụ trách** để xử lý.
+
+                🔹 Có thể xem lại hoặc tạo phản ánh mới tại:  
+                **Dịch vụ khác → Kiến nghị, phản ánh ANTT → Lịch sử yêu cầu.**
+
+                🔸 **Lưu ý thêm:**  
+                - Phản ánh vụ việc xảy ra **ở đâu**, gửi **Công an nơi đó**.  
+                - Vụ việc **trên không gian mạng**: phản ánh theo **nơi cư trú thực tế**.  
+                - Phản ánh ẩn danh vẫn được tiếp nhận nếu nội dung rõ ràng.  
+                - 🚨 Nếu vụ việc **khẩn cấp hoặc đang xảy ra**, hãy liên hệ ngay:  
+                  🔴 **📞 0255 · 3823 · 558** (trực ban 24/7)  
+                  📍 **Địa chỉ:** 210 Hùng Vương, phường Nghĩa Lộ, TP Quảng Ngãi.
+
+                🎉 Hoàn tất rồi! Cảm ơn bạn đã chung tay giữ gìn ANTT cùng Công an phường Nghĩa Lộ 🇻🇳
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/05-kien-nghi-ANTT.png"
+              alt_text: "Thông báo gửi yêu cầu thành công trên VNeID"
+          actions:
+            - type: quick_reply
+              title: "Kết thúc ✅"
+              payload: "end"
+            - type: call
+              title: "📞 Gọi trực ban"
+              payload: "tel:02553823558"
   # ========= 11) XÁC MINH APP THẬT/GIẢ =========
   - id: xac_minh_app
     intent: xac_minh_app
@@ -839,6 +950,7 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
 
 
