@@ -445,47 +445,155 @@ intents:
           - Nếu chưa thấy, liên hệ cơ quan cấp để đồng bộ dữ liệu.
 
   # ========= 7) THÔNG BÁO LƯU TRÚ =========
-  - id: thong_bao_luu_tru
-    intent: thong_bao_luu_tru
-    synonyms: ["thông báo lưu trú", "khai báo lưu trú", "báo lưu trú"]
-    guided_flows:
-      - id: huong_dan_luu_tru
-        entry_patterns: ["thông báo lưu trú"]
-        confirm_keywords: ["tiếp tục", "ok"]
-        cancel_keywords: ["dừng"]
-        steps:
-          - id: b1_dvc
-            response:
-              - type: text
-                content: |
-                  ⚠️ **Lưu ý quan trọng:** Trên VNeID, chức năng “Thông báo lưu trú” hiện chỉ dành cho **CƠ SỞ KINH DOANH LƯU TRÚ** (khách sạn, nhà nghỉ...), **chưa áp dụng cho NHÀ Ở** hộ gia đình.
-                  
-                  Nếu anh/chị là chủ cơ sở kinh doanh, vui lòng thực hiện các bước sau:
-                  B1) Mở **VNeID** → vào **Dịch vụ công**.
-            actions:
-              - type: quick_reply
-                title: "Tôi đã rõ, tiếp tục"
-                payload: "luu_tru_xac_nhan_buoc_1"
-          - id: b2_chon
-            response:
-              - type: text
-                content: "B2) Chọn **Thông báo lưu trú**."
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "luu_tru_xac_nhan_buoc_2"
-          - id: b3_nhap
-            response:
-              - type: text
-                content: "B3) Nhập **địa chỉ**, **thời gian lưu trú**, và **thông tin người lưu trú**."
-            actions:
-              - type: quick_reply
-                title: "Tiếp tục"
-                payload: "luu_tru_xac_nhan_buoc_3"
-          - id: b4_gui
-            response:
-              - type: text
-                content: "B4) Kiểm tra → bấm **Gửi** để nộp trực tuyến đến Công an địa phương."
+  -id: thong_bao_luu_tru
+   intent: thong_bao_luu_tru
+   synonyms:
+    - thông báo lưu trú
+    - khai báo lưu trú
+    - báo lưu trú
+    - gửi thông tin lưu trú
+   guided_flows:
+    - id: huong_dan_thong_bao_luu_tru
+      entry_patterns: ["thông báo lưu trú"]
+      confirm_keywords: ["đã xong", "xong", "ok", "tiếp"]
+      cancel_keywords: ["dừng", "hủy"]
+      steps:
+        - id: b1_gioi_thieu
+          response:
+            - type: text
+              content: |
+                🏠 **HƯỚNG DẪN THÔNG BÁO LƯU TRÚ TRÊN ỨNG DỤNG VNEID**
+
+                🔹 Chức năng **“Thông báo lưu trú”** giúp:
+                - Chủ **cơ sở lưu trú (khách sạn, nhà nghỉ, hộ gia đình có người đến ở tạm)** khai báo **trực tuyến** với Công an địa phương.  
+                - Không cần nộp giấy hay đến trực tiếp trụ sở.  
+
+                ⚠️ **Lưu ý:**  
+                - Áp dụng cho **cơ sở lưu trú hoặc hộ gia đình có người ở tạm**.  
+                - Cần có **tài khoản VNeID mức 2** mới thực hiện được.  
+
+                👉 Bây giờ ta bắt đầu nhé, sang **Bước 1** nào 👇
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/01-thong-bao-luu-tru.png"
+              alt_text: "Vào Thủ tục hành chính → chọn Thông báo lưu trú trên VNeID"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "luu_tru_b2_mo_dvc"
+
+        - id: b2_mo_dvc
+          response:
+            - type: text
+              content: |
+                ✳️ **BƯỚC 1: MỞ CHỨC NĂNG THÔNG BÁO LƯU TRÚ**
+
+                1️⃣ Mở ứng dụng **VNeID** → chọn **Thủ tục hành chính** (trên màn hình chính).  
+                2️⃣ Trong phần **Dịch vụ công Cư trú**, chọn **Thông báo lưu trú**.  
+                3️⃣ Ứng dụng sẽ yêu cầu nhập **mã PIN (Passcode)** để xác thực.  
+                4️⃣ Nhập đúng mã PIN → chọn **Cơ sở lưu trú** để bắt đầu.  
+
+                Khi xong bước này, nhấn nút bên dưới nhé 👇
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/02-thong-bao-luu-tru.png"
+              alt_text: "Vào Thủ tục hành chính → chọn Thông báo lưu trú trên VNeID"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "luu_tru_b3_tao_yeu_cau"
+
+        - id: b3_tao_yeu_cau
+          response:
+            - type: text
+              content: |
+                👍 Tốt lắm, ta sang **Bước 2** nhé 👇  
+                🧩 **TẠO MỚI YÊU CẦU THÔNG BÁO LƯU TRÚ**
+
+                1️⃣ Trong giao diện “Thông báo lưu trú”, nhấn **Tạo mới yêu cầu**.  
+                2️⃣ Thông tin cá nhân (họ tên, số định danh, số điện thoại...) sẽ tự điền sẵn.  
+                3️⃣ Chọn **Địa chỉ cơ quan công an thực hiện** (ví dụ: *Công an phường Nghĩa Lộ, TP Quảng Ngãi*).  
+                4️⃣ Nhấn **Tiếp tục** để sang bước nhập thông tin cơ sở lưu trú.  
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/03-thong-bao-luu-tru.png"
+              alt_text: "Tạo mới yêu cầu và chọn địa chỉ cơ quan công an thực hiện"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "luu_tru_b4_nhap_thong_tin"
+
+        - id: b4_nhap_thong_tin
+          response:
+            - type: text
+              content: |
+                💪 Rất tốt! Bây giờ đến **Bước 3: NHẬP THÔNG TIN CƠ SỞ LƯU TRÚ**
+
+                1️⃣ Chọn **Loại hình cơ sở lưu trú**:
+                - 🏡 Hộ gia đình  
+                - 🏨 Nhà nghỉ / khách sạn  
+                - 🏢 Cơ quan / đơn vị khác  
+
+                2️⃣ Nhập:
+                - Tên cơ sở lưu trú (ví dụ: “Gia đình ông Văn A”)  
+                - Địa chỉ hành chính (tỉnh, huyện, xã)  
+                - Địa chỉ chi tiết (số nhà, tổ, đường cụ thể)  
+
+                3️⃣ Chọn **Tiếp tục** để sang phần thêm người lưu trú.
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/04-thong-bao-luu-tru.png"
+              alt_text: "Nhập thông tin cơ sở lưu trú: loại hình, tên, địa chỉ"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "luu_tru_b5_them_nguoi"
+
+        - id: b5_them_nguoi
+          response:
+            - type: text
+              content: |
+                👏 Tốt lắm, ta chuyển sang **Bước 4: THÊM NGƯỜI LƯU TRÚ** nhé 👇
+
+                1️⃣ Nhấn **Thêm người lưu trú**.  
+                2️⃣ Chọn một trong hai:
+                - ✅ “Người thông báo là người lưu trú” (nếu bạn khai cho mình).  
+                - ➕ “Thêm người lưu trú khác” (nếu khai hộ).  
+
+                3️⃣ Nhập thông tin chi tiết:
+                - Họ và tên khai sinh  
+                - Ngày sinh, Giới tính  
+                - Loại giấy tờ + Số giấy tờ (CCCD/CMND/Hộ chiếu)  
+                - Lý do lưu trú, thời gian lưu trú từ ... đến ...  
+
+                📌 Nhập đủ → nhấn **Lưu**.
+            - type: image
+              url: "https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/refs/heads/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/05-thong-bao-luu-tru.png"
+              alt_text: "Thêm người lưu trú và nhập thông tin chi tiết"
+          actions:
+            - type: quick_reply
+              title: "Đã xong ✅"
+              payload: "luu_tru_b6_gui"
+
+        - id: b6_gui
+          response:
+            - type: text
+              content: |
+                ✅ Rất tuyệt! Đây là **Bước cuối cùng - GỬI THÔNG BÁO LƯU TRÚ**  
+
+                1️⃣ Kiểm tra lại tất cả thông tin vừa nhập.  
+                2️⃣ Nếu chính xác → nhấn **Gửi** để nộp hồ sơ trực tuyến đến **Công an phường/xã**.  
+                3️⃣ Sau khi gửi, hệ thống sẽ hiển thị trạng thái xử lý:
+                - ⏳ **Đang chờ tiếp nhận**  
+                - ✅ **Đã duyệt**  
+                - ⚠️ **Không đạt / cần bổ sung thông tin**
+
+                💡 **Giải thích thêm:**  
+                Ngay khi bạn gửi thành công, hệ thống đã **ghi nhận việc khai báo lưu trú**.  
+                Dù trạng thái hiển thị là *“Đang chờ tiếp nhận”*, thì **Công an đã nhận được thông tin của bạn**.  
+                👉 Nghĩa là bạn **đã hoàn thành nghĩa vụ khai báo** và **sẽ không bị kiểm tra hay xử phạt** vì chậm khai báo.  
+                Cơ quan công an sẽ tiếp nhận và xác nhận sau, nên **bạn cứ yên tâm** nhé.  
+
+                📎 Có thể xem lại lịch sử xử lý tại:  
+                **Thông báo lưu trú → Lịch sử yêu cầu** trong ứng dụng VNeID.
+
+                Hoàn thành rồi đó 👏 Bạn đã khai báo lưu trú thành công!
 
   # ========= 8) THÔNG TIN CƯ TRÚ =========
   - id: thong_tin_cu_tru
@@ -731,6 +839,7 @@ fallback:
     - type: quick_reply
       title: "Khác..."
       payload: "chao_hoi_menu"
+
 
 
 
