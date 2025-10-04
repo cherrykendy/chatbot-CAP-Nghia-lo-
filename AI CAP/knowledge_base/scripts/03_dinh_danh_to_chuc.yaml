@@ -1,120 +1,79 @@
-id: dang_ky_thuong_tru_hoan_chinh.v1
-version: "1.0"
-effective_date: "2025-10-01"
-scope: "K?ch b?n ho�n ch?nh, s? d?ng chu?i c�u h?i logic d? t? d?ng ph�n lo?i v� hu?ng d?n chi ti?t th? t?c dang k� thu?ng tr� theo t?ng tru?ng h?p c? th?."
-
-# === KHAI B�O INTENT V� SYNONYMS ===
 intents:
-  - id: dang_ky_thuong_tru
-    synonyms:
-      - "dang k� thu?ng tr�"
-      - "nh?p h? kh?u"
-      - "dang k� h? kh?u m?i"
-      - "th? t?c thu?ng tr�"
-      - "l�m h? kh?u"
-      - "t�i mu?n dang k� cho con ? v?i cha, m?"
-      - "t�i mu?n dang k� nh?p v? nh� ch?ng"
-      - "t�i mu?n dang k� cho con v? ? chung v?i �ng, b�"
-      - "th? t?c nh?p v? h?"
-      - "nh?p con v? ? v?i cha m?"
+- id: dinh_danh_to_chuc
+  synonyms:
+  - định danh tổ chức
+  - định danh doanh nghiệp
+  - đăng ký định danh doanh nghiệp
+  - tạo định danh tổ chức
+  - xác thực tổ chức
+metadata:
+  id: dinh_danh_to_chuc.v6
+  version: '6.0'
+  effective_date: '2025-10-04'
+  scope: Hướng dẫn đăng ký định danh tổ chức/doanh nghiệp trên ứng dụng VNeID (ưu tiên), và trực tiếp tại Công an cấp tỉnh (trường hợp chưa có VNeID mức 2)
 
-# === CHU?I C�U H?I PH�N LO?I T? �?NG ===
-slots:
-  - name: chu_the_dang_ky
-    question: |
-      Ch�o anh/ch?. �? hu?ng d?n th? t?c dang k� thu?ng tr�, tru?c h?t, xin cho bi?t anh/ch? dang l�m th? t?c cho ai ??
-      1. Cho ch�nh b?n th�n anh/ch?.
-      2. Cho con c�i.
-      3. Cho v? ho?c ch?ng.
-    required: true
-    type: choice
-    choices: ["1", "2", "3"]
-    
-  - name: con_tren_18_tuoi
-    question: "D?, cho h?i ngu?i con anh/ch? dang k� l� tr�n hay du?i 18 tu?i ??"
-    required: true
-    type: choice
-    choices: ["Tr�n 18 tu?i", "Du?i 18 tu?i"]
-    condition: "chu_the_dang_ky == '2'" # Ch? h?i khi dang k� cho con
+nlu:
+  slot:
+  - ten: co_tai_khoan_VNeID_muc2
+    kieu: boolean
+    cau_hoi: Để định danh tổ chức, anh/chị cần có tài khoản định danh điện tử mức 2. Anh/chị đã có tài khoản này chưa?
 
-  - name: chu_so_huu_la_ai
-    question: "C?m on anh/ch?. Ti?p theo, xin cho bi?t ng�i nh�/can h? n�y thu?c s? h?u c?a ai ?? (V� d?: c?a t�i, c?a ch?ng t�i, c?a ba m? t�i...)"
-    required: true
-    type: text
+redirects:
+  - condition: "người dùng nói 'chưa kích hoạt', 'chưa có', 'quên mật khẩu', 'quên mã pin', 'không đăng nhập được'"
+    action: "Chuyển sang kịch bản VNeID"
 
-# === HU?NG D?N H? SO TUONG ?NG V� B?T �?U LU?NG CHUNG ===
-final_response: |
-  C?m on anh/ch?. D?a v�o c�c th�ng tin d� thu th?p, d�y l� danh s�ch gi?y t? c?n chu?n b? (du?i d?ng b?n ch?p ho?c scan):
+steps:
+- step: mo_dau
+  bot: "📌 Định danh tổ chức/doanh nghiệp trên VNeID giúp đơn vị có tài khoản điện tử để giao dịch trực tuyến, ký số và thực hiện thủ tục hành chính. Có 2 cách: **trực tuyến qua VNeID** (ưu tiên) hoặc **trực tiếp tại Công an cấp tỉnh**."
 
-  {% set chu_the = chu_the_dang_ky %}
-  {% set chu_so_huu = chu_so_huu_la_ai | lower %}
+- step: dieu_kien
+  bot: |
+    ✅ **Điều kiện**:
+    - Người thực hiện là **người đại diện pháp luật** của tổ chức/doanh nghiệp.
+    - Có tài khoản VNeID mức 2 đã kích hoạt (để làm trực tuyến).
+    - Nếu chưa có tài khoản VNeID mức 2 ➝ cần xử lý trước (sẽ được chuyển sang kịch bản VNeID).
 
-  {# TRU?NG H?P 1: �ANG K� V? NH� C?A CH�NH M�NH (THEO KHO?N 1, �I?U 20 & �I?U 21 LU?T CU TR�) #}
-  {% if ('t�i' in chu_so_huu or 'm�nh' in chu_so_huu or 'b?n th�n' in chu_so_huu) and chu_the == '1' %}
-  **Tru?ng h?p: �ang k� t?i ch? ? thu?c quy?n s? h?u c?a m�nh**
-  - **1. T? khai thay d?i th�ng tin cu tr� (M?u CT01)**.
-  - **2. Gi?y t? ch?ng minh ch? ? h?p ph�p:**
-      - **N?u** Gi?y ch?ng nh?n (S? d?) c?a anh/ch? **c� th? hi?n c�ng tr�nh l� nh� ? tr�n d?t**, anh/ch? c� th? d�ng gi?y t? n�y.
-      - **N?u** S? d? **ch? th? hi?n quy?n s? d?ng d?t**, anh/ch? c?n s? d?ng **M?u s? 02** (theo Ngh? d?nh 154/2024/N�-CP). M?u n�y ph?i du?c **?y ban nh�n d�n c?p x�** noi c� d?t k� x�c nh?n.
+- step: quy_trinh_truc_tuyen
+  bot: |
+    📱 **Quy trình định danh tổ chức qua ứng dụng VNeID**:
 
-  {# TRU?NG H?P 2: CON V? V?I CHA M? (THEO �I?M A, KHO?N 2, �I?U 20 LU?T CU TR�) #}
-  {% elif chu_the == '2' %}
-    {% if con_tren_18_tuoi == 'Du?i 18 tu?i' %}
-    **Tru?ng h?p: �ang k� cho con (du?i 18 tu?i) v? v?i cha ho?c m?**
-    - **1. T? khai thay d?i th�ng tin cu tr� (M?u CT01)**: Do cha ho?c m? l� ngu?i k� khai v� k� t�n.
-    - **2. Gi?y t? ch?ng minh quan h? cha/m? - con**: Gi?y khai sinh c?a con.
-    
-    {% else %}
-    **Tru?ng h?p: �ang k� cho con (tr�n 18 tu?i) v? v?i cha ho?c m?**
-    - **1. T? khai thay d?i th�ng tin cu tr� (M?u CT01)**: Ph?i c� d?y d? � ki?n d?ng � v� ch? k� c?a **ch? h?** v� **ch? s? h?u ch? ? h?p ph�p**.
-    - **2. Gi?y t? ch?ng minh quan h? cha/m? - con**: Gi?y khai sinh c?a ngu?i con.
-    {% endif %}
-  
-  {# TRU?NG H?P 3: V?/CH?NG V? V?I NHAU (THEO �I?M A, KHO?N 2, �I?U 20 LU?T CU TR�) #}
-  {% elif chu_the == '3' %}
-  **Tru?ng h?p: V? nh� c?a v? ho?c ch?ng**
-  - **1. T? khai thay d?i th�ng tin cu tr� (M?u CT01)**, trong d� ngu?i v?/ch?ng l� ch? h? ph?i k� t�n d?ng � ? m?c "� ki?n c?a ch? h?".
-  - **2. Gi?y t? ch?ng minh quan h? v? ch?ng**: Gi?y ch?ng nh?n k?t h�n.
-  
-  {# TRU?NG H?P M?C �?NH KH�C: THU�, MU?N, ? NH? #}
-  {% else %}
-  **Tru?ng h?p: V? nh� ngu?i kh�c (thu�, mu?n, ? nh?, h? h�ng...)**
-  - **1. T? khai CT01**, trong d� ch? h? v� ch? s? h?u ch? ? h?p ph�p ph?i k� t�n d?ng �.
-  - **2. H?p d?ng cho thu�, cho mu?n, cho ? nh?** ho?c van b?n d?ng � c?a ch? s? h?u (kh�ng b?t bu?c c�ng ch?ng, ch?ng th?c d?i v?i dang k� t?m tr�).
-  - **3. Gi?y t? ch?ng minh ch? ? h?p ph�p** c?a b�n cho thu�/mu?n.
-  {% endif %}
+    1️⃣ **Đăng nhập & chọn chức năng**
+    - Mở ứng dụng VNeID, đăng nhập bằng tài khoản mức 2 của người đại diện.
+    - Trên màn hình chính ➝ chọn **Định danh tổ chức** (Hình 1.1).
+    - Chọn **Đăng ký định danh tổ chức** (Hình 1.2, 3.1).
 
-  ---
-  Sau khi anh/ch? d� chu?n b? xong c�c gi?y t? tr�n, ch�ng ta s? b?t d?u th?c hi?n n?p h? so tr?c tuy?n.
+    2️⃣ **Nhập thông tin tổ chức**
+    - Chọn loại tổ chức (Doanh nghiệp, Hợp tác xã, Cơ quan, …).
+    - Nhập: tên tổ chức, mã số doanh nghiệp/mã số thuế, ngày thành lập, ngành nghề.
+    - Tải logo tổ chức (định dạng PNG/JPG, 128x128px, ≤500KB).
+    - Xác nhận cam kết thông tin đúng sự thật (Hình 2, 3).
 
-# === LU?NG N?P H? SO TR?C TUY?N (D�NG CHUNG) ===
-guided_flows:
-  - id: flow_nop_ho_so_thuong_tru_online
-    entry_patterns: [] # K�ch ho?t sau khi final_response ho�n t?t.
-    confirm_keywords: ["xong", "ok", "r?i", "ti?p", "d� chu?n b? xong"]
-    cancel_keywords: ["d?ng", "h?y"]
-    steps:
-      - id: b1_dang_nhap
-        say: "B1) Truy c?p C?ng D?ch v? c�ng B? C�ng an t?i: **dichvucong.bocongan.gov.vn** v� **'�ang nh?p'** b?ng t�i kho?n VNeID."
-        confirm: "Anh/ch? d� dang nh?p th�nh c�ng chua?"
-      - id: b2_tim_thu_tuc
-        say: "B2) T?i � t�m ki?m, g� **'�ang k� thu?ng tr�'** v� ch?n th? t?c h�nh ch�nh tuong ?ng."
-        confirm: "Anh/ch? d� t�m th?y v� ch?n th? t?c chua?"
-      - id: b3_ke_khai
-        say: "B3) �i?n d?y d? th�ng tin v�o t? khai tr?c tuy?n (M?u CT01). Th�ng tin c� nh�n s? du?c t? d?ng di?n."
-        confirm: "Anh/ch? d� di?n xong t? khai chua?"
-      - id: b4_tai_ho_so
-        say: "B4) ��nh k�m c�c file ?nh ch?p ho?c b?n scan gi?y t? d� chu?n b? v�o c�c m?c tuong ?ng."
-        confirm: "Anh/ch? d� d�nh k�m d? h? so theo hu?ng d?n chua?"
-      - id: b5_chon_co_quan
-        say: "B5) Ch?n **Co quan th?c hi?n** l� C�ng an c?p x�/phu?ng/th? tr?n noi anh/ch? mu?n dang k� thu?ng tr�."
-        confirm: "Anh/ch? d� ch?n xong co quan th?c hi?n chua?"
-      - id: b6_nop_va_theo_doi
-        say: "B6) Ki?m tra l?i to�n b? th�ng tin, n?p h? so v� thanh to�n l? ph� (n?u c�). Anh/ch? s? nh?n du?c m� h? so d? theo d�i ti?n d?."
-      - id: b7_nhan_ket_qua
-        say: "Sau kho?ng 5-7 ng�y l�m vi?c, anh/ch? s? nh?n du?c th�ng b�o k?t qu? qua C?ng D?ch v? c�ng ho?c tin nh?n SMS. Ch�c anh/ch? th?c hi?n th�nh c�ng!"
+    3️⃣ **Xác thực & gửi yêu cầu**
+    - Xác thực bằng passcode, vân tay hoặc FaceID (Hình 4.1, 4.2, 4.3).
+    - Nhấn **Gửi yêu cầu** ➝ hệ thống báo “Tạo yêu cầu thành công” (Hình 8).
+    - Theo dõi trạng thái tại mục **Tổ chức của tôi**.
 
-notes:
-  - "Luu � v? d?ng s? h?u (theo �i?u 8, N� 154/2024/N�-CP): �?i v?i tru?ng h?p v?/ch?ng, cha/m?/con, ch? c?n s? d?ng � c?a **01 d?ng s? h?u**. C�c tru?ng h?p kh�c c?n s? d?ng � c?a **T?T C?** d?ng s? h?u."
-  - "T?t c? c�c gi?y t? ph?i du?c scan ho?c ch?p ?nh r� n�t, kh�ng b? m?, l�a."
-  - "B?t bu?c ph?i c� t�i kho?n �?nh danh di?n t? (VNeID) m?c 2 d? dang nh?p v� n?p h? so."
+- step: quy_trinh_truc_tiep
+  bot: |
+    🏢 **Quy trình định danh trực tiếp tại Công an cấp tỉnh**:
+    - Chỉ thực hiện tại **Công an tỉnh Quảng Ngãi**, địa chỉ: **160 Phan Bội Châu, phường Nghĩa Lộ, TP. Quảng Ngãi** (trụ sở cũ Công an TP. Quảng Ngãi).
+    - Hồ sơ: CCCD gắn chip/hộ chiếu của người đại diện pháp luật + Giấy chứng nhận đăng ký doanh nghiệp hoặc quyết định thành lập.
+    - Nộp hồ sơ tại bộ phận định danh điện tử ➝ nhận giấy hẹn ➝ chờ phê duyệt.
+
+- step: tra_cuu
+  bot: |
+    🔍 **Tra cứu kết quả**:
+    - Trực tuyến: vào mục **Tổ chức của tôi** trong VNeID.
+    - Trực tiếp: tra cứu bằng giấy hẹn tại Công an tỉnh.
+
+- step: phan_quyen
+  bot: |
+    👥 **Phân quyền & thêm thành viên** (sau khi định danh thành công):
+    - Người đại diện đăng nhập VNeID ➝ chọn **Quản lý tổ chức**.
+    - Thêm thành viên ➝ nhập số định danh cá nhân ➝ gán vai trò (**Quản trị viên**, **Người ký hồ sơ**, **Người nộp hồ sơ**).
+    - Thành viên xác nhận trên VNeID ➝ quyền có thể sửa hoặc thu hồi bất kỳ lúc nào.
+
+- step: ket_luan
+  bot: |
+    ✅ Sau khi phê duyệt, tổ chức sẽ có định danh điện tử chính thức.  
+    👉 Nếu đã có VNeID mức 2 thì **nên ưu tiên làm trực tuyến**, vừa nhanh vừa tiện.
