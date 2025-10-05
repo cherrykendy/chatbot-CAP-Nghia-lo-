@@ -1,22 +1,36 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator, model_validator
+
+
+class MediaItem(BaseModel):
+    type: str = "image"
+    url: str
+    alt: Optional[str] = None
 
 
 class StepUI(BaseModel):
-    buttons: Optional[List[str]] = None
+    buttons: List[str] = Field(default_factory=list)
+    media: List[MediaItem] = Field(default_factory=list)
 
 
 class Step(BaseModel):
     id: str
     say: str
-    ui: Optional[StepUI] = None
+    ui: StepUI = Field(default_factory=StepUI)
     before_hook: Optional[str] = None
     action: Optional[str] = None
     after_hook: Optional[str] = None
+
+    @field_validator("say", mode="before")
+    @classmethod
+    def _ensure_say_str(cls, value: object) -> str:
+        if value is None:
+            raise ValueError("Trường 'say' bắt buộc")
+        return str(value)
 
 
 class Intent(BaseModel):
@@ -30,16 +44,16 @@ class Intent(BaseModel):
     steps: List[Step]
     source_file: Optional[str] = None
 
-    @validator("steps")
-    def validate_steps(cls, v: List[Step]) -> List[Step]:
+    @model_validator(mode="after")
+    def _validate_steps(self) -> "Intent":
+        if not self.steps:
+            raise ValueError("Intent phải có ít nhất một bước")
         ids = set()
-        for step in v:
+        for step in self.steps:
             if step.id in ids:
                 raise ValueError(f"Trùng id bước: {step.id}")
             ids.add(step.id)
-        if not v:
-            raise ValueError("Intent phải có ít nhất một bước")
-        return v
+        return self
 
 
 class ScriptPack(BaseModel):
@@ -68,7 +82,7 @@ class ContextFrame(BaseModel):
     step_index: int
     slots: Dict[str, str] = Field(default_factory=dict)
     version: int
-    timestamp: float = Field(default_factory=lambda: datetime.utcnow().timestamp())
+    timestamp: float = Field(default_factory=lambda: datetime.now(timezone.utc).timestamp())
     interruption: bool = False
 
 

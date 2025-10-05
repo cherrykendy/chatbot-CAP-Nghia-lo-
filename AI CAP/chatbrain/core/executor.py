@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Dict, Optional
 
 from .context import ContextManager
-from .schema import ContextFrame, Intent, ScriptPack
+from .schema import ContextFrame, Intent, ScriptPack, StepUI
 
 
 class Executor:
@@ -65,7 +65,7 @@ class Executor:
                 self.context.set_pending_resume(session_id, previous.intent_id)
                 return {
                     "reply": f"Anh/chị có muốn quay lại **{previous.intent_id}** không?",
-                    "ui": {"buttons": ["Quay lại", "Không"]},
+                    "ui": StepUI(buttons=["Quay lại", "Không"]),
                 }
         return self._message("Công việc đã hoàn tất. Anh/chị cần hỗ trợ gì thêm không?")
 
@@ -95,7 +95,7 @@ class Executor:
                 self.context.set_pending_resume(session_id, previous.intent_id)
                 return {
                     "reply": f"Anh/chị có muốn quay lại **{previous.intent_id}** không?",
-                    "ui": {"buttons": ["Quay lại", "Không"]},
+                    "ui": StepUI(buttons=["Quay lại", "Không"]),
                 }
         return self._message("Em đã huỷ quy trình hiện tại. Anh/chị cần gì thêm cứ nói nhé.")
 
@@ -145,17 +145,15 @@ class Executor:
             return self._message("Em sẽ kết nối hỗ trợ viên để giúp anh/chị chi tiết hơn nhé.")
         if label == "Không":
             return self._message("Vâng ạ, nếu cần anh/chị cứ nhắn tiếp nhé.")
-        return self._message("Em đã ghi nhận." )
+        return self._message("Em đã ghi nhận.")
 
     # Helpers -----------------------------------------------------------
     def _intent_by_id(self, intent_id: str) -> Optional[Intent]:
         return self.script_pack.intent_by_id(intent_id)
 
-    def _current_ui(self, intent: Intent, frame: ContextFrame) -> Dict[str, object]:
+    def _current_ui(self, intent: Intent, frame: ContextFrame) -> StepUI:
         step = intent.steps[frame.step_index]
-        if step.ui:
-            return step.ui.dict()
-        return {}
+        return step.ui
 
     def _render_current_step(
         self,
@@ -171,7 +169,7 @@ class Executor:
         self._run_hook(step.before_hook, session_id, intent, step.id)
         self._run_hook(step.action, session_id, intent, step.id)
         self._run_hook(step.after_hook, session_id, intent, step.id)
-        ui = step.ui.dict() if step.ui else {}
+        ui = step.ui
         return {"reply": step.say, "ui": ui}
 
     def _check_version_prompt(self, session_id: str, frame: ContextFrame, intent: Intent) -> Optional[Dict[str, object]]:
@@ -179,9 +177,9 @@ class Executor:
             self.version_prompts[session_id] = intent.id
             return {
                 "reply": "Nội dung đã cập nhật. Anh/chị muốn tiếp tục hay khởi động lại?",
-                "ui": {"buttons": ["Tiếp tục", "Khởi động lại"]},
+                "ui": StepUI(buttons=["Tiếp tục", "Khởi động lại"]),
             }
         return None
 
     def _message(self, text: str) -> Dict[str, object]:
-        return {"reply": text, "ui": {}}
+        return {"reply": text, "ui": StepUI()}

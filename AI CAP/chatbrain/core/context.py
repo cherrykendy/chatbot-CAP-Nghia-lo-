@@ -10,7 +10,7 @@ class ContextManager:
     def __init__(self, max_depth: Optional[int] = None) -> None:
         if max_depth is None:
             max_depth = int(os.getenv("MAX_DEPTH", "2"))
-        self.max_depth = max_depth
+        self.max_depth = max(1, max_depth)
         self._sessions: Dict[str, List[ContextFrame]] = {}
         self._pending_resume: Dict[str, Optional[str]] = {}
 
@@ -20,7 +20,7 @@ class ContextManager:
     def push(self, session_id: str, frame: ContextFrame) -> None:
         stack = self.stack(session_id)
         stack.append(frame)
-        if len(stack) > self.max_depth:
+        while len(stack) > self.max_depth:
             stack.pop(0)
 
     def pop(self, session_id: str) -> Optional[ContextFrame]:

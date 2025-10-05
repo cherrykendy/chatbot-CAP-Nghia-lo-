@@ -37,6 +37,36 @@ curl -X POST http://localhost:8000/message \
   -d '{"session_id": "demo", "message": "Tôi muốn kích hoạt VNeID"}'
 ```
 
+## Tích hợp Facebook Messenger
+
+1. Cài đặt phụ thuộc:
+   ```bash
+   pip install -r chatbrain/requirements.txt
+   ```
+2. Chạy máy chủ FastAPI:
+   ```bash
+   uvicorn chatbrain.app:app --reload
+   ```
+3. Mở đường hầm công khai, ví dụ với ngrok:
+   ```bash
+   ngrok http 8000
+   ```
+   Sau đó đặt biến môi trường `PUBLIC_BASE_URL` trùng với URL do ngrok cung cấp.
+4. Thiết lập biến môi trường (có thể dựa trên `.env.example`):
+   * `FB_PAGE_ACCESS_TOKEN`
+   * `FB_VERIFY_TOKEN` (mặc định `cap-demo-token`)
+   * `USE_MEDIA=true` nếu muốn gửi ảnh đi kèm.
+5. Cấu hình webhook trong Facebook App/Page:
+   * Callback URL: `<PUBLIC_BASE_URL>/webhook/facebook`
+   * Verify token: giá trị `FB_VERIFY_TOKEN`
+6. Nạp kịch bản có sẵn (chỉ đọc YAML hiện tại):
+   ```bash
+   curl -X POST http://localhost:8000/load-scripts \
+     -H "Content-Type: application/json" \
+     -d '{"folder": "knowledge_base/scripts"}'
+   ```
+7. Gửi tin nhắn từ trang Facebook để kiểm thử. Hệ thống sẽ tự động phản hồi, hiển thị quick replies từ `ui.buttons` và (khi `USE_MEDIA=true`) gửi từng ảnh trong `ui.media`.
+
 ## CLI quản lý
 
 ```bash
