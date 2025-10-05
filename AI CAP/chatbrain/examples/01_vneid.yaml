@@ -1,0 +1,45 @@
+intents:
+  - id: cai_va_kich_hoat_vneid
+    domain: vneid
+    version: 3
+    can_interrupt: false
+    synonyms:
+      - kích hoạt vneid
+      - cài vneid
+    examples:
+      - tôi muốn cài và kích hoạt vneid
+      - hướng dẫn kích hoạt ứng dụng vneid
+    required_slots: []
+    steps:
+      - id: b1_chuan_bi
+        say: "Anh/chị vui lòng mở ứng dụng VNeID và đăng nhập tài khoản nhé."
+        ui:
+          buttons: ["Đã xong", "Quay lại", "Huỷ"]
+      - id: b2_mo
+        say: "Tại màn hình chính, chọn mục 'Kích hoạt' rồi nhập đầy đủ thông tin hiển thị."
+        ui:
+          buttons: ["Đã xong", "Quay lại", "Huỷ"]
+      - id: b3_xac_nhan
+        say: "Sau khi xác nhận OTP, ứng dụng sẽ kích hoạt thành công. Anh/chị cần hỗ trợ thêm gì không?"
+        ui:
+          buttons: ["Huỷ"]
+  - id: quen_mat_khau_vneid
+    domain: vneid
+    version: 2
+    can_interrupt: true
+    synonyms:
+      - quên mật khẩu vneid
+      - quên mã pin vneid
+    examples:
+      - tôi quên passcode vneid
+      - quên mật khẩu ứng dụng vneid phải làm sao
+    required_slots: []
+    steps:
+      - id: b1_huong_dan
+        say: "Anh/chị vào màn hình Đăng nhập > chọn 'Quên mật khẩu', nhập số CCCD và làm theo hướng dẫn trên ứng dụng."
+        ui:
+          buttons: ["Đã xong", "Cần trợ giúp thêm", "Quay lại"]
+      - id: b2_luu_y
+        say: "Nếu vẫn chưa đặt lại được, vui lòng liên hệ tổng đài 1900 0368 để được hỗ trợ trực tiếp."
+        ui:
+          buttons: ["Đã xong", "Quay lại"]

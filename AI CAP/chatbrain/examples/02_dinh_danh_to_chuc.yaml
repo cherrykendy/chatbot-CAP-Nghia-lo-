@@ -1,0 +1,35 @@
+intents:
+  - id: dinh_danh_to_chuc_bat_dau
+    domain: to_chuc
+    version: 1
+    can_interrupt: false
+    synonyms:
+      - định danh tổ chức
+      - hướng dẫn định danh doanh nghiệp
+    examples:
+      - tôi muốn định danh tài khoản tổ chức
+    required_slots: []
+    steps:
+      - id: b1_gioi_thieu
+        say: "Anh/chị truy cập Cổng DVC Quốc gia, đăng nhập tài khoản tổ chức rồi chọn mục 'Định danh điện tử'."
+        ui:
+          buttons: ["Đã xong", "Quay lại", "Huỷ"]
+      - id: b2_xu_ly
+        say: "Chuẩn bị giấy tờ pháp lý của tổ chức, tải lên hệ thống và ký số theo hướng dẫn."
+        ui:
+          buttons: ["Đã xong", "Quay lại", "Huỷ"]
+  - id: hoi_le_phi
+    domain: to_chuc
+    version: 1
+    can_interrupt: true
+    synonyms:
+      - lệ phí định danh tổ chức
+      - chi phí định danh doanh nghiệp
+    examples:
+      - định danh tổ chức có mất phí không
+    required_slots: []
+    steps:
+      - id: thong_bao_phi
+        say: "Thực hiện **không tốn phí**. Anh/chị có thắc mắc thêm không?"
+        ui:
+          buttons: ["Đã xong", "Quay lại"]
