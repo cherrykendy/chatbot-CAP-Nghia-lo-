@@ -1,0 +1,28 @@
+intents:
+  - id: example_vneid_activation
+    domain: demo
+    version: 1
+    can_interrupt: false
+    synonyms:
+      - kich hoat vneid
+      - kich hoat tai khoan
+    examples:
+      - Tôi muốn kích hoạt VNeID
+    steps:
+      - id: start
+        say: "Em sẽ hướng dẫn kích hoạt VNeID. Anh/chị đã có ứng dụng chưa?"
+        ui:
+          buttons:
+            - Đã cài rồi
+            - Chưa có
+          media:
+            - type: image
+              url: /static/vneid/step-1.png
+              alt: Ảnh minh hoạ bước 1
+      - id: install
+        say: "Anh/chị hãy tải ứng dụng VNeID trên App Store hoặc CH Play, sau đó quay lại giúp em nhé."
+        ui:
+          buttons:
+            - Đã xong
+            - Huỷ
+          media: []
