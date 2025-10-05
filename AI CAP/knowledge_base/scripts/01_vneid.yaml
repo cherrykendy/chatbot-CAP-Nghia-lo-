@@ -985,6 +985,7 @@ intents:
 - id: user_confirms_step
   intent: user_confirms_step
   system: true
+  domain: system
   can_interrupt: false
   synonyms:
   - ok
@@ -999,10 +1000,13 @@ intents:
   version: 1
   examples: []
   required_slots: []
-  steps: []
+  steps:
+  - id: s1_ack
+    say: ""
 - id: user_denies_step
   intent: user_denies_step
   system: true
+  domain: system
   can_interrupt: false
   synonyms:
   - không
@@ -1012,10 +1016,13 @@ intents:
   version: 1
   examples: []
   required_slots: []
-  steps: []
+  steps:
+  - id: s1_ack
+    say: ""
 - id: user_requests_previous_step
   intent: user_requests_previous_step
   system: true
+  domain: system
   can_interrupt: false
   synonyms:
   - quay lại
@@ -1024,10 +1031,13 @@ intents:
   version: 1
   examples: []
   required_slots: []
-  steps: []
+  steps:
+  - id: s1_ack
+    say: ""
 - id: fallback
   intent: fallback
   system: true
+  domain: system
   steps:
   - id: s1_ask_clarification
     say: Tôi chưa hiểu rõ câu hỏi của anh/chị. Có phải anh/chị đang muốn hỏi về một
