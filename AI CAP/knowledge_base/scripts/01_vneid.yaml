@@ -1,0 +1,1044 @@
+id: vneid_suite_v3_architected_full
+version: 3.2-final
+effective_date: '2025-10-03'
+scope: Bộ kịch bản VNeID theo kiến trúc nâng cao, module hóa và có khả năng mở rộng
+  (Bản đầy đủ 100%, đã sửa lỗi alt_text)
+intents:
+- id: chao_hoi_menu
+  intent: chao_hoi_menu
+  can_interrupt: true
+  system: true
+  domain: system
+  version: 1
+  synonyms:
+  - xin chào
+  - chào bot
+  - hello
+  - bắt đầu
+  - menu
+  - giúp tôi
+  - trợ giúp
+  - quay lại menu
+  steps:
+  - id: s1_welcome
+    say: 'Chào anh/chị, tôi là Trợ lý ảo VNeID. Tôi có thể hỗ trợ các vấn đề sau:
+
+      Vui lòng chọn một mục hoặc đặt câu hỏi trực tiếp.'
+    ui:
+      buttons:
+      - 📲 Cài đặt & Kích hoạt
+      - 🔑 Quên mật khẩu
+      - 📝 Đăng ký mức 2
+      - 🌍 Thông báo lưu trú
+      - 📄 Tích hợp giấy tờ
+  examples: []
+  required_slots: []
+- id: cai_va_kich_hoat_vneid
+  intent: cai_va_kich_hoat_vneid
+  can_interrupt: false
+  domain: vneid
+  version: 1
+  synonyms:
+  - cài VNeID
+  - cài đặt VNeID
+  - kích hoạt VNeID
+  - tải ứng dụng VNeID
+  - hướng dẫn kích hoạt
+  steps:
+  - id: b1_tai
+    say: 'B1) Tải app **VNeID**: iPhone/iPad vào **App Store**, Android vào **CH Play**.'
+    ui:
+      buttons:
+      - Đã tải xong ✅
+      - Về menu chính
+  - id: b2_mo
+    say: B2) Mở app → đi qua các màn hình giới thiệu → chọn **Kích hoạt tài khoản
+      định danh điện tử**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/01-kich-hoat-vneid.png
+      alt_text: Màn hình kích hoạt VNeID
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b3_nhap
+    say: B3) Nhập **Số định danh (CCCD 12 số)** và **SĐT đăng ký**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/02-kich-hoat-vneid.png
+      alt_text: Ảnh minh họa
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b4_otp
+    say: B4) Nhập **OTP 6 số** được gửi qua SMS để xác thực.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/03-kich-hoat-vneid.png
+      alt_text: Bấm nút 'Xác nhận'
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/05-nhap-otp-vneid.png
+      alt_text: Nhập mã OTP 6 số từ tin nhắn điện thoại
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b5_mk
+    say: B5) Đặt **mật khẩu đăng nhập** (>=8 ký tự, gồm chữ hoa, chữ thường, số, ký
+      tự đặc biệt).
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/06-thiet-lap-mk-vneid.png
+      alt_text: Thiết lập mật khẩu
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/07-thiet-lap-mk-vneid.png
+      alt_text: Thông báo đặt mật khẩu thành công, bấm nút 'Đóng'
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b6_pin
+    say: B6) Đặt **mã PIN 6 số** (dùng cho tính năng nâng cao).
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/08-dat-ma-passcode.png
+      alt_text: Đặt mã Pin 6 chữ số
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b7_cauhoi
+    say: B7) Chọn **câu hỏi bảo mật** và nhập câu trả lời dễ nhớ.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/09-thiet-lap-cau-hoi-bao-mat.png
+      alt_text: Chọn câu hỏi bảo mật và trả lời
+    ui:
+      buttons:
+      - Hoàn tất
+      - ↩️ Quay lại
+  - id: b8_dangnhap
+    say: B8) Khi báo **kích hoạt thành công**, bạn hãy đăng nhập lại bằng **Số định
+      danh + Mật khẩu** để hoàn tất!
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kich-hoat/10-tb-kich-hoat-thanh-cong.png
+      alt_text: Kích hoạt tài khoản thành công
+    ui:
+      buttons:
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: dang_ky_vneid_muc2
+  intent: dang_ky_vneid_muc2
+  can_interrupt: true
+  domain: vneid
+  version: 1
+  synonyms:
+  - đăng ký VNeID mức 2
+  - tạo tài khoản VNeID mức 2
+  - làm định danh điện tử
+  - cách làm mức 2
+  - làm vneid mức 2 ở đâu
+  - nâng cấp tài khoản lên mức 2
+  required_slots:
+  - da_dang_ky_lan2
+  steps:
+  - id: s1_ask_slot
+    ask: Anh/chị đã từng đến Công an **chụp ảnh, lăn tay và khai số điện thoại lần
+      2** chưa?
+    slot_name: da_dang_ky_lan2
+    slot_type: boolean
+    say: ''
+    ui:
+      buttons: []
+  - id: s2_respond
+    say: "{% if da_dang_ky_lan2 == true %}\n  \U0001F449 Anh/chị đã làm **sinh trắc\
+      \ (lần 2)**:\n  - Kiểm tra: đã cài **VNeID** chưa?\n  - Nếu đã cài: mở app →\
+      \ vào **Kích hoạt** để kích hoạt tài khoản **mức 2**.\n  - Nếu chưa cài: tải\
+      \ app **VNeID** (App Store/CH Play).\n  ⏱️ Thời gian cấp tài khoản mức 2: thường\
+      \ **1–3 ngày làm việc**.\n{% else %}\n  \U0001F449 Anh/chị **chưa làm lần 2**:\n\
+      \  - Đến **một** trong hai điểm sau để đăng ký:\n    1) **{{diadiem_dangky_1}}**\n\
+      \    2) **{{diadiem_dangky_2}}**\n  - Mang theo: **CCCD gắn chip** và **SIM\
+      \ chính chủ**.\n  ⏱️ Thời gian cấp tài khoản mức 2: thường **1–3 ngày làm việc**.\n\
+      {% endif %}\n"
+    ui:
+      buttons: []
+  examples: []
+- id: quen_mat_khau_vneid
+  intent: quen_mat_khau_vneid
+  can_interrupt: true
+  domain: vneid
+  version: 1
+  synonyms:
+  - quên mật khẩu VNeID
+  - lấy lại mật khẩu VNeID
+  - không đăng nhập được VNeID
+  - reset mật khẩu VNeID
+  steps:
+  - id: buoc_1
+    say: 🔹 **Bước 1:** Mở ứng dụng **VNeID** → tại màn hình đăng nhập, chọn **“Quên
+      mật khẩu”**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/01-lay-lai-mat-khau-VNeID.png
+      alt_text: Nhấn 'Quên mật khẩu'
+    ui:
+      buttons:
+      - Đã xong ✅
+      - Về menu chính
+  - id: buoc_2
+    say: 🔹 **Bước 2:** Nhập **Số định danh (CCCD 12 số)** và **Số điện thoại** đã
+      đăng ký. ➤ Chọn **Nhập thông tin xác thực** → nhấn **Gửi yêu cầu**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/02-lay-lai-mat-khau-VNeID.png
+      alt_text: Nhập số định danh và SĐT
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: buoc_3
+    say: 🔹 **Bước 3:** Điền **họ tên, ngày sinh** và **ngày cấp CCCD** theo đúng thông
+      tin trên giấy tờ → chọn **Tiếp tục**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/03-lay-lai-mat-khau-VNeID.png
+      alt_text: Nhập thông tin cá nhân
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: buoc_4
+    say: 🔹 **Bước 4:** Nhập **mã OTP 6 số** được gửi đến số điện thoại đăng ký.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/04-lay-lai-mat-khau-VNeID.png
+      alt_text: Nhập OTP
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: buoc_5
+    say: '🔹 **Bước 5:** Nhập **mật khẩu mới** và **xác nhận lại mật khẩu**.
+
+      ⚙️ Mật khẩu phải có từ 8-20 ký tự, gồm chữ hoa, thường, số, và ký tự đặc biệt.
+
+      '
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/05-lay-lai-mat-khau-VNeID.png
+      alt_text: Thiết lập mật khẩu mới
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: buoc_6
+    say: ✅ **Hoàn tất:** Hệ thống sẽ báo **“Thiết lập mật khẩu thành công”**. Giờ
+      bạn có thể đăng nhập lại.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/06-lay-lai-mat-khau-VNeID.png
+      alt_text: Thông báo thành công
+    ui:
+      buttons:
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: thay_doi_sdt
+  intent: thay_doi_sdt
+  can_interrupt: false
+  domain: vneid
+  version: 1
+  synonyms:
+  - đổi số điện thoại
+  - thay số điện thoại
+  - cập nhật số điện thoại VNeID
+  steps:
+  - id: buoc_1
+    say: 🔹 **Bước 1:** Mở ứng dụng **VNeID** và đăng nhập.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/01-thay-sdt-vneid.png
+      alt_text: Màn hình đăng nhập
+    ui:
+      buttons:
+      - Đã xong ✅
+      - Về menu chính
+  - id: buoc_2
+    say: 🔹 **Bước 2:** Tại thanh menu, chọn **Cài đặt** → nhấn **Thay đổi số điện
+      thoại**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/02-thay-sdt-vneid.png
+      alt_text: Vào Cài đặt
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: buoc_3
+    say: 🔹 **Bước 3:** Bấm **Tạo mới yêu cầu** → đọc kỹ lưu ý và nhấn **Tôi đã hiểu**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/03-thay-sdt-vneid.png
+      alt_text: Tạo mới yêu cầu
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: buoc_4
+    say: 🔹 **Bước 4:** Chụp ảnh chân dung, điền **Số điện thoại mới (SIM chính chủ)**
+      và **Lý do thay đổi** → bấm **Xác nhận**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/04-thay-sdt-vneid.png
+      alt_text: Nhập thông tin thay đổi
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: buoc_5
+    say: 🔹 **Bước 5:** Nhập **OTP 6 số** gửi về **số điện thoại mới** để xác thực.
+      Hệ thống sẽ cập nhật thành công.
+    ui:
+      buttons:
+      - Kết thúc ✅
+      - ↩️ Quay lại
+  examples: []
+  required_slots: []
+- id: tich_hop_menu
+  intent: tich_hop_menu
+  can_interrupt: true
+  domain: tich_hop
+  version: 1
+  synonyms:
+  - tích hợp giấy tờ
+  - ví giấy tờ
+  - thêm giấy tờ vào vneid
+  steps:
+  - id: s1_show_options
+    say: Bạn muốn tích hợp hoặc tìm hiểu về loại giấy tờ nào?
+    ui:
+      buttons:
+      - 🚗 Giấy phép lái xe
+      - 💳 Thẻ BHYT
+      - 📄 Đăng ký xe
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: tich_hop_gplx
+  intent: tich_hop_gplx
+  can_interrupt: true
+  domain: tich_hop
+  version: 1
+  synonyms:
+  - tích hợp gplx
+  - thêm bằng lái xe
+  - tích hợp giấy phép lái xe
+  steps:
+  - id: s1_respond
+    say: '🚗 **TÍCH HỢP GIẤY PHÉP LÁI XE (GPLX)**
+
+      1️⃣ Mở VNeID → **Ví giấy tờ** → **Tích hợp thông tin** → **Tạo mới yêu cầu**.
+
+      2️⃣ Chọn loại thông tin là **“Giấy phép lái xe”**.
+
+      3️⃣ Nhập **Số GPLX** và **Hạng GPLX** → **Gửi yêu cầu**.
+
+
+      ⚠️ **Lưu ý:** GPLX loại cũ (bản giấy) không có đủ ngày/tháng/năm sinh sẽ không
+      tích hợp được. Bạn cần đổi sang GPLX mẫu mới (thẻ PET).
+
+      '
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-giay-phep-lai-xe-vao-vneid.png
+      alt_text: Hướng dẫn tích hợp GPLX
+    ui:
+      buttons:
+      - Tích hợp giấy tờ khác
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: tich_hop_bhyt
+  intent: tich_hop_bhyt
+  can_interrupt: true
+  domain: tich_hop
+  version: 1
+  synonyms:
+  - tích hợp bhyt
+  - thêm bảo hiểm y tế
+  steps:
+  - id: s1_respond
+    say: '💳 **TÍCH HỢP THẺ BẢO HIỂM Y TẾ (BHYT)**
+
+      1️⃣ Mở VNeID → **Ví giấy tờ** → **Tích hợp thông tin** → **Tạo mới yêu cầu**.
+
+      2️⃣ Chọn loại thông tin là **“Thẻ bảo hiểm y tế”**.
+
+      3️⃣ Nhập **Mã thẻ BHYT** → **Gửi yêu cầu**.
+
+      '
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/tich-hop-BHYT.png
+      alt_text: Hướng dẫn tích hợp BHYT
+    ui:
+      buttons:
+      - Tích hợp giấy tờ khác
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: tich_hop_dangkyxe
+  intent: tich_hop_dangkyxe
+  can_interrupt: true
+  domain: tich_hop
+  version: 1
+  synonyms:
+  - tích hợp đăng ký xe
+  - thêm cà vẹt xe
+  steps:
+  - id: s1_respond
+    say: '📄 **TÍCH HỢP GIẤY ĐĂNG KÝ XE**
+
+      1️⃣ Mở VNeID → **Ví giấy tờ** → **Tích hợp thông tin** → **Tạo mới yêu cầu**.
+
+      2️⃣ Chọn loại thông tin là **“Đăng ký xe”**.
+
+      3️⃣ Nhập **Số khung** và **Biển số xe** → **Gửi yêu cầu**.
+
+      '
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-dang-ky-xe-vao-vneid.png
+      alt_text: Hướng dẫn tích hợp đăng ký xe
+    ui:
+      buttons:
+      - Tích hợp giấy tờ khác
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: tich_hop_thong_tin
+  intent: tich_hop_thong_tin
+  can_interrupt: true
+  domain: tich_hop
+  version: 1
+  synonyms:
+  - tích hợp thông tin
+  - thêm thông tin người phụ thuộc
+  steps:
+  - id: s1_respond
+    say: '👉 Để tích hợp các thông tin chung khác:
+
+      - Vào **Ví giấy tờ** → **Tích hợp thông tin**.
+
+      - Chọn loại cần tích hợp (ví dụ: thông tin người phụ thuộc).
+
+      - Nhập thông tin theo yêu cầu và gửi để hệ thống xác thực.
+
+      '
+    ui:
+      buttons:
+      - Xem các loại giấy tờ
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: thong_bao_luu_tru
+  intent: thong_bao_luu_tru
+  can_interrupt: false
+  domain: vneid
+  version: 1
+  synonyms:
+  - thông báo lưu trú
+  - khai báo lưu trú
+  - báo lưu trú
+  steps:
+  - id: b1_gioi_thieu
+    say: '🏠 **HƯỚNG DẪN THÔNG BÁO LƯU TRÚ TRÊN VNEID**
+
+      Chức năng này giúp chủ cơ sở lưu trú hoặc hộ gia đình khai báo tạm trú trực
+      tuyến mà không cần đến trụ sở Công an. Yêu cầu tài khoản VNeID mức 2.
+
+      '
+    ui:
+      buttons:
+      - Bắt đầu hướng dẫn ✅
+      - Về menu chính
+  - id: b2_mo_dvc
+    say: 1️⃣ Mở VNeID → **Thủ tục hành chính** → **Thông báo lưu trú** và nhập mã
+      PIN.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/02-thong-bao-luu-tru.png
+      alt_text: Mở chức năng thông báo lưu trú
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b3_tao_yeu_cau
+    say: 2️⃣ Nhấn **Tạo mới yêu cầu** và chọn **Cơ quan công an thực hiện**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/03-thong-bao-luu-tru.png
+      alt_text: Tạo mới yêu cầu
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b4_nhap_thong_tin
+    say: 3️⃣ Nhập thông tin **cơ sở lưu trú** (Loại hình, Tên, Địa chỉ).
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/04-thong-bao-luu-tru.png
+      alt_text: Nhập thông tin cơ sở lưu trú
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b5_them_nguoi
+    say: 4️⃣ Nhấn **Thêm người lưu trú**, điền đầy đủ thông tin của người ở tạm và
+      nhấn **Lưu**.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/05-thong-bao-luu-tru.png
+      alt_text: Thêm người lưu trú
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b6_gui
+    say: 5️⃣ Kiểm tra lại toàn bộ thông tin và nhấn **Gửi**. Bạn đã hoàn thành nghĩa
+      vụ khai báo.
+    ui:
+      buttons:
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: thong_tin_cu_tru
+  intent: thong_tin_cu_tru
+  can_interrupt: true
+  domain: vneid
+  version: 1
+  synonyms:
+  - thông tin cư trú
+  - cư trú trong VNeID
+  - thay sổ hộ khẩu
+  steps:
+  - id: s1_respond
+    say: 🏠 Mục **Thông tin cư trú** trong VNeID hiển thị các thông tin về địa chỉ
+      thường trú, tạm trú, và các thành viên trong hộ gia đình. Chức năng này có giá
+      trị tương đương sổ hộ khẩu giấy đã được loại bỏ từ 01/01/2023.
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: thong_bao_he_thong
+  intent: thong_bao_he_thong
+  can_interrupt: true
+  domain: vneid
+  version: 1
+  synonyms:
+  - thông báo hệ thống
+  - tin nhắn VNeID
+  - nhắc nhở VNeID
+  steps:
+  - id: s1_respond
+    say: '🔔 VNeID thường gửi các thông báo về: kết quả xử lý dịch vụ công, nhắc nhở
+      khi CCCD sắp hết hạn, chúc mừng sinh nhật và các thông báo quan trọng khác từ
+      cơ quan Công an.'
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: kien_nghi_antt
+  intent: kien_nghi_antt
+  can_interrupt: false
+  domain: vneid_dvc
+  version: 1
+  synonyms:
+  - kiến nghị
+  - phản ánh an ninh
+  - tố giác ANTT
+  - phản ánh ANTT
+  steps:
+  - id: b1_mo
+    say: '🧭 **HƯỚNG DẪN GỬI KIẾN NGHỊ / PHẢN ÁNH ANTT TRÊN VNEID**
+
+      Bước 1️⃣: Mở VNeID → **Dịch vụ khác** → **Kiến nghị, phản ánh về ANTT**.
+
+      ⚠️ **Lưu ý:** Vụ việc xảy ra ở đâu, gửi cho Công an nơi đó.
+
+      🚨 **Trường hợp khẩn cấp, gọi ngay 113** hoặc trực ban **{{donvi_cong_an_lienhe}}**:
+      02553823558.
+
+      '
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/01-kien-nghi-ANTT.png
+      alt_text: Mở chức năng Kiến nghị ANTT
+    ui:
+      buttons:
+      - Đã xong ✅
+      - 📞 Gọi trực ban
+      - Về menu chính
+  - id: b2_tao_yeu_cau
+    say: 'Bước 2️⃣: Nhấn **Tạo yêu cầu** để bắt đầu quy trình.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/02-kien-nghi-ANTT.png
+      alt_text: Tạo yêu cầu mới
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: b3_nhap_thong_tin
+    say: 'Bước 3️⃣: Nhập thông tin vụ việc (có thể chọn ''Ẩn danh''), nội dung, đính
+      kèm bằng chứng (nếu có) và nhấn **Tiếp tục**.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/03-kien-nghi-ANTT.png
+      alt_text: Nhập thông tin vụ việc
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: b4_xac_nhan
+    say: 'Bước 4️⃣: Kiểm tra lại toàn bộ nội dung và nhấn **Xác nhận** để gửi đi.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/04-kien-nghi-ANTT.png
+      alt_text: Xác nhận nội dung
+    ui:
+      buttons:
+      - Đã xong ✅
+      - ↩️ Quay lại
+  - id: b5_gui_thanh_cong
+    say: ✅ **Hoàn tất:** Yêu cầu của bạn đã được gửi thành công đến cơ quan Công an.
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/05-kien-nghi-ANTT.png
+      alt_text: Gửi thành công
+    ui:
+      buttons:
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: xac_minh_app
+  intent: xac_minh_app
+  can_interrupt: true
+  domain: vneid_support
+  version: 1
+  synonyms:
+  - xác minh app
+  - ứng dụng thật giả
+  - check app VNeID
+  - vneid thật
+  - vneid giả
+  steps:
+  - id: s1_respond
+    say: '✅ Để xác minh ứng dụng VNeID thật:
+
+      - Quét **mã QR** trong ứng dụng để kiểm tra.
+
+      - Ứng dụng chính thức phải do **Trung tâm dữ liệu quốc gia về dân cư** phát
+      hành.
+
+      - Trên CH Play (Android), ứng dụng sẽ có ký hiệu "Chính phủ".
+
+      '
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/xac-minh-app/01-logo-chuan.png
+      alt_text: Logo VNeID chính thức
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: so_suc_khoe
+  intent: so_suc_khoe
+  can_interrupt: false
+  domain: vneid_health
+  version: 1
+  synonyms:
+  - sổ sức khỏe điện tử
+  - thông tin sức khỏe
+  - xem bệnh án
+  - lịch sử khám bệnh
+  steps:
+  - id: b1_chon_hssk
+    say: '**Bước 1:** Tại màn hình chính VNeID, chọn mục **''Hồ sơ sức khỏe''**.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/01-so-suc-khoe-dien-tu.png
+      alt_text: Chọn Hồ sơ sức khỏe
+    ui:
+      buttons:
+      - Tiếp tục
+      - Về menu chính
+  - id: b2_chon_sskdt
+    say: '**Bước 2:** Tiếp tục chọn **''Sổ sức khỏe điện tử''**.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/02-so-suc-khoe-dien-tu.png
+      alt_text: Chọn Sổ sức khỏe điện tử
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b3_nhap_passcode
+    say: '**Bước 3:** Nhập **passcode** (mã PIN 6 số) để xác thực.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/03-so-suc-khoe-dien-tu.png
+      alt_text: Nhập passcode
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b4_xem_thong_tin
+    say: '**Bước 4:** Hoàn tất! Lịch sử khám chữa bệnh của bạn sẽ được hiển thị. Bạn
+      có thể bấm **''Cập nhật dữ liệu''** để làm mới.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/04-so-suc-khoe-dien-tu.png
+      alt_text: Xem thông tin sức khỏe
+    ui:
+      buttons:
+      - Về menu chính
+  examples: []
+  required_slots: []
+- id: giay_hen_kham_lai
+  intent: giay_hen_kham_lai
+  can_interrupt: true
+  domain: vneid_health
+  version: 1
+  synonyms:
+  - giấy hẹn khám lại
+  - xem lịch tái khám
+  - lịch hẹn khám bệnh
+  steps:
+  - id: s1_respond
+    say: 'Để xem **Giấy hẹn khám lại** trên VNeID:
+
+      **1:** Vào **"Hồ sơ sức khỏe"**.
+
+      **2:** Chọn **"Giấy hẹn khám lại"**.
+
+      **3:** Nhập **passcode** để xem thông tin.
+
+      '
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/giay-hen-kham-lai/giay-hen-kham-lai.png
+      alt_text: Hướng dẫn xem giấy hẹn khám lại
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: giay_chuyen_tuyen
+  intent: giay_chuyen_tuyen
+  can_interrupt: true
+  domain: vneid_health
+  version: 1
+  synonyms:
+  - giấy chuyển tuyến
+  - xin chuyển tuyến
+  - giấy chuyển viện
+  steps:
+  - id: s1_respond
+    say: 'Để xem **Giấy chuyển tuyến** trên VNeID:
+
+      **1:** Vào **"Hồ sơ sức khỏe"**.
+
+      **2:** Chọn **"Giấy chuyển tuyến"**.
+
+      **3:** Nhập **passcode** để xem thông tin.
+
+      '
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/giay-chuyen-tuyen/giay-chuyen-tuyen.png
+      alt_text: Hướng dẫn xem giấy chuyển tuyến
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: vneid_xacthuc_khuonmat_thatbai
+  intent: vneid_xacthuc_khuonmat_thatbai
+  can_interrupt: true
+  domain: vneid_support
+  version: 1
+  synonyms:
+  - xác thực khuôn mặt không được
+  - không xác minh được khuôn mặt
+  - face id vneid thất bại
+  steps:
+  - id: s1_respond
+    say: 'Nếu xác thực khuôn mặt thất bại, vui lòng thử phương án dự phòng:
+
+      1) Mượn một điện thoại khác (ví dụ: iPhone) và nhờ chủ máy đăng xuất VNeID của
+      họ.
+
+      2) Đăng nhập tài khoản VNeID của **bạn** trên máy mượn.
+
+      3) Thực hiện lại việc xác thực khuôn mặt.
+
+      4) Khi thành công, hãy **lập tức đăng xuất** khỏi máy mượn và không lưu lại
+      thông tin.
+
+      '
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: vneid_chungthu_chukyso
+  intent: vneid_chungthu_chukyso
+  can_interrupt: false
+  domain: vneid_dvc
+  version: 1
+  synonyms:
+  - chứng thư chữ ký số
+  - ký số trên vneid
+  - chữ ký số vneid
+  - đăng ký chữ ký số
+  steps:
+  - id: b1_truy_cap
+    say: 'Bước 1️⃣: Mở VNeID → **Dịch vụ khác** → **Chứng thư chữ ký số**.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/01-dang-ky-chu-ky-so.png
+      alt_text: Mở dịch vụ Chữ ký số
+    ui:
+      buttons:
+      - Tiếp tục
+      - Về menu chính
+  - id: b2_bat_dau
+    say: 'Bước 2️⃣: Nhấn **Đăng ký chứng thư chữ ký số**.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/02-dang-ky-chu-ky-so.png
+      alt_text: Bắt đầu đăng ký
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b3_chon_ncc
+    say: 'Bước 3️⃣: Chọn **nhà cung cấp** (ví dụ VNPT SmartCA), **đồng ý điều khoản**
+      và nhấn **Tiếp tục**.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/03-dang-ky-chu-ky-so.png
+      alt_text: Chọn nhà cung cấp
+    ui:
+      buttons:
+      - Tiếp tục
+      - ↩️ Quay lại
+  - id: b4_xac_nhan
+    say: 'Bước 4️⃣: Kiểm tra thông tin, **đồng ý chia sẻ dữ liệu** và nhấn **Xác nhận**.
+      Hệ thống sẽ báo thành công và chuyển sang trang của nhà cung cấp để hoàn tất.'
+    media:
+    - type: image
+      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/04-Dang-ky-chu-ky-so.png
+      alt_text: Xác nhận thông tin
+    ui:
+      buttons:
+      - Hoàn tất
+  examples: []
+  required_slots: []
+- id: vneid_thongtin_truyna
+  intent: vneid_thongtin_truyna
+  can_interrupt: true
+  domain: vneid
+  version: 1
+  synonyms:
+  - thông tin truy nã
+  - tra cứu truy nã
+  - danh sách truy nã
+  steps:
+  - id: s1_respond
+    say: 'Mục “Thông tin truy nã” trong VNeID cung cấp dữ liệu về các đối tượng bị
+      truy nã do cơ quan Công an công bố.
+
+      - Nếu có thông tin, hãy **báo ngay cho cơ quan Công an gần nhất**.
+
+      - ⚠️ **Cảnh báo:** Tuyệt đối **không tự ý tiếp cận hay khống chế đối tượng**
+      để đảm bảo an toàn.
+
+      '
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: vneid_khong_nhan_otp
+  intent: vneid_khong_nhan_otp
+  can_interrupt: true
+  domain: vneid_support
+  version: 1
+  synonyms:
+  - không nhận được otp
+  - tại sao tôi không nhận được otp
+  - chờ mãi không thấy mã otp
+  - vneid không gửi otp
+  steps:
+  - id: s1_respond
+    say: '🔐 **Không nhận được mã OTP?**
+
+      - Kiểm tra lại **sóng điện thoại/SMS** và đảm bảo SIM vẫn hoạt động bình thường.
+
+      - Nhấn **“Gửi lại mã”** sau 60 giây.
+
+      - Đảm bảo số điện thoại đăng ký OTP là **SIM chính chủ** đã khai báo với Công
+      an.
+
+      - Tắt chế độ **chặn tin nhắn rác** hoặc ứng dụng lọc SMS (nếu có) rồi thử lại.
+
+      📞 Nếu vẫn không nhận được, liên hệ **Tổng đài 1900 0368** hoặc **{{donvi_cong_an_lienhe}}**
+      để được hỗ trợ.
+
+      '
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: vneid_tai_khoan_bi_khoa
+  intent: vneid_tai_khoan_bi_khoa
+  can_interrupt: true
+  domain: vneid_support
+  version: 1
+  synonyms:
+  - tài khoản vneid bị khóa
+  - mở khóa tài khoản
+  - vneid bị khóa
+  - tài khoản bị tạm khóa
+  steps:
+  - id: s1_respond
+    say: '🚫 **Tài khoản VNeID bị khóa?**
+
+      - Nguyên nhân thường gặp: nhập sai mật khẩu quá 5 lần hoặc nghi ngờ bị truy
+      cập trái phép.
+
+      - Chờ **15 phút** rồi thử đăng nhập lại với mật khẩu đúng.
+
+      - Nếu quên mật khẩu, hãy dùng chức năng **“Quên mật khẩu”**.
+
+      📞 Vẫn bị khóa? Mang theo CCCD và đến **{{donvi_cong_an_lienhe}}** hoặc gọi **1900
+      0368** để được mở khóa.
+
+      '
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: vneid_dung_cho_may_bay
+  intent: vneid_dung_cho_may_bay
+  can_interrupt: true
+  domain: vneid_support
+  version: 1
+  synonyms:
+  - dùng vneid thay cccd ở sân bay được không
+  - dùng vneid đi máy bay
+  - qua an ninh sân bay bằng vneid
+  steps:
+  - id: s1_respond
+    say: '✈️ **Dùng VNeID khi đi máy bay**
+
+      - Nhiều sân bay **chấp nhận VNeID mức 2** để làm thủ tục cho chuyến bay nội
+      địa thay CCCD gốc.
+
+      - Trước khi đi, hãy mở sẵn mã QR của CCCD trong mục **Ví giấy tờ**.
+
+      - Luôn đảm bảo điện thoại đủ pin. Để an toàn, bạn vẫn nên mang theo CCCD gắn
+      chip gốc phòng trường hợp thiết bị gặp sự cố.
+
+      '
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: vneid_sai_thong_tin_ca_nhan
+  intent: vneid_sai_thong_tin_ca_nhan
+  can_interrupt: true
+  domain: vneid_support
+  version: 1
+  synonyms:
+  - vneid hiển thị sai ngày sinh
+  - cập nhật lại thông tin trên vneid
+  - thông tin cá nhân sai trên vneid
+  steps:
+  - id: s1_respond
+    say: '📝 **VNeID hiển thị sai thông tin cá nhân?**
+
+      - Thông tin hiển thị được đồng bộ từ **Cơ sở dữ liệu quốc gia về dân cư**.
+
+      - Nếu sai lệch (ngày sinh, họ tên, địa chỉ...), bạn cần mang **CCCD gắn chip**
+      và giấy tờ liên quan đến **{{donvi_cong_an_lienhe}}** để đề nghị chỉnh sửa.
+
+      - Sau khi cơ quan Công an cập nhật, thông tin trên VNeID sẽ được đồng bộ lại.
+
+      '
+    ui:
+      buttons: []
+  examples: []
+  required_slots: []
+- id: user_confirms_step
+  intent: user_confirms_step
+  system: true
+  can_interrupt: false
+  synonyms:
+  - ok
+  - xong
+  - tiếp tục
+  - đã xong
+  - rồi
+  - đã xong ✅
+  - tiếp
+  - hoàn tất
+  - bắt đầu hướng dẫn ✅
+  version: 1
+  examples: []
+  required_slots: []
+  steps: []
+- id: user_denies_step
+  intent: user_denies_step
+  system: true
+  can_interrupt: false
+  synonyms:
+  - không
+  - huỷ
+  - dừng lại
+  - thôi
+  version: 1
+  examples: []
+  required_slots: []
+  steps: []
+- id: user_requests_previous_step
+  intent: user_requests_previous_step
+  system: true
+  can_interrupt: false
+  synonyms:
+  - quay lại
+  - quay lại bước trước
+  - ↩️ Quay lại
+  version: 1
+  examples: []
+  required_slots: []
+  steps: []
+- id: fallback
+  intent: fallback
+  system: true
+  steps:
+  - id: s1_ask_clarification
+    say: Tôi chưa hiểu rõ câu hỏi của anh/chị. Có phải anh/chị đang muốn hỏi về một
+      trong các chủ đề sau?
+    ui:
+      buttons:
+      - 📲 Cài đặt & Kích hoạt
+      - 🔑 Quên mật khẩu
+      - Về menu chính
+  can_interrupt: false
+  version: 1
+  synonyms: []
+  examples: []
+  required_slots: []
