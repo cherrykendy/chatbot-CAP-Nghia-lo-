@@ -16,7 +16,7 @@ modules:
       - "xem_canh_bao_toi_pham"
 
   - name: cu_tru
-    path: "knowledge_base/scripts/02_thu_tuc_cu_tru.yaml"
+    path: "knowledge_base/scripts/02_xac_nhan_cu_tru.yaml"
     intents:
       - "xac_nhan_thong_tin_cu_tru"
 
