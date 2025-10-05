@@ -60,7 +60,12 @@ def simulate_chat() -> None:
             normalized = "Huỷ"
         response = service.handle_message(session_id, normalized)
         print(f"Bot: {response.reply}")
-        buttons = response.ui.get("buttons") if isinstance(response.ui, dict) else None
+        ui = response.ui
+        buttons = None
+        if ui is not None:
+            buttons = getattr(ui, "buttons", None)
+            if buttons is None and hasattr(ui, "get"):
+                buttons = ui.get("buttons")
         if buttons:
             print("Nút gợi ý:", ", ".join(buttons))
         print("Top-k:", json.dumps(response.debug.get("top_k", []), ensure_ascii=False, indent=2))
