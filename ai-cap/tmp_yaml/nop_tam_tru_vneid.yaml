@@ -157,7 +157,7 @@ script:
     **Bước 1.** Đăng nhập VNeID → màn hình trang chủ (tài khoản **mức 2**) → nhấn **"Thủ tục hành chính"**.
     **Bước 2.** Nhấn **"Đăng ký tạm trú"**.
     **Bước 3.** Xác thực **passcode** (mã PIN 6 số, vân tay/khuôn mặt tùy thiết bị).
-       - Nếu **quên mã PIN**, xem mục hướng dẫn "quên mã PIN" trong kịch bản **01_vneid.yaml** (đường dẫn nội bộ: `C:\Users\VTTH\Desktop\chí việt\AI CAP\knowledge_base\scripts`).
+       - Nếu **quên mã PIN**, xem mục hướng dẫn "quên mã PIN" trong kịch bản **01_vneid.yaml** (đường dẫn nội bộ: `C:\Users\VTTH\Desktop\chí việt\ai-cap\knowledge_base\scripts`).
     **Bước 4.** Nhấn **"Tạo mới yêu cầu"**.
     **Bước 5.** **Chọn đối tượng đăng ký:**
        - **"Bản thân"** để đăng ký cho chính mình.
