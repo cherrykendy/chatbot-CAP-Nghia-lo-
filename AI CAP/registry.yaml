@@ -21,8 +21,10 @@ modules:
       - "xac_nhan_thong_tin_cu_tru"
 
 aliases_global:
-  - ["đăng ký vneid", "định danh mức 2", "nâng cấp vneid"] -> "huong_dan_dang_ky_muc_2"
-  - ["xác nhận cư trú", "giấy xác nhận cư trú"]             -> "xac_nhan_thong_tin_cu_tru"
+  - synonyms: ["đăng ký vneid", "định danh mức 2", "nâng cấp vneid"]
+    target: "huong_dan_dang_ky_muc_2"
+  - synonyms: ["xác nhận cư trú", "giấy xác nhận cư trú"]
+    target: "xac_nhan_thong_tin_cu_tru"
 
 redirects:
   - when_intent: "xac_nhan_thong_tin_cu_tru"
