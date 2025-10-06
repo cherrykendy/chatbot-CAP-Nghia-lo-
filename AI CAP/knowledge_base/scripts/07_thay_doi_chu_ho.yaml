@@ -135,7 +135,7 @@ script:
       **Lưu ý về người đã chết:**  
       Thủ tục **Xóa đăng ký thường trú** cho người đã chết (có **Giấy chứng tử**) là **độc lập** và **bắt buộc** thực hiện **trong vòng 07 ngày**.  
       Việc chưa đổi được Chủ hộ **không phải** là lý do từ chối xóa đăng ký thường trú.  
-      Sau khi xử lý xóa đăng ký thường trú, hệ thống ghi nhận trạng thái **“bị xóa do chết”** theo đúng lý do quy định.
+      Sau khi xử lý xóa đăng ký thường trú, hệ thống ghi nhận trạng thái **"bị xóa do chết"** theo đúng lý do quy định.
 
   - step: tong_ket_checklist
     bot: |

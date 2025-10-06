@@ -157,7 +157,7 @@ script:
     Bạn có thể dùng **Mẫu hợp đồng thuê nhà (rút gọn)** dưới đây để tham khảo và điền:
 
 
-    --- MẪU RÚT GỌN ---
+    - -- MẪU RÚT GỌN ---
 
     BÊN CHO THUÊ: Họ tên/đơn vị …; CCCD/ĐKKD …; Địa chỉ …; Điện thoại …
 
@@ -174,7 +174,7 @@ script:
 
     KÝ, GHI RÕ HỌ TÊN, NGÀY THÁNG NĂM
 
-    --- HẾT MẪU ---'
+    - -- HẾT MẪU ---'
 - step: mất CCCD vẫn đăng ký được
   trigger:
   - không có cccd
