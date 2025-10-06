@@ -37,7 +37,7 @@ faq:
       - "mất sổ hộ khẩu giấy"
     answer: |
       📌 Từ 01/01/2023, **sổ hộ khẩu giấy đã hết hiệu lực** theo Luật Cư trú.
-      👉 Thông tin cư trú được hiển thị trong **VNeID** (mục “Thông tin cư trú”).
+      👉 Thông tin cư trú được hiển thị trong **VNeID** (mục "Thông tin cư trú").
       - Nếu cần **bản giấy**: thực hiện **xác nhận cư trú trực tuyến** bằng tờ khai CT01; sau khi nộp, Công an phường cấp **giấy xác nhận** có dấu đỏ.
     # image: "/assets/vneid_thong_tin_cu_tru.png"
 
@@ -47,7 +47,7 @@ faq:
       - "không biết VNeID"
     answer: |
       📱 **VNeID** là ứng dụng định danh điện tử quốc gia của Bộ Công an.
-      👉 Dùng để đăng nhập làm thủ tục trực tuyến; mục **“Thông tin cư trú”** thay cho sổ hộ khẩu giấy.
+      👉 Dùng để đăng nhập làm thủ tục trực tuyến; mục **"Thông tin cư trú"** thay cho sổ hộ khẩu giấy.
     # image: "/assets/vneid_icon.png"
 
   - question_patterns:
@@ -55,8 +55,8 @@ faq:
       - "lấy lại mật khẩu VNeID"
     answer: |
       🔑 Lấy lại mật khẩu:
-      1) Mở app **VNeID** → bấm **“Quên mật khẩu”** (chữ đỏ dưới nút **“Đăng nhập”**).
-      2) Chọn **“Nhập thông tin xác thực”**, nhập **CCCD 12 số** + **SĐT** đã đăng ký.
+      1) Mở app **VNeID** → bấm **"Quên mật khẩu"** (chữ đỏ dưới nút **"Đăng nhập"**).
+      2) Chọn **"Nhập thông tin xác thực"**, nhập **CCCD 12 số** + **SĐT** đã đăng ký.
       3) Nhập **OTP 6 số** gửi về SMS → đặt **mật khẩu mới** (>=8 ký tự, mạnh).
          *Gợi ý cấu trúc tham khảo:* `Vietnam@1234` *(không dùng y hệt ở nhiều nơi)*.
     security_notes: |

@@ -179,8 +179,8 @@ intents:
   - reset mật khẩu VNeID
   steps:
   - id: buoc_1
-    say: 🔹 **Bước 1:** Mở ứng dụng **VNeID** → tại màn hình đăng nhập, chọn **“Quên
-      mật khẩu”**.
+    say: 🔹 **Bước 1:** Mở ứng dụng **VNeID** → tại màn hình đăng nhập, chọn **"Quên
+      mật khẩu"**.
     media:
     - type: image
       url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/AI%20CAP/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/01-lay-lai-mat-khau-VNeID.png
@@ -236,7 +236,7 @@ intents:
       - Đã xong ✅
       - ↩️ Quay lại
   - id: buoc_6
-    say: ✅ **Hoàn tất:** Hệ thống sẽ báo **“Thiết lập mật khẩu thành công”**. Giờ
+    say: ✅ **Hoàn tất:** Hệ thống sẽ báo **"Thiết lập mật khẩu thành công"**. Giờ
       bạn có thể đăng nhập lại.
     media:
     - type: image
@@ -343,7 +343,7 @@ intents:
 
       1️⃣ Mở VNeID → **Ví giấy tờ** → **Tích hợp thông tin** → **Tạo mới yêu cầu**.
 
-      2️⃣ Chọn loại thông tin là **“Giấy phép lái xe”**.
+      2️⃣ Chọn loại thông tin là **"Giấy phép lái xe"**.
 
       3️⃣ Nhập **Số GPLX** và **Hạng GPLX** → **Gửi yêu cầu**.
 
@@ -376,7 +376,7 @@ intents:
 
       1️⃣ Mở VNeID → **Ví giấy tờ** → **Tích hợp thông tin** → **Tạo mới yêu cầu**.
 
-      2️⃣ Chọn loại thông tin là **“Thẻ bảo hiểm y tế”**.
+      2️⃣ Chọn loại thông tin là **"Thẻ bảo hiểm y tế"**.
 
       3️⃣ Nhập **Mã thẻ BHYT** → **Gửi yêu cầu**.
 
@@ -405,7 +405,7 @@ intents:
 
       1️⃣ Mở VNeID → **Ví giấy tờ** → **Tích hợp thông tin** → **Tạo mới yêu cầu**.
 
-      2️⃣ Chọn loại thông tin là **“Đăng ký xe”**.
+      2️⃣ Chọn loại thông tin là **"Đăng ký xe"**.
 
       3️⃣ Nhập **Số khung** và **Biển số xe** → **Gửi yêu cầu**.
 
@@ -858,7 +858,7 @@ intents:
   - danh sách truy nã
   steps:
   - id: s1_respond
-    say: 'Mục “Thông tin truy nã” trong VNeID cung cấp dữ liệu về các đối tượng bị
+    say: 'Mục "Thông tin truy nã" trong VNeID cung cấp dữ liệu về các đối tượng bị
       truy nã do cơ quan Công an công bố.
 
       - Nếu có thông tin, hãy **báo ngay cho cơ quan Công an gần nhất**.
@@ -887,7 +887,7 @@ intents:
 
       - Kiểm tra lại **sóng điện thoại/SMS** và đảm bảo SIM vẫn hoạt động bình thường.
 
-      - Nhấn **“Gửi lại mã”** sau 60 giây.
+      - Nhấn **"Gửi lại mã"** sau 60 giây.
 
       - Đảm bảo số điện thoại đăng ký OTP là **SIM chính chủ** đã khai báo với Công
       an.
@@ -921,7 +921,7 @@ intents:
 
       - Chờ **15 phút** rồi thử đăng nhập lại với mật khẩu đúng.
 
-      - Nếu quên mật khẩu, hãy dùng chức năng **“Quên mật khẩu”**.
+      - Nếu quên mật khẩu, hãy dùng chức năng **"Quên mật khẩu"**.
 
       📞 Vẫn bị khóa? Mang theo CCCD và đến **{{donvi_cong_an_lienhe}}** hoặc gọi **1900
       0368** để được mở khóa.
