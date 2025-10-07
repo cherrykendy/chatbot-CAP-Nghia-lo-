@@ -56,7 +56,7 @@ intents:
       định danh điện tử**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/01-kich-hoat-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/01-kich-hoat-vneid.png
       alt_text: Màn hình kích hoạt VNeID
     ui:
       buttons:
@@ -66,7 +66,7 @@ intents:
     say: B3) Nhập **Số định danh (CCCD 12 số)** và **SĐT đăng ký**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/02-kich-hoat-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/02-kich-hoat-vneid.png
       alt_text: Ảnh minh họa
     ui:
       buttons:
@@ -76,10 +76,10 @@ intents:
     say: B4) Nhập **OTP 6 số** được gửi qua SMS để xác thực.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/03-kich-hoat-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/03-kich-hoat-vneid.png
       alt_text: Bấm nút 'Xác nhận'
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/05-nhap-otp-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/05-nhap-otp-vneid.png
       alt_text: Nhập mã OTP 6 số từ tin nhắn điện thoại
     ui:
       buttons:
@@ -90,10 +90,10 @@ intents:
       tự đặc biệt).
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/06-thiet-lap-mk-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/06-thiet-lap-mk-vneid.png
       alt_text: Thiết lập mật khẩu
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/07-thiet-lap-mk-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/07-thiet-lap-mk-vneid.png
       alt_text: Thông báo đặt mật khẩu thành công, bấm nút 'Đóng'
     ui:
       buttons:
@@ -103,7 +103,7 @@ intents:
     say: B6) Đặt **mã PIN 6 số** (dùng cho tính năng nâng cao).
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/08-dat-ma-passcode.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/08-dat-ma-passcode.png
       alt_text: Đặt mã Pin 6 chữ số
     ui:
       buttons:
@@ -113,7 +113,7 @@ intents:
     say: B7) Chọn **câu hỏi bảo mật** và nhập câu trả lời dễ nhớ.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/09-thiet-lap-cau-hoi-bao-mat.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/09-thiet-lap-cau-hoi-bao-mat.png
       alt_text: Chọn câu hỏi bảo mật và trả lời
     ui:
       buttons:
@@ -124,7 +124,7 @@ intents:
       danh + Mật khẩu** để hoàn tất!
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/10-tb-kich-hoat-thanh-cong.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kich-hoat/10-tb-kich-hoat-thanh-cong.png
       alt_text: Kích hoạt tài khoản thành công
     ui:
       buttons:
@@ -183,7 +183,7 @@ intents:
       mật khẩu"**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/01-lay-lai-mat-khau-VNeID.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/01-lay-lai-mat-khau-VNeID.png
       alt_text: Nhấn 'Quên mật khẩu'
     ui:
       buttons:
@@ -194,7 +194,7 @@ intents:
       đăng ký. ➤ Chọn **Nhập thông tin xác thực** → nhấn **Gửi yêu cầu**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/02-lay-lai-mat-khau-VNeID.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/02-lay-lai-mat-khau-VNeID.png
       alt_text: Nhập số định danh và SĐT
     ui:
       buttons:
@@ -205,7 +205,7 @@ intents:
       tin trên giấy tờ → chọn **Tiếp tục**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/03-lay-lai-mat-khau-VNeID.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/03-lay-lai-mat-khau-VNeID.png
       alt_text: Nhập thông tin cá nhân
     ui:
       buttons:
@@ -215,7 +215,7 @@ intents:
     say: 🔹 **Bước 4:** Nhập **mã OTP 6 số** được gửi đến số điện thoại đăng ký.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/04-lay-lai-mat-khau-VNeID.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/04-lay-lai-mat-khau-VNeID.png
       alt_text: Nhập OTP
     ui:
       buttons:
@@ -229,7 +229,7 @@ intents:
       '
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/05-lay-lai-mat-khau-VNeID.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/05-lay-lai-mat-khau-VNeID.png
       alt_text: Thiết lập mật khẩu mới
     ui:
       buttons:
@@ -240,7 +240,7 @@ intents:
       bạn có thể đăng nhập lại.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/06-lay-lai-mat-khau-VNeID.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/lay-lai-mat-khau/06-lay-lai-mat-khau-VNeID.png
       alt_text: Thông báo thành công
     ui:
       buttons:
@@ -261,7 +261,7 @@ intents:
     say: 🔹 **Bước 1:** Mở ứng dụng **VNeID** và đăng nhập.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/01-thay-sdt-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/01-thay-sdt-vneid.png
       alt_text: Màn hình đăng nhập
     ui:
       buttons:
@@ -272,7 +272,7 @@ intents:
       thoại**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/02-thay-sdt-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/02-thay-sdt-vneid.png
       alt_text: Vào Cài đặt
     ui:
       buttons:
@@ -282,7 +282,7 @@ intents:
     say: 🔹 **Bước 3:** Bấm **Tạo mới yêu cầu** → đọc kỹ lưu ý và nhấn **Tôi đã hiểu**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/03-thay-sdt-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/03-thay-sdt-vneid.png
       alt_text: Tạo mới yêu cầu
     ui:
       buttons:
@@ -293,7 +293,7 @@ intents:
       và **Lý do thay đổi** → bấm **Xác nhận**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/04-thay-sdt-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/thay-so-dien-thoai/04-thay-sdt-vneid.png
       alt_text: Nhập thông tin thay đổi
     ui:
       buttons:
@@ -354,7 +354,7 @@ intents:
       '
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-giay-phep-lai-xe-vao-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-giay-phep-lai-xe-vao-vneid.png
       alt_text: Hướng dẫn tích hợp GPLX
     ui:
       buttons:
@@ -383,7 +383,7 @@ intents:
       '
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/tich-hop-giay-to/tich-hop-BHYT.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/tich-hop-giay-to/tich-hop-BHYT.png
       alt_text: Hướng dẫn tích hợp BHYT
     ui:
       buttons:
@@ -412,7 +412,7 @@ intents:
       '
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-dang-ky-xe-vao-vneid.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/tich-hop-giay-to/cach-tich-hop-dang-ky-xe-vao-vneid.png
       alt_text: Hướng dẫn tích hợp đăng ký xe
     ui:
       buttons:
@@ -471,7 +471,7 @@ intents:
       PIN.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/02-thong-bao-luu-tru.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/02-thong-bao-luu-tru.png
       alt_text: Mở chức năng thông báo lưu trú
     ui:
       buttons:
@@ -481,7 +481,7 @@ intents:
     say: 2️⃣ Nhấn **Tạo mới yêu cầu** và chọn **Cơ quan công an thực hiện**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/03-thong-bao-luu-tru.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/03-thong-bao-luu-tru.png
       alt_text: Tạo mới yêu cầu
     ui:
       buttons:
@@ -491,7 +491,7 @@ intents:
     say: 3️⃣ Nhập thông tin **cơ sở lưu trú** (Loại hình, Tên, Địa chỉ).
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/04-thong-bao-luu-tru.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/04-thong-bao-luu-tru.png
       alt_text: Nhập thông tin cơ sở lưu trú
     ui:
       buttons:
@@ -502,7 +502,7 @@ intents:
       nhấn **Lưu**.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/05-thong-bao-luu-tru.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/thong-bao-luu-tru/05-thong-bao-luu-tru.png
       alt_text: Thêm người lưu trú
     ui:
       buttons:
@@ -576,7 +576,7 @@ intents:
       '
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/01-kien-nghi-ANTT.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/01-kien-nghi-ANTT.png
       alt_text: Mở chức năng Kiến nghị ANTT
     ui:
       buttons:
@@ -587,7 +587,7 @@ intents:
     say: 'Bước 2️⃣: Nhấn **Tạo yêu cầu** để bắt đầu quy trình.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/02-kien-nghi-ANTT.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/02-kien-nghi-ANTT.png
       alt_text: Tạo yêu cầu mới
     ui:
       buttons:
@@ -598,7 +598,7 @@ intents:
       kèm bằng chứng (nếu có) và nhấn **Tiếp tục**.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/03-kien-nghi-ANTT.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/03-kien-nghi-ANTT.png
       alt_text: Nhập thông tin vụ việc
     ui:
       buttons:
@@ -608,7 +608,7 @@ intents:
     say: 'Bước 4️⃣: Kiểm tra lại toàn bộ nội dung và nhấn **Xác nhận** để gửi đi.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/04-kien-nghi-ANTT.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/04-kien-nghi-ANTT.png
       alt_text: Xác nhận nội dung
     ui:
       buttons:
@@ -618,7 +618,7 @@ intents:
     say: ✅ **Hoàn tất:** Yêu cầu của bạn đã được gửi thành công đến cơ quan Công an.
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/05-kien-nghi-ANTT.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/kien-nghi-ANTT/05-kien-nghi-ANTT.png
       alt_text: Gửi thành công
     ui:
       buttons:
@@ -650,7 +650,7 @@ intents:
       '
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/xac-minh-app/01-logo-chuan.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/xac-minh-app/01-logo-chuan.png
       alt_text: Logo VNeID chính thức
     ui:
       buttons: []
@@ -671,7 +671,7 @@ intents:
     say: '**Bước 1:** Tại màn hình chính VNeID, chọn mục **''Hồ sơ sức khỏe''**.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/01-so-suc-khoe-dien-tu.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/01-so-suc-khoe-dien-tu.png
       alt_text: Chọn Hồ sơ sức khỏe
     ui:
       buttons:
@@ -681,7 +681,7 @@ intents:
     say: '**Bước 2:** Tiếp tục chọn **''Sổ sức khỏe điện tử''**.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/02-so-suc-khoe-dien-tu.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/02-so-suc-khoe-dien-tu.png
       alt_text: Chọn Sổ sức khỏe điện tử
     ui:
       buttons:
@@ -691,7 +691,7 @@ intents:
     say: '**Bước 3:** Nhập **passcode** (mã PIN 6 số) để xác thực.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/03-so-suc-khoe-dien-tu.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/03-so-suc-khoe-dien-tu.png
       alt_text: Nhập passcode
     ui:
       buttons:
@@ -702,7 +702,7 @@ intents:
       có thể bấm **''Cập nhật dữ liệu''** để làm mới.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/04-so-suc-khoe-dien-tu.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/so-suc-khoe-dien-tu/04-so-suc-khoe-dien-tu.png
       alt_text: Xem thông tin sức khỏe
     ui:
       buttons:
@@ -731,7 +731,7 @@ intents:
       '
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/giay-hen-kham-lai/giay-hen-kham-lai.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/giay-hen-kham-lai/giay-hen-kham-lai.png
       alt_text: Hướng dẫn xem giấy hẹn khám lại
     ui:
       buttons: []
@@ -759,7 +759,7 @@ intents:
       '
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/giay-chuyen-tuyen/giay-chuyen-tuyen.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/giay-chuyen-tuyen/giay-chuyen-tuyen.png
       alt_text: Hướng dẫn xem giấy chuyển tuyến
     ui:
       buttons: []
@@ -808,7 +808,7 @@ intents:
     say: 'Bước 1️⃣: Mở VNeID → **Dịch vụ khác** → **Chứng thư chữ ký số**.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/01-dang-ky-chu-ky-so.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/01-dang-ky-chu-ky-so.png
       alt_text: Mở dịch vụ Chữ ký số
     ui:
       buttons:
@@ -818,7 +818,7 @@ intents:
     say: 'Bước 2️⃣: Nhấn **Đăng ký chứng thư chữ ký số**.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/02-dang-ky-chu-ky-so.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/02-dang-ky-chu-ky-so.png
       alt_text: Bắt đầu đăng ký
     ui:
       buttons:
@@ -829,7 +829,7 @@ intents:
       và nhấn **Tiếp tục**.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/03-dang-ky-chu-ky-so.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/03-dang-ky-chu-ky-so.png
       alt_text: Chọn nhà cung cấp
     ui:
       buttons:
@@ -840,7 +840,7 @@ intents:
       Hệ thống sẽ báo thành công và chuyển sang trang của nhà cung cấp để hoàn tất.'
     media:
     - type: image
-      url: https://raw.githubusercontent.com/cherrykendy/chatbot-CAP-Nghia-lo-/main/ai-cap/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/04-Dang-ky-chu-ky-so.png
+      url: https://raw.githubusercontent.com/cherrykendy/Chatbot-CAP-Nghia-Lo/main/ai-cap/knowledge_base/assets/images/VNEID/chung-thu-chu-ky-so/dang-ky-chung-thu/04-Dang-ky-chu-ky-so.png
       alt_text: Xác nhận thông tin
     ui:
       buttons:
